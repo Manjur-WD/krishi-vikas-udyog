@@ -6,7 +6,12 @@ import { FaFacebook } from "react-icons/fa6";
 import { AiFillInstagram } from "react-icons/ai";
 import { FaXTwitter } from "react-icons/fa6";
 import { IoIosArrowDown } from "react-icons/io";
+
 import logo from "../../../assets/images/kv-logo.png";
+import tractor_icon from "../../../assets/images/tractor.png";
+import sell_icon from "../../../assets/images/sell.svg";
+import rent_icon from "../../../assets/images/rent.svg";
+
 import google_play_store from "../../../assets/images/Google-Play-Store.png";
 import apple__store from "../../../assets/images/apple-store.png";
 import { PiHeartHalfLight } from "react-icons/pi";
@@ -148,21 +153,36 @@ const Header = () => {
           <div className="header__category--btn">
             <DropdownMenu>
               <AnimateButton>
-                <DropdownMenuTrigger className="border border-dashed px-5 py-1 flex items-center text-white font-semibold outline-none">
-                  <TbListDetails className="inline me-1" />
+                <DropdownMenuTrigger className="border border-dashed rounded-3xl shadow-lg px-2 py-1 flex items-center text-white outline-none">
+                  <TbListDetails className="inline me-2 text-lightgreen bg-white p-1 text-2xl rounded-full" />
                   ALL CATEGORIES
                   <IoIosArrowDown className="ms-2" />
                 </DropdownMenuTrigger>
               </AnimateButton>
-              <DropdownMenuContent className="w-full">
+              <DropdownMenuContent className="w-[200px] mt-2 rounded-2xl px-2 py-2">
                 {/* <DropdownMenuLabel>My Account</DropdownMenuLabel> */}
                 {/* <DropdownMenuSeparator /> */}
-                <DropdownMenuItem>PROFILE</DropdownMenuItem>
-                <DropdownMenuItem>Billing</DropdownMenuItem>
-                <DropdownMenuItem>Team</DropdownMenuItem>
-                <DropdownMenuItem>Subscription</DropdownMenuItem>
+                <DropdownMenuItem className="text-darkGreen bg-white rounded-2xl shadow p-2 mb-2 hover:scale-95 transition-all cursor-pointer">
+                  <img src={tractor_icon} alt="tractor-icon" className="bg-white shadow-lg rounded-full p-1" width={35} /> TRACTOR
+                </DropdownMenuItem>
+                <DropdownMenuItem className="text-darkGreen bg-white rounded-2xl shadow p-3 mb-2 hover:scale-95 transition-all cursor-pointer">
+                  <img src={tractor_icon} alt="tractor-icon" className="bg-white shadow-lg rounded-full p-1" width={35} />GOODS VEHICLE</DropdownMenuItem>
+                <DropdownMenuItem className="text-darkGreen bg-white rounded-2xl shadow p-3 mb-2 hover:scale-95 transition-all cursor-pointer">AGRI INPUTS</DropdownMenuItem>
+                <DropdownMenuItem className="text-darkGreen bg-white rounded-2xl shadow p-3 mb-2 hover:scale-95 transition-all cursor-pointer">HARVESTER</DropdownMenuItem>
+                <DropdownMenuItem className="text-darkGreen bg-white rounded-2xl shadow p-3 mb-2 hover:scale-95 transition-all cursor-pointer">IMPLEMENTS</DropdownMenuItem>
+                <DropdownMenuItem className="text-darkGreen bg-white rounded-2xl shadow p-3 hover:scale-95 transition-all cursor-pointer">TYRES</DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
+          </div>
+          <div className="header__sell-rent-btn flex gap-2">
+            <a href="#" className="header__sell-btn border border-dashed rounded-3xl shadow-lg px-3 py-1 flex items-center text-white outline-none">
+              <img src={sell_icon} alt="this is a sell icon" className="me-2 p-1 bg-lightgreen rounded-full shadow" />
+              SELL
+            </a>
+            <a href="#" className="header__sell-btn border border-dashed rounded-3xl shadow-lg px-3 py-1 flex items-center text-white outline-none">
+              <img src={rent_icon} alt="this is a sell icon" className="me-2 p-1 bg-lightgreen rounded-full shadow" />
+              RENT
+            </a>
           </div>
         </nav>
       </motion.section>
