@@ -1,0 +1,8 @@
+.header__language--btn[open] .downarrow {
+  @apply rotate-180
+}
+
+
+.bottom-header{
+    background: linear-gradient(33deg, #13693a, #8cbf44, #13693a);
+}
