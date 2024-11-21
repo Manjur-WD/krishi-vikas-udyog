@@ -148,7 +148,7 @@ const Header = () => {
           <div className="header__category--btn">
             <DropdownMenu>
               <AnimateButton>
-                <DropdownMenuTrigger className="border border-dashed px-5 py-2 flex items-center text-white font-semibold">
+                <DropdownMenuTrigger className="border border-dashed px-5 py-1 flex items-center text-white font-semibold outline-none">
                   <TbListDetails className="inline me-1" />
                   ALL CATEGORIES
                   <IoIosArrowDown className="ms-2" />
