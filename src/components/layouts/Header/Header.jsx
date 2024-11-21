@@ -26,9 +26,11 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
+import Navbar from "./Navbar";
 // FRAMER MOTION
 import { motion } from "motion/react";
 import AnimateButton from "../../animation/AnimateButton";
+
 
 const Header = () => {
   return (
@@ -149,7 +151,7 @@ const Header = () => {
         animate={{ opacity: 1 }}
         transition={{ duration: 0.3, delay: 0.8, ease: "linear" }}
       >
-        <nav className="navbar container flex justify-between">
+        <nav className="navbar container flex justify-between items-center">
           <div className="header__category--btn">
             <DropdownMenu>
               <AnimateButton>
@@ -174,15 +176,31 @@ const Header = () => {
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
+          {/* <div className="header__navlist">
+            <ul className="list-none flex gap-8 text-white">
+              <li><a href="#">HOME</a></li>
+              <li><a href="#">TRACTOR</a></li>
+              <li><a href="#">GOODS VEHICLES</a></li>
+              <li><a href="#">AGRI INPUT</a></li>
+              <li><a href="#">HARVESTER</a></li>
+              <li><a href="#">IMPLEMENTS</a></li>
+              <li><a href="#">TYRES</a></li>
+            </ul>
+          </div> */}
+          <Navbar />
           <div className="header__sell-rent-btn flex gap-2">
-            <a href="#" className="header__sell-btn border border-dashed rounded-3xl shadow-lg px-3 py-1 flex items-center text-white outline-none">
-              <img src={sell_icon} alt="this is a sell icon" className="me-2 p-1 bg-lightgreen rounded-full shadow" />
-              SELL
-            </a>
-            <a href="#" className="header__sell-btn border border-dashed rounded-3xl shadow-lg px-3 py-1 flex items-center text-white outline-none">
-              <img src={rent_icon} alt="this is a sell icon" className="me-2 p-1 bg-lightgreen rounded-full shadow" />
-              RENT
-            </a>
+            <AnimateButton>
+              <a href="#" className="header__sell-btn border border-dashed rounded-3xl shadow-lg ps-1 pe-3 py-1 flex items-center text-white outline-none">
+                <img src={sell_icon} alt="this is a sell icon" className="me-2 p-1 bg-lightgreen rounded-full shadow" width={25} />
+                SELL
+              </a>
+            </AnimateButton>
+            <AnimateButton>
+              <a href="#" className="header__sell-btn border border-dashed rounded-3xl shadow-lg pe-3 ps-1 py-1 flex items-center text-white outline-none">
+                <img src={rent_icon} alt="this is a sell icon" className="me-2 p-1 bg-lightgreen rounded-full shadow" width={25} />
+                RENT
+              </a>
+            </AnimateButton>
           </div>
         </nav>
       </motion.section>
