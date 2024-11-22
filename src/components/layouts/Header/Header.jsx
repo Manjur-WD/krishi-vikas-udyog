@@ -21,8 +21,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
@@ -30,9 +28,33 @@ import Navbar from "./Navbar";
 // FRAMER MOTION
 import { motion } from "motion/react";
 import AnimateButton from "../../animation/AnimateButton";
-
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 const Header = () => {
+  const [categories, setCategories] = useState([]);
+
+  // CATEGORY API CALL
+  const getCategories = async () => {
+    const response = await axios.post(
+      "https://krishivikas.com/api/v2/category-list",
+      { language_id: 1 },
+      {
+        headers: {
+          Authorization:
+            "Bearer 29856|LNX22bIkPaNtNRIZUaIkT9JxYlE3sQmzdV1GKXGe13277162",
+        },
+      }
+    );
+    setCategories(response.data.result.response);
+  };
+
+  useEffect(() => {
+    getCategories();
+  }, []);
+
+  console.log(categories);
+
   return (
     <header className="header" id="header">
       <motion.section
@@ -164,15 +186,22 @@ const Header = () => {
               <DropdownMenuContent className="w-[200px] mt-2 rounded-2xl px-2 py-2">
                 {/* <DropdownMenuLabel>My Account</DropdownMenuLabel> */}
                 {/* <DropdownMenuSeparator /> */}
-                <DropdownMenuItem className="text-darkGreen bg-white rounded-2xl shadow p-2 mb-2 hover:scale-95 transition-all cursor-pointer">
-                  <img src={tractor_icon} alt="tractor-icon" className="bg-white shadow-lg rounded-full p-1" width={35} /> TRACTOR
-                </DropdownMenuItem>
-                <DropdownMenuItem className="text-darkGreen bg-white rounded-2xl shadow p-3 mb-2 hover:scale-95 transition-all cursor-pointer">
-                  <img src={tractor_icon} alt="tractor-icon" className="bg-white shadow-lg rounded-full p-1" width={35} />GOODS VEHICLE</DropdownMenuItem>
-                <DropdownMenuItem className="text-darkGreen bg-white rounded-2xl shadow p-3 mb-2 hover:scale-95 transition-all cursor-pointer">AGRI INPUTS</DropdownMenuItem>
-                <DropdownMenuItem className="text-darkGreen bg-white rounded-2xl shadow p-3 mb-2 hover:scale-95 transition-all cursor-pointer">HARVESTER</DropdownMenuItem>
-                <DropdownMenuItem className="text-darkGreen bg-white rounded-2xl shadow p-3 mb-2 hover:scale-95 transition-all cursor-pointer">IMPLEMENTS</DropdownMenuItem>
-                <DropdownMenuItem className="text-darkGreen bg-white rounded-2xl shadow p-3 hover:scale-95 transition-all cursor-pointer">TYRES</DropdownMenuItem>
+
+                {categories.map((category) => {
+                  return (
+                    <>
+                      <DropdownMenuItem key={category.id} className="text-darkGreen uppercase bg-white rounded-2xl shadow p-2 mb-2 hover:scale-95 transition-all cursor-pointer" >
+                        <img
+                          src={category.category_icon}
+                          alt="tractor-icon"
+                          className="bg-white shadow-lg rounded-full p-1"
+                          width={35}
+                        />{" "}
+                        {category.category_name}
+                      </DropdownMenuItem>
+                    </>
+                  );
+                })}
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
@@ -190,14 +219,30 @@ const Header = () => {
           <Navbar />
           <div className="header__sell-rent-btn flex gap-2">
             <AnimateButton>
-              <a href="#" className="header__sell-btn border border-dashed rounded-3xl shadow-lg ps-1 pe-3 py-1 flex items-center text-white outline-none">
-                <img src={sell_icon} alt="this is a sell icon" className="me-2 p-1 bg-lightgreen rounded-full shadow" width={25} />
+              <a
+                href="#"
+                className="header__sell-btn border border-dashed rounded-3xl shadow-lg ps-1 pe-3 py-1 flex items-center text-white outline-none"
+              >
+                <img
+                  src={sell_icon}
+                  alt="this is a sell icon"
+                  className="me-2 p-1 bg-lightgreen rounded-full shadow"
+                  width={25}
+                />
                 SELL
               </a>
             </AnimateButton>
             <AnimateButton>
-              <a href="#" className="header__sell-btn border border-dashed rounded-3xl shadow-lg pe-3 ps-1 py-1 flex items-center text-white outline-none">
-                <img src={rent_icon} alt="this is a sell icon" className="me-2 p-1 bg-lightgreen rounded-full shadow" width={25} />
+              <a
+                href="#"
+                className="header__sell-btn border border-dashed rounded-3xl shadow-lg pe-3 ps-1 py-1 flex items-center text-white outline-none"
+              >
+                <img
+                  src={rent_icon}
+                  alt="this is a sell icon"
+                  className="me-2 p-1 bg-lightgreen rounded-full shadow"
+                  width={25}
+                />
                 RENT
               </a>
             </AnimateButton>
