@@ -27,9 +27,9 @@ const Navbar = () => {
                       className="w-full h-full rounded-lg shadow-lg object-cover"
                     />
                     <ul>
-                      {navlink.subMenu.map((sublink, subindex) => (
+                      {navlink.subMenu.map((sublink) => (
                         <>
-                          <li className="mb-2 text-center" key={subindex}>{sublink.label}</li>
+                          <li className="mb-2 text-center" key={sublink.label}>{sublink.label}</li>
                         </>
                       ))}
                     </ul>

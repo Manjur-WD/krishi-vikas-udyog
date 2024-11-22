@@ -29,16 +29,18 @@ import Navbar from "./Navbar";
 import { motion } from "motion/react";
 import AnimateButton from "../../animation/AnimateButton";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const Header = () => {
   const [categories, setCategories] = useState([]);
+  const [languageId, setLanguageId] = useState(1);
+  const languageBtn = useRef();
 
   // CATEGORY API CALL
   const getCategories = async () => {
     const response = await axios.post(
       "https://krishivikas.com/api/v2/category-list",
-      { language_id: 1 },
+      { language_id: languageId },
       {
         headers: {
           Authorization:
@@ -46,12 +48,18 @@ const Header = () => {
         },
       }
     );
+    // Close the dropdown if the button exists
     setCategories(response.data.result.response);
+  };
+
+  const languageChange = (id) => {
+    setLanguageId(id); // Update the languageId state
+    languageBtn.current.removeAttribute("open"); // Close the dropdown after selection
   };
 
   useEffect(() => {
     getCategories();
-  }, []);
+  }, [languageId]);
 
   console.log(categories);
 
@@ -79,21 +87,41 @@ const Header = () => {
               <HiLocationMarker className="inline me-1 text-lightgreen" />
               Location 700152
             </a>
-            <details className="inline-block relative header__language--btn">
+            <details
+              className="inline-block relative header__language--btn"
+              ref={languageBtn}
+            >
               <summary className="text-white me-2 border-e pe-2 cursor-pointer  list-none">
                 <TbLanguage className="inline me-1 text-lightgreen" />
-                English
+                {languageId === 1 && "ENGLISH"}
+                {languageId === 2 && "हिंदी"}
+                {languageId === 3 && "বাংলা"}
                 <IoIosArrowDown className="inline mx-2 downarrow" />
               </summary>
               <motion.ul className="header__language--list  block absolute shadow-2xl py-2 rounded-lg top-[40px] border border-lightdark text-center bg-whitesmoke z-50">
-                <li className="cursor-pointer px-5 py-1 hover:bg-lightdark hover:text-white border-b border-b-lightdark">
+                <li
+                  className="cursor-pointer px-5 py-1 hover:bg-lightdark hover:text-white border-b border-b-lightdark"
+                  onClick={() => {
+                    languageChange(1);
+                  }}
+                >
                   ENGLISH
                 </li>
-                <li className="cursor-pointer px-5 py-1 hover:bg-lightdark hover:text-white border-b border-b-lightdark">
-                  BENGALI
+                <li
+                  className="cursor-pointer px-5 py-1 hover:bg-lightdark hover:text-white border-b border-b-lightdark"
+                  onClick={() => {
+                    languageChange(2);
+                  }}
+                >
+                  हिंदी
                 </li>
-                <li className="cursor-pointer px-5 py-1 hover:bg-lightdark hover:text-white">
-                  HINDI
+                <li
+                  className="cursor-pointer px-5 py-1 hover:bg-lightdark hover:text-white"
+                  onClick={() => {
+                    languageChange(3);
+                  }}
+                >
+                  বাংলা
                 </li>
               </motion.ul>
             </details>
@@ -190,7 +218,10 @@ const Header = () => {
                 {categories.map((category) => {
                   return (
                     <>
-                      <DropdownMenuItem key={category.id} className="text-darkGreen uppercase bg-white rounded-2xl shadow p-2 mb-2 hover:scale-95 transition-all cursor-pointer" >
+                      <DropdownMenuItem
+                        key={category.id}
+                        className="text-darkGreen uppercase bg-white rounded-2xl shadow p-2 mb-2 hover:scale-95 transition-all cursor-pointer"
+                      >
                         <img
                           src={category.category_icon}
                           alt="tractor-icon"
