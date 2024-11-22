@@ -146,7 +146,7 @@ const Header = () => {
         </div>
       </motion.section>
       <motion.section
-        className="bottom-header py-2 px-2 bg-white"
+        className="bottom-header px-2 py-2 bg-white"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.3, delay: 0.8, ease: "linear" }}

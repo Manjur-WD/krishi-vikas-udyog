@@ -1,35 +1,47 @@
-import {
-    NavigationMenu,
-    NavigationMenuContent,
-    NavigationMenuIndicator,
-    NavigationMenuItem,
-    NavigationMenuLink,
-    NavigationMenuList,
-    NavigationMenuTrigger,
-    NavigationMenuViewport,
-} from "@/components/ui/navigation-menu"
+// import tractor_drop from "../../../assets/images/trac-drop.jpg";
+import { menuItems } from "../../../components/layouts/Header/menuItems.js";
+console.log(menuItems);
 
-import tractor_drop from "../../../assets/images/trac-drop.jpg";
+import "animate.css";
 
 const Navbar = () => {
-    return (
-        <>
-            <NavigationMenu>
-                <NavigationMenuList >
-                    <NavigationMenuItem >
-                        <NavigationMenuTrigger >Item One</NavigationMenuTrigger>
-                        <NavigationMenuContent className="bg-black">
-                            <div className="md:w-[400px] flex items-center">
-                                <img src={tractor_drop} alt="this is tractor dropdown image" className="w-1/2" />
-                                <NavigationMenuLink>buy new tractor</NavigationMenuLink>
-                            </div>
+  return (
+    <>
+      <ul className="nav-menus flex text-white items-center gap-10 uppercase">
+        {menuItems.map((navlink, index) => (
+          <>
+            <li className="relative nav-link" key={index}>
+              {navlink.label}
+              {navlink.hasSubMenu ? (
+                <div
+                  className={
+                    index >= 4
+                      ? "submenu absolute pt-[13px] right-0 animate__animated animate__zoomIn animate__faster"
+                      : "submenu absolute pt-[13px] animate__animated animate__zoomIn animate__faster"
+                  }
+                >
+                  <div className="submenu-child  bg-white shadow-lg text-darkGreen grid grid-cols-2 w-[450px] p-2 rounded-lg items-center">
+                    <img
+                      src={navlink.image ? navlink.image : null}
+                      alt="this is a dropdown image"
+                      className="w-full h-full rounded-lg shadow-lg object-cover"
+                    />
+                    <ul>
+                      {navlink.subMenu.map((sublink) => (
+                        <>
+                          <li className="mb-2 text-center">{sublink.label}</li>
+                        </>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              ) : null}
+            </li>
+          </>
+        ))}
+      </ul>
+    </>
+  );
+};
 
-                        </NavigationMenuContent>
-                    </NavigationMenuItem>
-                </NavigationMenuList>
-            </NavigationMenu>
-        </>
-    )
-}
-
-export default Navbar
+export default Navbar;

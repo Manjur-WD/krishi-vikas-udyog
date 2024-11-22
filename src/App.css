@@ -1,8 +1,20 @@
 .header__language--btn[open] .downarrow {
-  @apply rotate-180
+  @apply rotate-180;
 }
 
-
-.bottom-header{
-    background: linear-gradient(33deg, #13693a, #8cbf44, #13693a);
+.bottom-header {
+  background: linear-gradient(33deg, #13693a, #8cbf44, #13693a);
 }
+
+.nav-link:hover .submenu {
+  @apply block;
+}
+
+.submenu {
+  @apply hidden;
+}
+
+.nav-link .submenu:nth-child(6) {
+  @apply right-0;
+}
+
