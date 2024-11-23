@@ -1,21 +1,20 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
 import Slider from "react-slick";
+import { Skeleton } from "@/components/ui/skeleton";
+import { useQuery } from "@tanstack/react-query";
 
 const HeroBannerCarousel = () => {
-    const settings = {
-        dots: true,
-        fade: true,
-        infinite: true,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        autoplay: true,
-        speed: 500,
-        // autoplaySpeed: 2000,
-        cssEase: "linear"
-      };
-
-  const [heroSlides, setHeroSlide] = useState([]);
+  const settings = {
+    dots: true,
+    fade: true,
+    infinite: true,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    speed: 500,
+    // autoplaySpeed: 2000,
+    cssEase: "linear",
+  };
 
   const loadHeroSlides = async () => {
     const response = await axios.post(
@@ -30,14 +29,35 @@ const HeroBannerCarousel = () => {
         },
       }
     );
-    setHeroSlide(response.data.result.response);
+    return response.data.result.response;
   };
 
-  console.log(heroSlides);
+  // Use useQuery to fetch data
+  const {
+    data: heroSlides,
+    isLoading,
+    isError,
+    error,
+  } = useQuery({
+    queryKey: ["heroSlides"], // Unique key for this query
+    queryFn: loadHeroSlides, // Function to fetch the data
+  });
 
-  useEffect(() => {
-    loadHeroSlides();
-  }, []);
+  // If data is still loading
+  if (isLoading) {
+    return (
+      <>
+        <div className="preloader bg-white h-screen w-screen fixed inset-0 flex items-center justify-center">
+          <h1>LOADING.....</h1>
+        </div>
+      </>
+    );
+  }
+
+  // If there's an error
+  if (isError) {
+    return <div>Error: {error.message}</div>;
+  }
 
   return (
     <>

@@ -11,8 +11,8 @@ const Navbar = () => {
             <div
               className={
                 index >= 4
-                  ? "submenu absolute pt-[13px] right-0 animate__animated animate__fadeIn animate__faster"
-                  : "submenu absolute pt-[13px] animate__animated animate__fadeIn animate__faster"
+                  ? "submenu absolute pt-[13px] right-0 z-50 animate__animated animate__fadeIn animate__faster"
+                  : "submenu absolute pt-[13px] z-50 animate__animated animate__fadeIn animate__faster"
               }
             >
               <div className="submenu-child bg-white shadow-lg text-darkGreen grid grid-cols-2 w-[450px] p-2 rounded-lg items-center">
