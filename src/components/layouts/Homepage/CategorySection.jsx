@@ -45,7 +45,9 @@ const CategorySection = () => {
                     className="w-[70px] h-[70px] object-contain p-3 rounded-full"
                   />
                 </div>
-                <p className="uppercase text-darkGreen">{item.category_name}</p>
+                <p className="uppercase  text-lg text-darkGreen">
+                  {item.category_name}
+                </p>
               </div>
             ))
           ) : (
