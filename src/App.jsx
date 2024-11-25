@@ -1,14 +1,16 @@
-import "./App.css"
-import Header from "./components/layouts/Header/Header"
-import HomePage from "./pages/HomePage"
+import "./App.css";
+import Header from "./components/layouts/Header/Header";
+import HomePage from "./pages/HomePage";
 
 const App = () => {
   return (
     <>
       <Header />
-      <HomePage />
+      <main>
+        <HomePage />
+      </main>
     </>
-  )
-}
+  );
+};
 
-export default App
+export default App;

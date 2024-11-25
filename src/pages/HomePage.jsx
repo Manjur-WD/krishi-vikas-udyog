@@ -1,11 +1,15 @@
-import HeroBannerCarousel from "../components/layouts/Homepage/HeroBannerCarousel"
+import CategorySection from "../components/layouts/Homepage/CategorySection";
+import HeroBannerCarousel from "../components/layouts/Homepage/HeroBannerCarousel";
 
 const HomePage = () => {
   return (
     <>
-      <HeroBannerCarousel />
+      <section className="hero-section w-full">
+        <HeroBannerCarousel />
+        <CategorySection />
+      </section>
     </>
-  )
-}
+  );
+};
 
-export default HomePage
+export default HomePage;

@@ -8,9 +8,9 @@ const MiddleHeadSection = () => {
     return (
         <>
             <section
-                className="middle-header container py-3 px-2 bg-white"
+                className="middle-header  py-3 px-2 bg-white"
             >
-                <div className="navbar flex justify-between">
+                <div className="navbar container flex justify-between">
                     <a href="#">
                         <img
                             src={logo}

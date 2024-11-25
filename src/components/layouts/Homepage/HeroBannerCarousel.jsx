@@ -1,21 +1,14 @@
 import axios from "axios";
-import Slider from "react-slick";
-import { Skeleton } from "@/components/ui/skeleton";
 import { useQuery } from "@tanstack/react-query";
+import Preloader from "../../elements/Preloader";
+import { MdChevronRight, MdChevronLeft } from "react-icons/md";
+
+// Import Swiper React components
+import { Swiper, SwiperSlide } from "swiper/react";
+// Import required modules
+import { Navigation, Pagination, Autoplay } from "swiper/modules";
 
 const HeroBannerCarousel = () => {
-  const settings = {
-    dots: true,
-    fade: true,
-    infinite: true,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    autoplay: true,
-    speed: 500,
-    // autoplaySpeed: 2000,
-    cssEase: "linear",
-  };
-
   const loadHeroSlides = async () => {
     const response = await axios.post(
       "https://krishivikas.com/api/v2/home-banner",
@@ -45,13 +38,7 @@ const HeroBannerCarousel = () => {
 
   // If data is still loading
   if (isLoading) {
-    return (
-      <>
-        <div className="preloader bg-white h-screen w-screen fixed inset-0 flex items-center justify-center">
-          <h1>LOADING.....</h1>
-        </div>
-      </>
-    );
+    return <Preloader />;
   }
 
   // If there's an error
@@ -59,24 +46,51 @@ const HeroBannerCarousel = () => {
     return <div>Error: {error.message}</div>;
   }
 
+  // Swiper navigation hook reference
+  // let swiperRef = null;
+
   return (
     <>
-      <div className="slider-container overflow-hidden">
-        <Slider {...settings}>
-          {heroSlides.map((slide) => {
-            return (
-              <>
-                <div className="hero-slide p-5 " key={slide.id}>
-                  <img
-                    src={slide.value}
-                    alt="this is banner slide"
-                    className="w-full h-[720px] rounded-xl object-cover object-top"
-                  />
-                </div>
-              </>
-            );
-          })}
-        </Slider>
+      <div className="slider-container overflow-hidden relative lg:px-5 px-2">
+        <Swiper
+          loop={true} // Enable infinite loop
+          centeredSlides={true}
+          autoplay={{
+            delay: 2500,
+            disableOnInteraction: false,
+          }}
+          navigation={{
+            nextEl: ".custom-next", // Custom next button class
+            prevEl: ".custom-prev", // Custom prev button class
+          }}
+          pagination={{
+            dynamicBullets: true,
+            clickable: true,
+          }}
+          modules={[Pagination, Navigation, Autoplay]}
+          className="mySwiper"
+          // onInit={(swiper) => {
+          //   swiperRef = swiper;
+          // }}
+        >
+          {heroSlides.map((slide) => (
+            <SwiperSlide key={slide.id} className="p-5">
+              <img
+                src={slide.value}
+                alt="this is banner slide"
+                className="w-full h-[668px] object-cover object-top rounded-3xl"
+              />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+
+        {/* Custom Navigation Buttons */}
+        <div className="custom-prev absolute top-1/2 z-20 -translate-y-1/2 left-3 cursor-pointer">
+          <MdChevronLeft />
+        </div>
+        <div className="custom-next absolute top-1/2 z-20 -translate-y-1/2 right-3 cursor-pointer">
+          <MdChevronRight />
+        </div>
       </div>
     </>
   );
