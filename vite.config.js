@@ -9,6 +9,7 @@ export default defineConfig({
     purgecss({
       content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx,html}"], // Specify your files
     }),
+    
   ],
   base: "/krishi-vikas-udyog/",
   resolve: {
