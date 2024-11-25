@@ -1,24 +1,9 @@
 import { BsGridFill } from "react-icons/bs";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
+import { getCategoryList } from "../../../services/api";
+import Preloader from "../../elements/Preloader";
 
 const CategorySection = () => {
-  const getCategoryList = async () => {
-    const response = await axios.post(
-      "https://krishivikas.com/api/v2/category-list",
-      {
-        language_id: 1,
-      },
-      {
-        headers: {
-          Authorization:
-            "Bearer 30609|IxX5Do8U2HvxfCTAhJimtbTXzExMHb97QejGeMjXe885fa10",
-        },
-      }
-    );
-    return response.data.result.response; // Ensure this is an array
-  };
-
   // Use the useQuery hook to fetch data
   const {
     data: categoryList,
@@ -26,13 +11,13 @@ const CategorySection = () => {
     isError,
     error,
   } = useQuery({
-    queryKey: ["category-list"],
-    queryFn: getCategoryList,
+    queryKey: ["category-list", 1], // Add the languageId to the queryKey for better cache management
+    queryFn: () => getCategoryList(1), // Pass a function that calls getCategoryList
   });
 
   // Handle loading and error states
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Preloader />;
   }
 
   if (isError) {
@@ -46,18 +31,20 @@ const CategorySection = () => {
           <BsGridFill className="inline pb-1 me-1" />
           Top Categories
         </h2>
-        <div className="categories grid grid-cols-4 gap-5">
+        <div className="categories grid place-content-center lg:grid-cols-4 md:grid-cols-2 gap-y-5 gap-x-8">
           {categoryList && categoryList.length > 0 ? (
             categoryList.map((item) => (
               <div
                 key={item.id} // Ensure a unique key for each element
                 className="category hover:scale-105 flex items-center gap-4 bg-white shadow-lg p-5 rounded-3xl transition-shadow border"
               >
-                <img
-                  src={item.category_icon}
-                  alt="this is category icon"
-                  className="w-[70px] h-[70px] object-contain p-2 rounded-full"
-                />
+                <div className="category-image">
+                  <img
+                    src={item.category_icon}
+                    alt="this is category icon"
+                    className="w-[70px] h-[70px] object-contain p-3 rounded-full"
+                  />
+                </div>
                 <p className="uppercase text-darkGreen">{item.category_name}</p>
               </div>
             ))

@@ -14,8 +14,31 @@ import {
 import Navbar from "../sections/Navbar";
 
 import AnimateButton from "../../../animation/AnimateButton";
+import { getCategoryList } from "../../../../services/api";
+import { useQuery } from "@tanstack/react-query";
+import Preloader from "../../../elements/Preloader";
 
 const BottomHeadSection = () => {
+  // Use the useQuery hook to fetch data
+  const {
+    data: categoryList,
+    isLoading,
+    isError,
+    error,
+  } = useQuery({
+    queryKey: ["category-list", 1], // Add the languageId to the queryKey for better cache management
+    queryFn: () => getCategoryList(1), // Pass a function that calls getCategoryList
+  });
+
+  // Handle loading and error states
+  if (isLoading) {
+    return <Preloader />;
+  }
+
+  if (isError) {
+    return <div>Error: {error.message}</div>;
+  }
+
   return (
     <>
       <section className="bottom-header px-2 py-2 bg-white">
@@ -30,15 +53,27 @@ const BottomHeadSection = () => {
                 </DropdownMenuTrigger>
               </AnimateButton>
               <DropdownMenuContent className="w-[200px] mt-2 rounded-2xl px-2 py-2">
-                <DropdownMenuItem className="text-darkGreen uppercase bg-white rounded-2xl shadow p-2 mb-2 hover:scale-95 transition-all cursor-pointer">
-                  <img
-                    src="{category.category_icon}"
-                    alt="tractor-icon"
-                    className="bg-white shadow-lg rounded-full p-1"
-                    width={35}
-                  />{" "}
-                  TRACTOR
-                </DropdownMenuItem>
+                {
+                  categoryList && categoryList.length > 0 ? 
+                  (
+                    categoryList.map((item)=>(
+                      <>
+                        <DropdownMenuItem className="text-darkGreen uppercase bg-white rounded-2xl shadow p-2 mb-2 hover:scale-95 transition-all cursor-pointer">
+                          <img
+                            src={item.category_icon}
+                            alt="tractor-icon"
+                            className="bg-white shadow-lg rounded-full p-1"
+                            width={35}
+                          />{" "}
+                          {item.category_name}
+                        </DropdownMenuItem>
+                      </>
+                    ))
+                  ):(
+                    <div>No Data Available</div>
+                  )
+                  
+                }
               </DropdownMenuContent>
             </DropdownMenu>
           </div>

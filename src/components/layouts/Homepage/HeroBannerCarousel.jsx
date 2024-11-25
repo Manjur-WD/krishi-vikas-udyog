@@ -1,7 +1,7 @@
-import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import Preloader from "../../elements/Preloader";
 import { MdChevronRight, MdChevronLeft } from "react-icons/md";
+import { loadHeroSlides } from "../../../services/api";
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -9,22 +9,6 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
 
 const HeroBannerCarousel = () => {
-  const loadHeroSlides = async () => {
-    const response = await axios.post(
-      "https://krishivikas.com/api/v2/home-banner",
-      {
-        lang_id: 2,
-      },
-      {
-        headers: {
-          Authorization:
-            "Bearer 30609|IxX5Do8U2HvxfCTAhJimtbTXzExMHb97QejGeMjXe885fa10",
-        },
-      }
-    );
-    return response.data.result.response;
-  };
-
   // Use useQuery to fetch data
   const {
     data: heroSlides,
@@ -32,8 +16,8 @@ const HeroBannerCarousel = () => {
     isError,
     error,
   } = useQuery({
-    queryKey: ["heroSlides"], // Unique key for this query
-    queryFn: loadHeroSlides, // Function to fetch the data
+    queryKey: ["heroSlides", 1], // Unique key for this query
+    queryFn: () => loadHeroSlides(1), // Pass a function reference
   });
 
   // If data is still loading
@@ -45,9 +29,6 @@ const HeroBannerCarousel = () => {
   if (isError) {
     return <div>Error: {error.message}</div>;
   }
-
-  // Swiper navigation hook reference
-  // let swiperRef = null;
 
   return (
     <>
@@ -69,9 +50,6 @@ const HeroBannerCarousel = () => {
           }}
           modules={[Pagination, Navigation, Autoplay]}
           className="mySwiper"
-          // onInit={(swiper) => {
-          //   swiperRef = swiper;
-          // }}
         >
           {heroSlides.map((slide) => (
             <SwiperSlide key={slide.id} className="p-5">

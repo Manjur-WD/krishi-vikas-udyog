@@ -8,7 +8,7 @@ const MiddleHeadSection = () => {
     return (
         <>
             <section
-                className="middle-header  py-3 px-2 bg-white"
+                className="middle-header  py-3 lg:px-5 md:px-3 bg-white"
             >
                 <div className="navbar container flex justify-between">
                     <a href="#">
@@ -18,7 +18,7 @@ const MiddleHeadSection = () => {
                             className="md:w-[200px] w-[150px]"
                         />
                     </a>
-                    <div className="header__app--link flex items-center">
+                    <div className="header__app--link items-center lg:flex hidden">
                         <p className="text-lightdark me-2">DOWNLOAD KRISHI VIKAS APP</p>
                         <a href="#" className="me-1">
                             <AnimateButton>
