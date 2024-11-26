@@ -63,8 +63,8 @@ const CategoryWiseProductCarousel = ({
                       );
                     })}
                   </CarouselContent>
-                  <CarouselPrevious />
-                  <CarouselNext />
+                  <CarouselPrevious className="absolute top-1/2 -left-3 border" />
+                  <CarouselNext className="absolute top-1/2 -right-3"/>
                 </Carousel>
               </TabsContent>
             ))}
