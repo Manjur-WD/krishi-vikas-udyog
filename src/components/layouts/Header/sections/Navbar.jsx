@@ -15,7 +15,7 @@ const Navbar = () => {
                   : "submenu absolute pt-[13px] z-50 animate__animated animate__fadeIn animate__faster"
               }
             >
-              <div className="submenu-child bg-white shadow-lg text-darkGreen grid grid-cols-2 w-[450px] p-2 rounded-lg items-center">
+              <div className="submenu-child bg-white shadow-lg text-darkGreen grid grid-cols-2 w-[450px] p-1 rounded-lg items-center">
                 {navlink.image && (
                   <img
                     src={navlink.image}

@@ -83,7 +83,17 @@
   transition: 0.5s;
 }
 
-.category:hover img{
-   box-shadow: 5px 5px 10px rgb(207, 206, 206);
+.category:hover img {
+  box-shadow: 5px 5px 10px rgb(207, 206, 206);
+}
+
+.category-header__title h3 {
+  clip-path: polygon(0 1%, 100% 0, 90% 100%, 0% 100%);
+  background: linear-gradient(33deg, #13693a, #8cbf44);
+}
+
+.category-tab.data-\[state\=active\]\:bg-background[data-state="active"], .location-and-price {
+  background: linear-gradient(33deg, #13693a, #8cbf44);
+  color: white;
 }
 

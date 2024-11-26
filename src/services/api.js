@@ -27,3 +27,15 @@ export const loadHeroSlides = async (langId) => {
   });
   return response.data.result.response;
 };
+
+// HOMEPAGE CATEGORY WISE ALL DATAS
+
+export const loadAllCategoryWiseData = async () => {
+  try {
+    const response = await api.get("/home2");  // Make the API request
+    return response.data.result.response;      // Return the resolved data
+  } catch (error) {
+    console.error("Error loading category data:", error);
+    throw error;  // Optionally throw or return a default value if you want to handle errors differently
+  }
+};
