@@ -23,52 +23,56 @@ const CategoryWiseProductCarousel = ({
             {category_title}
           </h3>
         </div>
-        <div className="category__tabs container">
-          <Tabs defaultValue={tabs[0]} className="w-full">
-            <TabsList className="absolute top-3 right-[5%]">
-              {/* Dynamically render TabsTrigger with unique key */}
-              {tabs.map((tab, idx) => (
-                <TabsTrigger
-                  key={idx} // Use a unique identifier, such as tab.value or tab.label
-                  value={tab === "old" ? "used" : tab}
-                  className="px-10 uppercase category-tab text-black"
-                >
-                  {tab === "old" ? "used" : tab}
-                </TabsTrigger>
-              ))}
-            </TabsList>
+        <div className="category__tabs bg-white w-[95%] rounded-xl mx-auto">
+          <div className="container px-4">
+            <Tabs defaultValue={tabs[0]} className="w-full">
+              <TabsList className="absolute top-3 right-[5%]">
+                {/* Dynamically render TabsTrigger with unique key */}
+                {tabs.map((tab, idx) => (
+                  <TabsTrigger
+                    key={idx} // Use a unique identifier, such as tab.value or tab.label
+                    value={tab === "old" ? "used" : tab}
+                    className="px-10 uppercase category-tab text-black"
+                  >
+                    {tab === "old" ? "used" : tab}
+                  </TabsTrigger>
+                ))}
+              </TabsList>
 
-            {/* Dynamically render TabsContent based on the selected tab */}
-            {tabs.map((tab, idx) => (
-              <TabsContent value={tab === "old" ? "used" : tab} key={idx}>
-                <Carousel>
-                  <CarouselContent>
-                    {/* Ensure tractor_data[tab] is not undefined and map over it */}
-                    {tractor_data[tab]?.map((item) => {
-                      // Make sure to return the CarouselItem to render
-                      return (
-                        <CarouselItem
-                          key={item.id}
-                          className="md:basis-1/3 lg:basis-1/5 xl:basis-1/5"
-                        >
-                          {/* Example rendering each item, adjust based on your data */}
-                          <ProductCard
-                            product_image={item.front_image}
-                            product_title={`${item.brand_name}${" "}${item.model_name}`}
-                            product_location={item.district_name}
-                            product_pricing={item.price}
-                            distance_product={item.distance}
-                          />
-                        </CarouselItem>
-                      );
-                    })}
-                  </CarouselContent>
-                  <CarouselPrevious className="absolute top-1/2 -left-3 border" />
-                  <CarouselNext className="absolute top-1/2 -right-3"/>
-                </Carousel>
-              </TabsContent>
-            ))}
-          </Tabs>
+              {/* Dynamically render TabsContent based on the selected tab */}
+              {tabs.map((tab, idx) => (
+                <TabsContent value={tab === "old" ? "used" : tab} key={idx}>
+                  <Carousel>
+                    <CarouselContent>
+                      {/* Ensure tractor_data[tab] is not undefined and map over it */}
+                      {tractor_data[tab]?.map((item) => {
+                        // Make sure to return the CarouselItem to render
+                        return (
+                          <CarouselItem
+                            key={item.id}
+                            className="md:basis-1/3 xl:basis-1/4 2xl:basis-1/5"
+                          >
+                            {/* Example rendering each item, adjust based on your data */}
+                            <ProductCard
+                              product_image={item.front_image}
+                              product_title={`${item.brand_name}${" "}${
+                                item.model_name
+                              }`}
+                              product_location={item.district_name}
+                              product_pricing={item.price}
+                              distance_product={item.distance}
+                            />
+                          </CarouselItem>
+                        );
+                      })}
+                    </CarouselContent>
+                    <CarouselPrevious />
+                    <CarouselNext />
+                  </Carousel>
+                </TabsContent>
+              ))}
+            </Tabs>
+          </div>
         </div>
       </div>
     </>

@@ -11,7 +11,7 @@ const ProductCard = ({
 }) => {
   return (
     <>
-      <div className="product-card bg-white rounded-2xl overflow-hidden my-5 shadow-lg">
+      <div className="product-card bg-white rounded-2xl overflow-hidden my-5 shadow-lg border">
         <div className="product_image p-1">
           <img
             src={product_image}
