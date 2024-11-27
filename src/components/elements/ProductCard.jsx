@@ -8,18 +8,19 @@ const ProductCard = ({
   product_pricing,
   product_location,
   distance_product,
+  rent_type
 }) => {
   return (
     <>
-      <div className="product-card bg-white rounded-2xl overflow-hidden my-5 shadow-lg border">
+      <div className="product-card bg-white rounded-3xl overflow-hidden my-5 shadow-lg border hover:scale-95 transition-all">
         <div className="product_image p-1">
           <img
             src={product_image}
             alt="this is product image"
-            className="w-full h-[200px] object-cover object-center rounded-2xl"
+            className="w-full h-[200px] object-cover object-center rounded-3xl"
           />
         </div>
-        <p className="text-center py-2 font-semibold">{product_title}</p>
+        <p className="text-center py-4 font-semibold product-title px-4">{product_title}</p>
         <div className="flex text-sm justify-between items-center px-5 py-3 location-and-price">
           <p className="distance">
             <GrMapLocation className="inline-block mb-2 me-1" />
@@ -27,7 +28,7 @@ const ProductCard = ({
           </p>
           <p className="pricing">
             <MdOutlineCurrencyRupee className="inline-block mb-1 " />
-            {product_pricing}
+            {product_pricing}{rent_type !== null ? rent_type :""}
           </p>
         </div>
         <p className="distance bg-lightdark text-white text-center py-2"> 

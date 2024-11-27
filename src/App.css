@@ -97,3 +97,10 @@
   color: white;
 }
 
+.product-title{
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  padding: 10px 25px;
+}
+

@@ -1,12 +1,12 @@
-import { useEffect, useState } from "react";
-import { loadAllCategoryWiseData } from "../../../services/api";
 import CategoryWiseProductCarousel from "./CategoryWiseProductCarousel";
 import { useQuery } from "@tanstack/react-query";
+import { loadAllCategoryWiseData } from "../../../services/api";
+import { useEffect, useState } from "react";
 
 const tabs = ["rent", "old", "new"];
 
-const GoodVehiclesProductSlider = () => {
-  const [goodsVehicleData, setGoodVenhicleData] = useState({});
+const HarvesterProductCarousel = () => {
+  const [harvestorData, setharvestorData] = useState({});
 
   const { data } = useQuery({
     queryKey: ["category-list"],
@@ -15,21 +15,22 @@ const GoodVehiclesProductSlider = () => {
 
   useEffect(() => {
     if (data) {
-      setGoodVenhicleData(data.good_vehicles);
-    } 
+      setharvestorData(data.harvester); // Set tractor data from the API response
+    }
   }, [data]);
 
   return (
     <>
       <CategoryWiseProductCarousel
-        category_title="Goods Vehicle"
+        category_title="harvester"
         tabs={tabs}
-        product_data={goodsVehicleData}
-        populer_brand_id="3"
+        product_data={harvestorData}
+        populer_brand_id="4"
         company_id="1"
       />
     </>
   );
 };
 
-export default GoodVehiclesProductSlider;
+export default HarvesterProductCarousel;
+

@@ -57,8 +57,7 @@ const BottomHeadSection = () => {
                   categoryList && categoryList.length > 0 ? 
                   (
                     categoryList.map((item)=>(
-                      <>
-                        <DropdownMenuItem className="text-darkGreen uppercase bg-white rounded-2xl shadow p-2 mb-2 hover:scale-95 transition-all cursor-pointer">
+                        <DropdownMenuItem className="text-darkGreen uppercase bg-white rounded-2xl shadow p-2 mb-2 hover:scale-95 transition-all cursor-pointer" key={item.category_id}>
                           <img
                             src={item.category_icon}
                             alt="tractor-icon"
@@ -67,7 +66,7 @@ const BottomHeadSection = () => {
                           />{" "}
                           {item.category_name}
                         </DropdownMenuItem>
-                      </>
+
                     ))
                   ):(
                     <div>No Data Available</div>

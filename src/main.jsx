@@ -5,6 +5,7 @@ import App from "./App.jsx";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
+import "animate.css"
 
 import 'swiper/css';
 import 'swiper/css/navigation';

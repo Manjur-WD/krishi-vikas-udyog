@@ -3,11 +3,10 @@ import { useQuery } from "@tanstack/react-query";
 import { loadAllCategoryWiseData } from "../../../services/api";
 import { useEffect, useState } from "react";
 
+const tabs = ["seeds", "pesticides", "fertilizers"];
 
-const tabs = ["rent", "old", "new"];
-
-const TractorProductSLider = () => {
-  const [tractorData, setTractorData] = useState({});
+const AgriInputsProductSlider = () => {
+  const [agriInputsData, setAgriInputsData] = useState({});
 
   const { data } = useQuery({
     queryKey: ["category-list"],
@@ -16,17 +15,16 @@ const TractorProductSLider = () => {
 
   useEffect(() => {
     if (data) {
-      setTractorData(data.tractor); // Set tractor data from the API response
+      setAgriInputsData(data.agri_inputs); // Set tractor data from the API response
     }
   }, [data]);
 
   return (
     <>
-
       <CategoryWiseProductCarousel
-        category_title="tractor"
+        category_title="agri inputs"
         tabs={tabs}
-        product_data={tractorData}
+        product_data={agriInputsData}
         populer_brand_id="1"
         company_id="1"
       />
@@ -34,4 +32,5 @@ const TractorProductSLider = () => {
   );
 };
 
-export default TractorProductSLider;
+export default AgriInputsProductSlider;
+

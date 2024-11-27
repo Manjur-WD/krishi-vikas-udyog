@@ -39,3 +39,15 @@ export const loadAllCategoryWiseData = async () => {
     throw error;  // Optionally throw or return a default value if you want to handle errors differently
   }
 };
+
+// HOMEPAGE POPULER BRAND AND COMPANY ALL DATAS
+
+export const loadAllPopulerBrandAndCompanyData = async () => {
+  try {
+    const response = await api.get("/home-brand-and-company");  // Make the API request
+    return response.data.result.response;      // Return the resolved data
+  } catch (error) {
+    console.error("Error loading category data:", error);
+    throw error;  // Optionally throw or return a default value if you want to handle errors differently
+  }
+};

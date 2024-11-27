@@ -25,7 +25,7 @@ const CategorySection = () => {
   }
 
   return (
-    <section className="category-section w-[95%] mx-auto py-10 px-10 bg-white mt-5 rounded-xl">
+    <section className="category-section w-[95%] mx-auto py-10 px-10 ">
       <div className="container">
         <h2 className="text-3xl text-center mb-10">
           <BsGridFill className="inline pb-1 me-1" />
@@ -35,7 +35,7 @@ const CategorySection = () => {
           {categoryList && categoryList.length > 0 ? (
             categoryList.map((item) => (
               <div
-                key={item.id} // Ensure a unique key for each element
+                key={item.category_id} // Ensure a unique key for each element
                 className="category hover:scale-105 flex items-center gap-4 bg-white shadow-lg p-5 rounded-3xl transition-shadow border"
               >
                 <div className="category-image">

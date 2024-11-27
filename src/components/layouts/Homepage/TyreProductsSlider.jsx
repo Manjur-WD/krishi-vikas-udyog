@@ -3,35 +3,37 @@ import { useQuery } from "@tanstack/react-query";
 import { loadAllCategoryWiseData } from "../../../services/api";
 import { useEffect, useState } from "react";
 
+const tabs = ["old", "new"];
 
-const tabs = ["rent", "old", "new"];
-
-const TractorProductSLider = () => {
-  const [tractorData, setTractorData] = useState({});
+const TyreProductsSlider = () => {
+  const [tyresData, setTyresData] = useState({});
 
   const { data } = useQuery({
     queryKey: ["category-list"],
     queryFn: () => loadAllCategoryWiseData(),
   });
 
+
+  
+
   useEffect(() => {
     if (data) {
-      setTractorData(data.tractor); // Set tractor data from the API response
+      setTyresData(data.tyre); // Set tractor data from the API response
     }
   }, [data]);
 
   return (
     <>
-
       <CategoryWiseProductCarousel
-        category_title="tractor"
+        category_title="tyres"
         tabs={tabs}
-        product_data={tractorData}
-        populer_brand_id="1"
+        product_data={tyresData}
+        populer_brand_id="7"
         company_id="1"
       />
     </>
   );
 };
 
-export default TractorProductSLider;
+export default TyreProductsSlider;
+
