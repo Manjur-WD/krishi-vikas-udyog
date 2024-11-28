@@ -22,7 +22,7 @@ const CategoryWiseProductCarousel = ({
   return (
     <>
         
-      <section className="category-wise-product-slider relative my-10">
+      <section className="category-wise-product-slider relative md:my-10 my-2">
         <div className="category-header__title bg-lightdark shadow flex justify-between items-center">
           <h3 className="md:text-2xl text-xs md:w-[350px] w-1/2 p-4 text-white md:font-bold shadow-lg text-center uppercase">
             {category_title}
@@ -41,15 +41,15 @@ const CategoryWiseProductCarousel = ({
           <div className="container">
             <Tabs
               defaultValue={tabs[0] === "old" ? "used" : tabs[0]}
-              className="w-full"
+              className="w-full text-center"
             >
-              <TabsList className="md:absolute top-3 left-[50%] md:-translate-x-1/2 rounded-2xl">
+              <TabsList className="md:absolute md:border-none border top-3 left-[50%] md:-translate-x-1/2 md:rounded-2xl md:mt-0 mt-3">
                 {/* Dynamically render TabsTrigger with unique key */}
                 {tabs.map((tab, idx) => (
                   <TabsTrigger
                     key={idx} // Use a unique identifier, such as tab.value or tab.label
                     value={tab === "old" ? "used" : tab}
-                    className="px-5 uppercase category-tab text-black rounded-2xl"
+                    className="px-5 uppercase category-tab text-black rounded-2xl font-normal text-sm"
                   >
                     {tab === "old" ? "used" : tab}
                   </TabsTrigger>

@@ -31,7 +31,7 @@ const CategorySection = () => {
           <BsGridFill className="inline pb-1 me-1" />
           Top Categories
         </h2>
-        <div className="categories md:grid flex justify-start place-content-center lg:grid-cols-4 md:grid-cols-2 gap-y-5 md:gap-x-8 gap-2 overflow-x-auto">
+        <div className="categories md:grid flex justify-start place-content-center lg:grid-cols-4 md:grid-cols-2 gap-y-5 md:gap-x-8 gap-2 overflow-x-auto pb-5">
           {categoryList && categoryList.length > 0 ? (
             categoryList.map((item) => (
               <div
