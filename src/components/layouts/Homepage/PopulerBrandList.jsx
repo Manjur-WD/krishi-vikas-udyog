@@ -24,7 +24,7 @@ const PopulerBrandList = ({ populer_brand_id, company_id }) => {
       <div className="populer-brand-list flex items-center container overflow-auto mt-3 ">
         {brandData.map((brand) => (
           <div
-            className="w-[200px] shadow shadow-lightgreen grid grid-cols-2 items-center brand-card py-2 px-3 bg-white my-2 me-5 rounded-2xl hover:scale-95"
+            className="w-[150px] shadow shadow-lightgreen flex gap-2 justify-center items-center brand-card py-2 px-3 bg-white my-2 me-5 rounded-2xl hover:scale-95 flex-shrink-0 flex-grow-0"
             key={brand.id}
           >
             <img

@@ -52,21 +52,21 @@ const HeroBannerCarousel = () => {
           className="mySwiper"
         >
           {heroSlides.map((slide) => (
-            <SwiperSlide key={slide.id} className="p-5">
+            <SwiperSlide key={slide.id} className="md:p-5 py-3">
               <img
                 src={slide.value}
                 alt="this is banner slide"
-                className="w-full h-[668px] object-top rounded-3xl"
+                className="w-full md:h-[668px] h-[160px] object-top md:rounded-3xl rounded-xl"
               />
             </SwiperSlide>
           ))}
         </Swiper>
 
         {/* Custom Navigation Buttons */}
-        <div className="custom-prev absolute top-1/2 z-20 -translate-y-1/2 left-3 cursor-pointer">
+        <div className="custom-prev md:block hidden absolute top-1/2 z-20 -translate-y-1/2 left-3 cursor-pointer">
           <MdChevronLeft />
         </div>
-        <div className="custom-next absolute top-1/2 z-20 -translate-y-1/2 right-3 cursor-pointer">
+        <div className="custom-next md:block hidden absolute top-1/2 z-20 -translate-y-1/2 right-3 cursor-pointer">
           <MdChevronRight />
         </div>
       </div>

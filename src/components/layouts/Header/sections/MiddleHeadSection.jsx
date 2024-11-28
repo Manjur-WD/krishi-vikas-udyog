@@ -10,12 +10,12 @@ const MiddleHeadSection = () => {
             <section
                 className="middle-header  py-3 lg:px-5 md:px-3 bg-white"
             >
-                <div className="navbar container flex justify-between">
+                <div className="navbar container flex justify-center md:justify-between md:p-0 px-5">
                     <a href="#">
                         <img
                             src={logo}
                             alt="this is brand logo"
-                            className="md:w-[200px] w-[150px]"
+                            className="md:w-[200px] w-[120px] "
                         />
                     </a>
                     <div className="header__app--link items-center lg:flex hidden">
@@ -39,7 +39,7 @@ const MiddleHeadSection = () => {
                             </AnimateButton>
                         </a>
                     </div>
-                    <div className="header__wishlist-login flex items-center">
+                    <div className="header__wishlist-login items-center md:flex hidden">
                         <button
                             type="button"
                             className=" hover:scale-95 px-4 py-1 relative"

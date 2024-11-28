@@ -16,7 +16,7 @@ const FooterMenus = () => {
   return (
     <>
       <div className="footermenus bg-darkGreen py-10">
-        <div className="container grid grid-cols-4">
+        <div className="container grid md:grid-cols-4 md:p-0 p-5 grid-cols-1">
           <div className="footermenus__box">
             <img
               src={logo}
@@ -64,7 +64,7 @@ const FooterMenus = () => {
                     <img
                       src={google_play_store}
                       alt="this is google play store icon"
-                      className="w-[150px]"
+                      className="w-[130px]"
                     />
                   </AnimateButton>
                 </a>
@@ -73,7 +73,7 @@ const FooterMenus = () => {
                     <img
                       src={apple__store}
                       alt="this is google apple store icon"
-                      className="w-[150px] rounded"
+                      className="w-[130px] rounded"
                     />
                   </AnimateButton>
                 </a>
@@ -133,9 +133,9 @@ const FooterMenus = () => {
           </div>
         </div>
         <hr className="w-[90%] mx-auto my-10 h-[2px] bg-whitesmoke opacity-50" />
-        <div className="container flex justify-between items-center">
+        <div className="container flex justify-between items-center md:flex-row flex-col gap-3">
             <img src={makeInIndia} alt="make in india logo" width={100} className="invert"/>
-            <p className="text-white">Copyright © 2023-24 | ABYBABY E-COM PRIVATE LIMITED | ALL RIGHTS RESERVED</p>
+            <p className="text-white text-center">Copyright © 2023-24 | ABYBABY E-COM PRIVATE LIMITED | ALL RIGHTS RESERVED</p>
         </div>
       </div>
     </>

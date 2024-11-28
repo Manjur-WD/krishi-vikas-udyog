@@ -41,7 +41,7 @@ const BottomHeadSection = () => {
 
   return (
     <>
-      <section className="bottom-header px-2 py-2 bg-white">
+      <section className="bottom-header px-2 py-2 bg-white md:block hidden">
         <nav className="navbar container flex justify-between items-center">
           <div className="header__category--btn">
             <DropdownMenu>
@@ -57,7 +57,7 @@ const BottomHeadSection = () => {
                   categoryList && categoryList.length > 0 ? 
                   (
                     categoryList.map((item)=>(
-                        <DropdownMenuItem className="text-darkGreen uppercase bg-white rounded-2xl shadow p-2 mb-2 hover:scale-95 transition-all cursor-pointer" key={item.category_id}>
+                        <DropdownMenuItem className="text-darkGreen uppercase bg-white rounded-2xl shadow p-1 mb-2 hover:scale-95 transition-all cursor-pointer" key={item.category_id}>
                           <img
                             src={item.category_icon}
                             alt="tractor-icon"

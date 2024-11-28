@@ -7,7 +7,7 @@ const Associates = () => {
   return (
     <>
       <div className="associates bg-[#ebebeb]">
-        <div className="container flex justify-between items-center">
+        <div className="container grid grid-cols-4 justify-between items-center">
           <img src={associate1} alt="" className="assciates__logo max-w-full h-auto" />
           <img src={associate4} alt="" className="assciates__logo max-w-full h-auto" />
           <img src={associate2} alt="" className="assciates__logo max-w-full h-auto" />

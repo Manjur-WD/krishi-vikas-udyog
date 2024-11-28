@@ -10,7 +10,7 @@ import { IoIosArrowDown } from "react-icons/io";
 const TopHeadSection = () => {
   return (
     <>
-      <section className="top-header bg-lightdark">
+      <section className="top-header bg-lightdark md:block hidden">
         <div className="container flex justify-between py-1">
           <div className="header__phone__email">
             <a href="#" className="text-white me-2  border-e pe-2">

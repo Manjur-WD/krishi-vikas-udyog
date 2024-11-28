@@ -24,13 +24,13 @@ const CategoryWiseProductCarousel = ({
         
       <section className="category-wise-product-slider relative my-10">
         <div className="category-header__title bg-lightdark shadow flex justify-between items-center">
-          <h3 className="text-2xl w-[350px] p-4 text-white font-bold shadow-lg text-center uppercase">
+          <h3 className="md:text-2xl text-xs md:w-[350px] w-1/2 p-4 text-white md:font-bold shadow-lg text-center uppercase">
             {category_title}
           </h3>
           <AnimateButton>
             <a
               href="#"
-              className="block uppercase border-lightgreen bg-white me-10 px-4 py-1 rounded-3xl font-bold shadow text-darkGreen border"
+              className="block uppercase border-lightgreen bg-white md:me-10 me-2 px-4 py-1 rounded-3xl md:font-semibold shadow text-darkGreen border md:text-md text-xs"
             >
               View All <TbArrowMoveRight className="inline mb-1" />
             </a>
@@ -43,13 +43,13 @@ const CategoryWiseProductCarousel = ({
               defaultValue={tabs[0] === "old" ? "used" : tabs[0]}
               className="w-full"
             >
-              <TabsList className="absolute top-3 left-[50%] -translate-x-1/2 rounded-2xl">
+              <TabsList className="md:absolute top-3 left-[50%] md:-translate-x-1/2 rounded-2xl">
                 {/* Dynamically render TabsTrigger with unique key */}
                 {tabs.map((tab, idx) => (
                   <TabsTrigger
                     key={idx} // Use a unique identifier, such as tab.value or tab.label
                     value={tab === "old" ? "used" : tab}
-                    className="px-10 uppercase category-tab text-black rounded-2xl"
+                    className="px-5 uppercase category-tab text-black rounded-2xl"
                   >
                     {tab === "old" ? "used" : tab}
                   </TabsTrigger>
@@ -124,8 +124,8 @@ const CategoryWiseProductCarousel = ({
                           VIEW ALL
                         </CarouselItem> */}
                       </CarouselContent>
-                      <CarouselPrevious className="absolute -left-4 top-1/2 -translate-y-1/2" />
-                      <CarouselNext className="absolute -right-4 top-1/2 -translate-y-1/2" />
+                      <CarouselPrevious className="absolute -left-2 top-1/2 -translate-y-1/2" />
+                      <CarouselNext className="absolute -right-2 top-1/2 -translate-y-1/2" />
                     </Carousel>
                   </TabsContent>
                 </motion.div>
