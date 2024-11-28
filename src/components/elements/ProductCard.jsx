@@ -20,7 +20,7 @@ const ProductCard = ({
             className="w-full h-[200px] object-cover object-center rounded-3xl"
           />
         </div>
-        <p className="text-center py-4 font-semibold product-title px-4">{product_title}</p>
+        <p className="text-center py-4 product-title px-4">{product_title}</p>
         <div className="flex text-sm justify-between items-center px-5 py-3 location-and-price">
           <p className="distance">
             <GrMapLocation className="inline-block mb-2 me-1" />

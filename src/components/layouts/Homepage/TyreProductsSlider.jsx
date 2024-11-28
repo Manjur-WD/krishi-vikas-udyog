@@ -29,7 +29,6 @@ const TyreProductsSlider = () => {
         tabs={tabs}
         product_data={tyresData}
         populer_brand_id="7"
-        company_id="1"
       />
     </>
   );

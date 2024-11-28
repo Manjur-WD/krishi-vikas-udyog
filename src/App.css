@@ -92,15 +92,32 @@
   background: linear-gradient(33deg, #13693a, #8cbf44);
 }
 
-.category-tab.data-\[state\=active\]\:bg-background[data-state="active"], .location-and-price {
+.category-tab.data-\[state\=active\]\:bg-background[data-state="active"],
+.location-and-price {
   background: linear-gradient(33deg, #13693a, #8cbf44);
   color: white;
 }
 
-.product-title{
+.product-title {
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
   padding: 10px 25px;
 }
 
+.footer__social_icons a {
+  @apply border p-2 rounded;
+}
+
+.footer__social_icons a:hover,
+.sell__links a:hover,
+.buy__links a:hover ,
+.rent__links a:hover{
+  @apply scale-95 text-lightgreen transition-all duration-200;
+}
+
+.sell__links a,
+.buy__links a,
+.rent__links a {
+  @apply block;
+}

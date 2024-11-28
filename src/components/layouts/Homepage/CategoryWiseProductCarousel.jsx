@@ -64,7 +64,19 @@ const CategoryWiseProductCarousel = ({
                   {/* POPULER BRAND RENDERING CODE START */}
 
                   {
-                    tab === "new"?  null : <PopulerBrandList populer_brand_id={populer_brand_id}  company_id ={company_id}/>
+                    tab === "new"?  null : <PopulerBrandList populer_brand_id={populer_brand_id}/>
+                  }
+
+                  {
+                    tab === "seeds"?  <PopulerBrandList company_id= "6" /> : null
+                  }
+
+                  {
+                    tab === "pesticides"?  <PopulerBrandList company_id= "8" /> : null
+                  }
+
+                  {
+                    tab === "fertilizers"?  <PopulerBrandList company_id= "9" /> : null
                   }
 
                   {/* POPULER BRAND RENDERING CODE END */}

@@ -26,7 +26,6 @@ const GoodVehiclesProductSlider = () => {
         tabs={tabs}
         product_data={goodsVehicleData}
         populer_brand_id="3"
-        company_id="1"
       />
     </>
   );

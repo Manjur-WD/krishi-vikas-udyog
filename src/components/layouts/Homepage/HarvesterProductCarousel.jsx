@@ -26,7 +26,6 @@ const HarvesterProductCarousel = () => {
         tabs={tabs}
         product_data={harvestorData}
         populer_brand_id="4"
-        company_id="1"
       />
     </>
   );

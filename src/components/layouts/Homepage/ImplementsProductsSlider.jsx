@@ -26,7 +26,6 @@ const ImplementsProductsSlider = () => {
         tabs={tabs}
         product_data={implemetsData}
         populer_brand_id="5"
-        company_id="5"
       />
     </>
   );

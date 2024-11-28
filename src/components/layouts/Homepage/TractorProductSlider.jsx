@@ -28,7 +28,6 @@ const TractorProductSLider = () => {
         tabs={tabs}
         product_data={tractorData}
         populer_brand_id="1"
-        company_id="1"
       />
     </>
   );

@@ -25,8 +25,6 @@ const AgriInputsProductSlider = () => {
         category_title="agri inputs"
         tabs={tabs}
         product_data={agriInputsData}
-        populer_brand_id="1"
-        company_id="1"
       />
     </>
   );
