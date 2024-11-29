@@ -89,7 +89,7 @@ const CategoryWiseProductCarousel = ({
                           return (
                             <CarouselItem
                               key={item.id}
-                              className="md:basis-1/3 xl:basis-1/4 2xl:basis-1/5"
+                              className="md:basis-1/3 xl:basis-1/4 2xl:basis-1/5 basis-[250px]"
                             >
                               {/* Example rendering each item, adjust based on your data */}
                               <ProductCard

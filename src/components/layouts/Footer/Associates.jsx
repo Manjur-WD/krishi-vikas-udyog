@@ -8,10 +8,10 @@ const Associates = () => {
     <>
       <div className="associates bg-[#ebebeb]">
         <div className="container grid grid-cols-4 justify-between items-center">
-          <img src={associate1} alt="" className="assciates__logo max-w-full h-auto" />
-          <img src={associate4} alt="" className="assciates__logo max-w-full h-auto" />
-          <img src={associate2} alt="" className="assciates__logo max-w-full h-auto" />
-          <img src={associate3} alt="" className="assciates__logo max-w-full h-auto" />
+          <img src={associate1} alt="asssiates-logo" className="assciates__logo max-w-[90%] h-auto mx-auto" />
+          <img src={associate4} alt="asssiates-logo" className="assciates__logo max-w-[90%] h-auto mx-auto" />
+          <img src={associate2} alt="asssiates-logo" className="assciates__logo max-w-[90%] h-auto mx-auto" />
+          <img src={associate3} alt="asssiates-logo" className="assciates__logo max-w-[90%] h-auto mx-auto" />
         </div>
       </div>
     </>
