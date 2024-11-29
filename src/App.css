@@ -162,6 +162,14 @@
   animation: animateGradient forwards 2s infinite linear;
 }
 
+/* .weather-section-homepage{
+  background: linear-gradient(rgba(0, 0, 0, 0.356), rgba(0, 0, 0, 0.37));
+} */
+
+.rent-sell-btn a{
+  box-shadow: 5px 5px 0px white;
+}
+
 @keyframes animateGradient {
   0%{
     background: linear-gradient(0deg, #13693a, #8cbf44);

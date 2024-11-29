@@ -41,7 +41,7 @@ const BottomHeadSection = () => {
 
   return (
     <>
-      <section className="bottom-header px-2 md:py-2 bg-white">
+      <section className="bottom-header px-2 md:py-2 shadow-lg bg-white">
         <nav className="navbar container flex justify-between items-center">
           <div className="header__category--btn md:block hidden">
             <DropdownMenu>

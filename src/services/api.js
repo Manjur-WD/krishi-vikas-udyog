@@ -32,11 +32,11 @@ export const loadHeroSlides = async (langId) => {
 
 export const loadAllCategoryWiseData = async () => {
   try {
-    const response = await api.get("/home2");  // Make the API request
-    return response.data.result.response;      // Return the resolved data
+    const response = await api.get("/home2"); // Make the API request
+    return response.data.result.response; // Return the resolved data
   } catch (error) {
     console.error("Error loading category data:", error);
-    throw error;  // Optionally throw or return a default value if you want to handle errors differently
+    throw error; // Optionally throw or return a default value if you want to handle errors differently
   }
 };
 
@@ -44,10 +44,27 @@ export const loadAllCategoryWiseData = async () => {
 
 export const loadAllPopulerBrandAndCompanyData = async () => {
   try {
-    const response = await api.get("/home-brand-and-company");  // Make the API request
-    return response.data.result.response;      // Return the resolved data
+    const response = await api.get("/home-brand-and-company"); // Make the API request
+    return response.data.result.response; // Return the resolved data
   } catch (error) {
     console.error("Error loading category data:", error);
-    throw error;  // Optionally throw or return a default value if you want to handle errors differently
+    throw error; // Optionally throw or return a default value if you want to handle errors differently
+  }
+};
+
+// WEATHER REPORT DATA
+
+export const getWeatherData = async (pincode, latitude, longitude, time) => {
+  try {
+    const response = await api.post("/weather-report", {
+      pincode: pincode,
+      latitude: latitude, //22.515310
+      longitude: longitude, //88.348038
+      time: time,
+    });
+    return response.data.result.response; // Return the resolved data
+  } catch (error) {
+    console.error("Error loading category data:", error);
+    throw error; // Optionally throw or return a default value if you want to handle errors differently
   }
 };

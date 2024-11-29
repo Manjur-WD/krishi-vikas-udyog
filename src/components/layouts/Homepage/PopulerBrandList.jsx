@@ -3,7 +3,7 @@ import { loadAllPopulerBrandAndCompanyData } from "../../../services/api";
 import { useQuery } from "@tanstack/react-query";
 const PopulerBrandList = ({ populer_brand_id, company_id }) => {
   const [brandData, setBrandData] = useState([]);
-  console.log(populer_brand_id);
+  // console.log(populer_brand_id);
   const { data } = useQuery({
     queryKey: ["populer-brand-and-company"],
     queryFn: () => loadAllPopulerBrandAndCompanyData(),
