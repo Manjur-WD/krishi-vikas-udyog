@@ -7,6 +7,7 @@ import HeroBannerCarousel from "../components/layouts/Homepage/HeroBannerCarouse
 import ImplementsProductsSlider from "../components/layouts/Homepage/ImplementsProductsSlider";
 import TractorProductSLider from "../components/layouts/Homepage/TractorProductSLider";
 import TyreProductsSlider from "../components/layouts/Homepage/TyreProductsSlider";
+import VideoSection from "../components/layouts/Homepage/VideoSection";
 
 const HomePage = () => {
   return (
@@ -15,6 +16,7 @@ const HomePage = () => {
         <HeroBannerCarousel />
         <CategorySection />
         <TractorProductSLider />
+        <VideoSection />
         <GoodVehiclesProductSlider />
         <AgriInputsProductSlider />
         <HarvesterProductCarousel />

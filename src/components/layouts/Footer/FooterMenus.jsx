@@ -10,14 +10,14 @@ import { FaXTwitter } from "react-icons/fa6";
 import { FaLinkedinIn } from "react-icons/fa";
 import { FaYoutube } from "react-icons/fa";
 
-import makeInIndia from "../../../assets/images/make-in-india-logo-make-in-india-icon-free-free-vector-removebg-preview.png"
+import makeInIndia from "../../../assets/images/make-in-india-logo-make-in-india-icon-free-free-vector-removebg-preview.png";
 
 const FooterMenus = () => {
   return (
     <>
-      <div className="footermenus bg-darkGreen py-10">
-        <div className="container grid md:grid-cols-4 md:p-0 p-5 grid-cols-1">
-          <div className="footermenus__box">
+      <div className="footermenus bg-darkGreen py-10 px-10">
+        <div className="container grid md:grid-cols-2 lg:grid-cols-4 md:p-0 p-5 grid-cols-1">
+          <div className="footermenus__box lg:mb-0 mb-5">
             <img
               src={logo}
               alt="this is the logo on footer"
@@ -80,7 +80,7 @@ const FooterMenus = () => {
               </div>
             </div>
           </div>
-          <div className="footermenus__box">
+          <div className="footermenus__box md:mb-0 mb-5">
             <p className="text-2xl uppercase text-white mb-5">SELL PRODUCTS</p>
             <div className="sell__links text-white">
               <a href="#">NEW TRACTOR</a>
@@ -97,7 +97,7 @@ const FooterMenus = () => {
               <a href="#">SELL FERTILIZERS</a>
             </div>
           </div>
-          <div className="footermenus__box">
+          <div className="footermenus__box md:mb-0 mb-5">
             <p className="text-2xl uppercase text-white mb-5">BUY PRODUCTS</p>
             <div className="buy__links text-white">
               <a href="#">NEW TRACTOR</a>
@@ -114,7 +114,7 @@ const FooterMenus = () => {
               <a href="#">SELL FERTILIZERS</a>
             </div>
           </div>
-          <div className="footermenus__box">
+          <div className="footermenus__box md:mb-0 mb-5">
             <p className="text-2xl uppercase text-white mb-5">RENT PRODUCTS</p>
             <div className="rent__links text-white">
               <a href="#">RENT TRACTOR</a>
@@ -133,9 +133,17 @@ const FooterMenus = () => {
           </div>
         </div>
         <hr className="w-[90%] mx-auto my-10 h-[2px] bg-whitesmoke opacity-50" />
-        <div className="container flex justify-between items-center md:flex-row flex-col gap-3">
-            <img src={makeInIndia} alt="make in india logo" width={100} className="invert"/>
-            <p className="text-white text-center">Copyright © 2023-24 | ABYBABY E-COM PRIVATE LIMITED | ALL RIGHTS RESERVED</p>
+        <div className="container flex justify-between items-center md:flex-row flex-col gap-3 md:pb-0 pb-[100px]">
+          <img
+            src={makeInIndia}
+            alt="make in india logo"
+            width={100}
+            className="invert"
+          />
+          <p className="text-white text-center">
+            Copyright © 2023-24 | ABYBABY E-COM PRIVATE LIMITED | ALL RIGHTS
+            RESERVED
+          </p>
         </div>
       </div>
     </>

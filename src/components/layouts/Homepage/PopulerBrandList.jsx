@@ -21,7 +21,7 @@ const PopulerBrandList = ({ populer_brand_id, company_id }) => {
 
   return (
     <>
-      <div className="populer-brand-list flex items-center container overflow-auto mt-3 ">
+      <div className="populer-brand-list px-2 flex items-center container overflow-x-auto mt-3">
         {brandData.map((brand) => (
           <div
             className="w-[150px] shadow shadow-lightgreen flex gap-2 justify-center items-center brand-card py-2 px-3 bg-white my-2 me-5 rounded-2xl hover:scale-95 flex-shrink-0 flex-grow-0"

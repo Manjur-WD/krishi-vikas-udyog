@@ -25,7 +25,7 @@ const CategorySection = () => {
   }
 
   return (
-    <section className="category-section w-[95%] mx-auto md:py-10 py-5 md:px-10 px-3">
+    <section className="category-section md:w-[95%] mx-auto md:py-10 py-5 md:px-10 px-3">
       <div className="container">
         <h2 className="text-3xl text-center mb-10 md:block hidden">
           <BsGridFill className="inline pb-1 me-1" />

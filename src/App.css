@@ -9,7 +9,7 @@
   border-right: 4px solid transparent;
   box-sizing: border-box;
   animation: rotation 1s linear infinite;
-  box-shadow: 0 0 1px rgb(0, 0, 0);
+  /* box-shadow: 0 0 1px rgb(0, 0, 0); */
 }
 
 .loader::after {
@@ -23,7 +23,7 @@
   border-radius: 50%;
   border-bottom: 4px solid #8cbf44;
   border-left: 4px solid transparent;
-  box-shadow: 0 0 1px rgb(0, 0, 0);
+  /* box-shadow: 0 0 1px rgb(0, 0, 0); */
 }
 
 @keyframes rotation {
@@ -78,6 +78,37 @@
   padding: 10px;
 }
 
+@media (max-width: 992px) {
+  .categories::-webkit-scrollbar,
+  .populer-brand-list::-webkit-scrollbar,
+  body::-webkit-scrollbar {
+    display: none;
+  }
+
+  .submenu{
+    position: initial;
+  }
+  .submenu-child{
+    width: fit-content;
+    text-wrap: nowrap;
+    padding: 1rem;
+  }
+  .nav-menus {
+    position: fixed;
+    width: 80%;
+    border-radius: 0 20px 20px 0;
+    background: linear-gradient(33deg, #13693a, #8cbf44, #13693a);
+    inset: 0 0 0 -100%;
+    justify-content: center;
+    align-items: start;
+    padding: 1rem;
+    transition: 0.5s ease-in-out;
+  }
+  .nav-menus.active {
+    inset: 0;
+  }
+}
+
 .category,
 .category img {
   transition: 0.5s;
@@ -111,8 +142,8 @@
 
 .footer__social_icons a:hover,
 .sell__links a:hover,
-.buy__links a:hover ,
-.rent__links a:hover{
+.buy__links a:hover,
+.rent__links a:hover {
   @apply scale-95 text-lightgreen transition-all duration-200;
 }
 
@@ -120,4 +151,28 @@
 .buy__links a,
 .rent__links a {
   @apply block;
+}
+
+.mobile-nav__sell--rent--btn{
+  color: white; 
+  padding: 10px;
+  border-radius: 50%;
+  border: 8px solid white;
+  /* box-shadow: 0 0 5px rgb(163, 162, 162); */
+  animation: animateGradient forwards 2s infinite linear;
+}
+
+@keyframes animateGradient {
+  0%{
+    background: linear-gradient(0deg, #13693a, #8cbf44);
+    scale:1
+  }
+  50%{
+    background: linear-gradient(180deg, #13693a, #8cbf44);
+    scale: 1.05;
+  }
+  100%{
+    background: linear-gradient(0deg, #13693a, #8cbf44);
+    scale:1
+  }
 }

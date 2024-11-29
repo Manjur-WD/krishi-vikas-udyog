@@ -23,8 +23,8 @@ const CategoryWiseProductCarousel = ({
     <>
         
       <section className="category-wise-product-slider relative md:my-10 my-2">
-        <div className="category-header__title bg-lightdark shadow flex justify-between items-center">
-          <h3 className="md:text-2xl text-xs md:w-[350px] w-1/2 p-4 text-white md:font-bold shadow-lg text-center uppercase">
+        <div className="mx-2 md:mx-0 md:rounded-0 rounded-lg overflow-hidden category-header__title md:bg-lightdark bg-white shadow flex justify-between items-center">
+          <h3 className="md:text-2xl text-shado text-lg md:w-[350px] w-1/2 md:p-4 p-2 font-semibold text-white md:font-bold shadow-lg text-center uppercase">
             {category_title}
           </h3>
           <AnimateButton>

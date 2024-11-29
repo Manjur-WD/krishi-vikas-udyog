@@ -41,9 +41,9 @@ const BottomHeadSection = () => {
 
   return (
     <>
-      <section className="bottom-header px-2 py-2 bg-white md:block hidden">
+      <section className="bottom-header px-2 md:py-2 bg-white">
         <nav className="navbar container flex justify-between items-center">
-          <div className="header__category--btn">
+          <div className="header__category--btn md:block hidden">
             <DropdownMenu>
               <AnimateButton>
                 <DropdownMenuTrigger className="border border-dashed rounded-3xl shadow-lg px-2 py-1 flex items-center text-white outline-none">
@@ -78,7 +78,7 @@ const BottomHeadSection = () => {
           </div>
 
           <Navbar />
-          <div className="header__sell-rent-btn flex gap-2">
+          <div className="header__sell-rent-btn  gap-2 md:flex hidden">
             <AnimateButton>
               <a
                 href="#"
