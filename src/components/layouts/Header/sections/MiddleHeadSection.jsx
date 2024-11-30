@@ -7,6 +7,7 @@ import AnimateButton from "../../../animation/AnimateButton";
 import { CgMenuLeft } from "react-icons/cg";
 import { useContext } from "react";
 import { NavTogglerContext } from "../../../../context/HeaderMenuContext/NavTogglerContext";
+import { Link } from "react-router-dom";
 const MiddleHeadSection = () => {
     const {setActiveNav} = useContext(NavTogglerContext);
   return (
@@ -20,13 +21,13 @@ const MiddleHeadSection = () => {
           >
             <CgMenuLeft className="text-2xl text-gray-300" />
           </button>
-          <a href="#">
+          <Link to="/">
             <img
               src={logo}
               alt="this is brand logo"
               className="md:w-[200px] w-[150px] "
             />
-          </a>
+          </Link>
           <div className="header__app--link items-center lg:flex hidden">
             <p className="text-lightdark me-2">DOWNLOAD KRISHI VIKAS APP</p>
             <a href="#" className="me-1">

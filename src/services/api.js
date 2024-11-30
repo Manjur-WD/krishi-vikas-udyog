@@ -68,3 +68,20 @@ export const getWeatherData = async (pincode, latitude, longitude, time) => {
     throw error; // Optionally throw or return a default value if you want to handle errors differently
   }
 };
+
+// CATEGORY VIEW ALL DATA
+
+export const getCategoryWiseProduct = async(category_id , type , skip , take) =>{
+  try {
+    const response = await api.post("/category-view-all-data", {
+      category_id: category_id,
+      type: type,
+      skip: skip,
+      take: take,
+    });
+    return response.data.result.response; // Return the resolved data
+  } catch (error) {
+    console.error("Error loading category data:", error);
+    throw error; // Optionally throw or return a default value if you want to handle errors differently
+  }
+}

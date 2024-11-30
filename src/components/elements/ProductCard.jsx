@@ -14,7 +14,7 @@ const ProductCard = ({
   return (
     <>
       <div className="product-card bg-white rounded-3xl overflow-hidden my-5 shadow-lg border hover:scale-95 transition-all">
-        <div className="product_image p-1 relative">
+        <div className="product_image p-[2px] relative">
           <img
             src={product_image}
             alt="this is product image"

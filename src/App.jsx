@@ -1,3 +1,4 @@
+import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import Footer from "./components/layouts/Footer/Footer";
 import Header from "./components/layouts/Header/Header";
@@ -10,7 +11,9 @@ const App = () => {
       <Header />
       <MobileScreenNav />
       <main>
-        <HomePage />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+        </Routes>
       </main>
       <Footer />
     </>

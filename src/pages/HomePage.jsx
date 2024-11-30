@@ -1,6 +1,7 @@
 import AgriInputsProductSlider from "../components/layouts/Homepage/AgriInputsProductSlider";
 import CategorySection from "../components/layouts/Homepage/CategorySection";
 import CategoryWiseProductCarousel from "../components/layouts/Homepage/CategoryWiseProductCarousel";
+import FaqSection from "../components/layouts/Homepage/FaqSection";
 import GoodVehiclesProductSlider from "../components/layouts/Homepage/GoodVehiclesProductSlider";
 import HarvesterProductCarousel from "../components/layouts/Homepage/HarvesterProductCarousel";
 import HeroBannerCarousel from "../components/layouts/Homepage/HeroBannerCarousel";
@@ -27,6 +28,7 @@ const HomePage = () => {
         <HarvesterProductCarousel />
         <WeatherSection />
         <ImplementsProductsSlider />
+        <FaqSection />
         <TyreProductsSlider />
       </section>
     </>

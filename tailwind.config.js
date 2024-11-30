@@ -6,7 +6,10 @@ export default {
     extend: {
       backgroundImage: {
         rentSellBanner: "url(./src/assets/images/rent-sell-banner.jpg)",
-		weatherHomepage: "linear-gradient(rgba(0, 0, 0, 0.356), rgba(0, 0, 0, 0.37)),url(./src/assets/images/short_weather_report.webp)"
+        weatherHomepage:
+          "linear-gradient(rgba(0, 0, 0, 0.356), rgba(0, 0, 0, 0.37)),url(./src/assets/images/short_weather_report.webp)",
+        breadcrumbImage:
+          "linear-gradient(rgba(0, 0, 0, 0.356), rgba(0, 0, 0, 0.37)),url(./src/assets/images/img_hero.jpg)",
       },
       colors: {
         darkGreen: "#13693a",
@@ -64,6 +67,28 @@ export default {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+      },
+      keyframes: {
+        "accordion-down": {
+          from: {
+            height: "0",
+          },
+          to: {
+            height: "var(--radix-accordion-content-height)",
+          },
+        },
+        "accordion-up": {
+          from: {
+            height: "var(--radix-accordion-content-height)",
+          },
+          to: {
+            height: "0",
+          },
+        },
+      },
+      animation: {
+        "accordion-down": "accordion-down 0.2s ease-out",
+        "accordion-up": "accordion-up 0.2s ease-out",
       },
     },
   },
