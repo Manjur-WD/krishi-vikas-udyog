@@ -36,7 +36,7 @@ const CategorySection = () => {
             categoryList.map((item) => (
               <div
                 key={item.category_id} // Ensure a unique key for each element
-                className="category hover:scale-105 md:flex md:flex-row flex-col items-center gap-4 bg-white shadow-lg p-5 md:rounded-3xl rounded-2xl transition-shadow border md:w-auto w-[100px] flex-grow-0 flex-shrink-0"
+                className="category hover:scale-95 md:flex md:flex-row flex-col items-center gap-4 bg-white shadow-lg p-5 md:rounded-3xl rounded-2xl transition-shadow border md:w-auto w-[100px] flex-grow-0 flex-shrink-0"
               >
                 <div className="category-image">
                   <img

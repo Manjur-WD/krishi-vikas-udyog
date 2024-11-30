@@ -6,6 +6,7 @@ export default {
     extend: {
       backgroundImage: {
         rentSellBanner: "url(./src/assets/images/rent-sell-banner.jpg)",
+		
         weatherHomepage:
           "linear-gradient(rgba(0, 0, 0, 0.356), rgba(0, 0, 0, 0.37)),url(./src/assets/images/short_weather_report.webp)",
         breadcrumbImage:

@@ -21,11 +21,11 @@ const MiddleHeadSection = () => {
           >
             <CgMenuLeft className="text-2xl text-gray-300" />
           </button>
-          <Link to="/">
+          <Link to="/krishi-vikas-udyog/">
             <img
               src={logo}
               alt="this is brand logo"
-              className="md:w-[200px] w-[150px] "
+              className="md:w-[200px] w-[150px]"
             />
           </Link>
           <div className="header__app--link items-center lg:flex hidden">

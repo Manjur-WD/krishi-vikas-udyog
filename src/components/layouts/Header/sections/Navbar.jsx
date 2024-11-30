@@ -3,6 +3,7 @@ import { menuItems } from "../menuItems.js";
 import "animate.css";
 import { NavTogglerContext } from "../../../../context/HeaderMenuContext/NavTogglerContext.jsx";
 import { CgCloseR } from "react-icons/cg";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const { activeNav, setActiveNav } = useContext(NavTogglerContext);
@@ -18,6 +19,7 @@ const Navbar = () => {
     >
       {menuItems.map((navlink, index) => (
         <li className="relative nav-link" key={navlink.id || index}>
+          
           {navlink.label}
           {navlink.hasSubMenu && (
             <div
@@ -41,7 +43,9 @@ const Navbar = () => {
                       className="mb-2 text-center"
                       key={sublink.id || subIndex}
                     >
-                      {sublink.label}
+
+                      <Link to={sublink.link}>{sublink.label}</Link>
+                      
                     </li>
                   ))}
                 </ul>
