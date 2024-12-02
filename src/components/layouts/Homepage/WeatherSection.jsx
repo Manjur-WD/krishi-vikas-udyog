@@ -5,6 +5,7 @@ import humidity from "../../../assets/humidity.svg";
 import airpressure from "../../../assets/airpressure.svg";
 import feelslike from "../../../assets/feelslike.svg";
 import windspeed from "../../../assets/windspeed.svg";
+import weatherHomepage from "../../../assets/images/short_weather_report.webp";
 
 const WeatherSection = () => {
   const now = new Date();
@@ -24,7 +25,7 @@ const WeatherSection = () => {
   
   return (
     <>
-      <section className="weather-section-homepage bg-weatherHomepage bg-cover bg-center p-5">
+      <section className="weather-section-homepage p-5" style={{background: `linear-gradient(rgba(0, 0, 0, 0.356), rgba(0, 0, 0, 0.37)),url(${weatherHomepage}) no-repeat center/cover`}}>
         <div className="container flex lg:flex-row flex-col md:gap-10 gap-5 items-center justify-center">
           <div className="current-status-weather flex md:gap-5 md:flex-row flex-col justify-center items-center">
             <img

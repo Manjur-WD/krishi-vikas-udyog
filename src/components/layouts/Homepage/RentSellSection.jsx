@@ -1,10 +1,11 @@
 import sell_icon from "../../../assets/images/sell.svg";
 import rent_icon from "../../../assets/images/rent.svg";
+import rentSellBanner from "../../../assets/images/rent-sell-banner.jpg";
 
 const RentSellSection = () => {
   return (
     <>
-      <section className="rent-sell-cta bg-rentSellBanner md:h-[400px] h-[250px] bg-cover bg-bottom  flex justify-top flex-col pt-10 ">
+      <section className="rent-sell-cta md:h-[400px] h-[250px]  flex justify-top flex-col pt-10 " style={{background: `url(${rentSellBanner}) no-repeat bottom/cover`}}>
         <h2 className="md:text-6xl text-2xl px-5 text-center font-black text-white mb-5">
           What would you like to do?
         </h2>
