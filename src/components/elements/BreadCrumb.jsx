@@ -19,16 +19,19 @@ const BreadCrumb = () => {
           <div className="breadcrumb-links flex justify-center items-center text-2xl text-white">
             <p className="hover:text-lightgreen px-3">Home</p>
             <FaChevronRight />
-            <p className="hover:text-lightgreen px-3 capitalize">{
-                category === "goods-vehicle" ? "good vehicle" : category
-                }</p>
+            <p className="hover:text-lightgreen px-3 capitalize">
+              {category === "goods-vehicle" ? "goods vehicle" : category}
+            </p>
           </div>
           <p
             className="text-lightgreen md:text-6xl text-4xl font-bold text-center mt-3 uppercase"
             style={{ textShadow: "0 0 15px black" }}
           >
-            {category==="agri-inputs" ? type : `${type === "old"? "used" : type} ${category}`}
-
+            {category === "goods-vehicle"
+              ? `${type === "old" ? "used" : type} goods vehicle`
+              : category === "agri-inputs"
+              ? type
+              : `${type === "old" ? "used" : type} ${category}`}
           </p>
         </div>
       </section>
