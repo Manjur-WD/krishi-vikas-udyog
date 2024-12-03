@@ -20,7 +20,7 @@ const BreadCrumb = () => {
             <p className="hover:text-lightgreen px-3">Home</p>
             <FaChevronRight />
             <p className="hover:text-lightgreen px-3 capitalize">
-              {category === "goods-vehicle" ? "goods vehicle" : category}
+              {category === "goods-vehicle" ? "goods vehicle" : category === "agri-inputs" ? "agri inputs" : category}
             </p>
           </div>
           <p

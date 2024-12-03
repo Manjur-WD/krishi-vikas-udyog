@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useRef } from "react";
 import { menuItems } from "../menuItems.js";
 import "animate.css";
 import { NavTogglerContext } from "../../../../context/HeaderMenuContext/NavTogglerContext.jsx";
@@ -6,8 +6,19 @@ import { CgCloseR } from "react-icons/cg";
 import { Link } from "react-router-dom";
 
 const Navbar = () => {
-  const { activeNav, setActiveNav } = useContext(NavTogglerContext);
-  console.log(activeNav);
+  const { activeNav, setActiveNav, subMenuStatus, setSubMenuStatus } =
+    useContext(NavTogglerContext);
+
+  const subMenuRef = useRef();
+  console.log(subMenuRef.current);
+
+  const handleSubmenu = () => {
+    console.log(subMenuRef.current);
+
+    if (subMenuRef.current) {
+      subMenuRef.current.style.display = "none";
+    }
+  };
 
   return (
     <ul
@@ -19,7 +30,6 @@ const Navbar = () => {
     >
       {menuItems.map((navlink, index) => (
         <li className="relative nav-link" key={navlink.id || index}>
-          
           {navlink.label}
           {navlink.hasSubMenu && (
             <div
@@ -28,6 +38,8 @@ const Navbar = () => {
                   ? "submenu absolute pt-[13px] right-0 z-50 animate__animated animate__fadeIn animate__faster"
                   : "submenu absolute pt-[13px] z-50 animate__animated animate__fadeIn animate__faster"
               }
+              onClick={handleSubmenu}
+              ref={subMenuRef}
             >
               <div className="submenu-child bg-white shadow-lg text-darkGreen md:grid md:grid-cols-2 md:w-[450px] w-[350px] p-1 rounded-lg items-center">
                 {navlink.image && (
@@ -43,9 +55,7 @@ const Navbar = () => {
                       className="mb-2 text-center"
                       key={sublink.id || subIndex}
                     >
-
                       <Link to={sublink.link}>{sublink.label}</Link>
-                      
                     </li>
                   ))}
                 </ul>

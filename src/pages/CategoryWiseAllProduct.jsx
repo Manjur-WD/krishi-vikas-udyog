@@ -13,16 +13,12 @@ const CategoryWiseAllProduct = () => {
     queryFn: () => getCategoryWiseProduct(categoryId, "", skip, take), // Pass a function that calls getCategoryList
   });
 
-  console.log(allProducts);
+  // console.log(allProducts);
 
   return (
     <>
       <BreadCrumb />
-      {
-        allProducts.map(()=>{
-          
-        })
-      }
+      
     </>
   );
 };

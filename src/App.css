@@ -53,6 +53,10 @@
   @apply hidden;
 }
 
+.submenu.active{
+  @apply hidden;
+}
+
 .nav-link .submenu:nth-child(6) {
   @apply right-0;
 }
