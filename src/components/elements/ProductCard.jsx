@@ -13,14 +13,14 @@ const ProductCard = ({
 }) => {
   return (
     <>
-      <div className="product-card bg-white rounded-3xl overflow-hidden my-5 shadow-lg border hover:scale-95 transition-all">
+      <div className="product-card bg-white rounded-3xl overflow-hidden my-2 shadow-lg border hover:scale-95 transition-all">
         <div className="product_image p-[2px] relative">
           <img
             src={product_image}
             alt="this is product image"
             className="w-full h-[200px] object-cover object-center rounded-3xl"
           />
-          <img src={watermark} alt="water-mark" className="md:w-[100px] w-[80px] absolute md:-top-4 -top-1 md:-right-2 -right-1"/>
+          <img src={watermark} alt="water-mark" className="md:w-[100px] w-[80px] drop-shadow-lg absolute md:-top-4 -top-1 md:-right-2 -right-1"/>
         </div>
         <p className="text-center py-4 product-title px-4">{product_title}</p>
         <div className="flex text-sm justify-between items-center px-5 py-3 location-and-price">

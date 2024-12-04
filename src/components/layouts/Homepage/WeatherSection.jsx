@@ -9,7 +9,7 @@ import weatherHomepage from "../../../assets/images/short_weather_report.webp";
 
 const WeatherSection = () => {
   const now = new Date();
-  console.log(now);
+  // console.log(now);
 
   // Get the day of the week (e.g., "Monday", "Tuesday", etc.)
   const dayOfWeek = now.toLocaleString("en-US", { weekday: "long" });

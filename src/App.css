@@ -37,7 +37,7 @@
 }
 
 /* HEADER CSS */
-.header__language--btn[open] .downarrow {
+details[open] .downarrow {
   @apply rotate-180;
 }
 

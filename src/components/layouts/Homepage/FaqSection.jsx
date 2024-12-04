@@ -11,7 +11,7 @@ const FaqSection = () => {
     <>
       <section className="faq_section md:p-10 p-5 bg-white">
         <div className="container  grid lg:grid-cols-2 grid-cols-1  gap-10">
-          <div className="faq_left border rounded-3xl md:p-10  p-5 flex flex-col justify-center items-center">
+          <div className="faq_left border lg:rounded-[50px] rounded-2xl  md:p-10  p-5 flex flex-col justify-center items-center">
             <h2 className="md:text-6xl text-2xl font-bold">
               FREQUENTLY ASKED QUESTIONS
             </h2>
@@ -28,7 +28,7 @@ const FaqSection = () => {
           <div className="faq_right">
             <Accordion type="single" collapsible className="w-full">
               <AccordionItem value="item-1">
-                <AccordionTrigger>
+                <AccordionTrigger className="text-lg font-normal bg-whitesmoke text-darkGreen">
                   {" "}
                   What is Krishi Vikas Udyog?{" "}
                 </AccordionTrigger>
@@ -40,7 +40,7 @@ const FaqSection = () => {
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="item-2">
-                <AccordionTrigger>
+                <AccordionTrigger className="text-lg font-normal bg-whitesmoke text-darkGreen">
                   What sets Krishi Vikas Udyog apart from other platforms?{" "}
                 </AccordionTrigger>
                 <AccordionContent>
@@ -54,7 +54,7 @@ const FaqSection = () => {
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="item-3">
-                <AccordionTrigger>
+                <AccordionTrigger className="text-lg font-normal bg-whitesmoke text-darkGreen">
                   What does the product boost feature of Krishi Vikas Udyog do?
                 </AccordionTrigger>
                 <AccordionContent>
@@ -71,7 +71,7 @@ const FaqSection = () => {
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="item-4">
-                <AccordionTrigger>
+                <AccordionTrigger className="text-lg font-normal bg-whitesmoke text-darkGreen">
                   How can I use product boost?{" "}
                 </AccordionTrigger>
                 <AccordionContent>
@@ -88,7 +88,7 @@ const FaqSection = () => {
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="item-5">
-                <AccordionTrigger>What is a banner ad? </AccordionTrigger>
+                <AccordionTrigger className="text-lg font-normal bg-whitesmoke text-darkGreen">What is a banner ad? </AccordionTrigger>
                 <AccordionContent>
                   A banner ad is particularly helpful when you have a variety of
                   products and you want to make each one visible. Through banner
@@ -100,7 +100,7 @@ const FaqSection = () => {
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="item-6">
-                <AccordionTrigger>
+                <AccordionTrigger className="text-lg font-normal bg-whitesmoke text-darkGreen">
                   How can I use banner ads in Krishi Vikas Udyog Mobile
                   Application?{" "}
                 </AccordionTrigger>
@@ -123,7 +123,7 @@ const FaqSection = () => {
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="item-7">
-                <AccordionTrigger>
+                <AccordionTrigger className="text-lg font-normal bg-whitesmoke text-darkGreen">
                   What are the value-added services of Krishi Vikas Udyog?
                 </AccordionTrigger>
                 <AccordionContent>
@@ -141,7 +141,7 @@ const FaqSection = () => {
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="item-8">
-                <AccordionTrigger>
+                <AccordionTrigger className="text-lg font-normal bg-whitesmoke text-darkGreen">
                   How can I mark my product as sold?
                 </AccordionTrigger>
                 <AccordionContent>
@@ -159,7 +159,7 @@ const FaqSection = () => {
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="item-9">
-                <AccordionTrigger>
+                <AccordionTrigger className="text-lg font-normal bg-whitesmoke text-darkGreen">
                   How to reach customer support of Krishi Vikas Udyog?
                 </AccordionTrigger>
                 <AccordionContent>
