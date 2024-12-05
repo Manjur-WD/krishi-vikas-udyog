@@ -3,7 +3,7 @@ import { FaAngleDown } from "react-icons/fa6";
 const FilterProductSidebar = () => {
   return (
     <>
-      <aside className="sticky top-[155px] filter-product-sidebar">
+      <aside className="filter-product-sidebar">
         <section className="w-full bg-white my-3 p-2 rounded-3xl shadow">
           <div className="product__brands">
             <details

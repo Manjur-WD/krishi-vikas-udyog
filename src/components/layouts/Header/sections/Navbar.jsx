@@ -23,20 +23,25 @@ const Navbar = () => {
           {navlink.hasSubMenu && (
             <div
               className={
-                index >= 4
+                index >= 3
                   ? "submenu absolute pt-[13px] right-0 z-50 animate__animated animate__fadeIn animate__faster"
                   : "submenu absolute pt-[13px] z-50 animate__animated animate__fadeIn animate__faster"
               }
             >
-              <div className="submenu-child bg-white shadow-lg text-darkGreen md:grid md:grid-cols-2 md:w-[450px] w-[350px] p-1 rounded-lg items-center">
+              <div className={
+                index <3 ?
+"submenu-child bg-white shadow-lg text-darkGreen md:flex md:flex-row-reverse md:gap-3 md:w-[450px] w-[350px] p-1 rounded-lg items-center"
+:
+"submenu-child bg-white shadow-lg text-darkGreen md:flex md:flex-row md:gap-3 md:w-[450px] w-[350px] p-1 rounded-lg items-center"
+              }>
                 {navlink.image && (
                   <img
                     src={navlink.image}
                     alt="this is a dropdown image"
-                    className="w-full h-full rounded-lg shadow-lg object-cover md:block hidden"
+                    className="w-1/2 h-full rounded-lg shadow-lg object-cover md:block hidden"
                   />
                 )}
-                <ul>
+                <ul className="w-1/2">
                   {navlink.subMenu.map((sublink, subIndex) => (
                     <li
                       className="mb-2 text-center"

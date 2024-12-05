@@ -17,8 +17,8 @@ const WeatherSection = () => {
   const date = now.toLocaleDateString("en-GB");
 
   const { data: weatherData } = useQuery({
-    queryKey: ["weather-data"],
-    queryFn: () => getWeatherData(700091, "22.515310", "88.348038", "20"),
+    queryKey: [""],
+    queryFn: () => getWeatherData(722205, "22.515310", "88.348038", "20"),
   });
 
   // console.log(weatherData.data.current[0].icon);
