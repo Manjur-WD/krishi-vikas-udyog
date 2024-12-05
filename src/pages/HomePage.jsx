@@ -1,3 +1,6 @@
+import Footer from "../components/layouts/Footer/Footer";
+import Header from "../components/layouts/Header/Header";
+import MobileScreenNav from "../components/layouts/Header/MobileScreenNav";
 import AgriInputsProductSlider from "../components/layouts/Homepage/AgriInputsProductSlider";
 import CategorySection from "../components/layouts/Homepage/CategorySection";
 import CategoryWiseProductCarousel from "../components/layouts/Homepage/CategoryWiseProductCarousel";
@@ -16,6 +19,8 @@ import WeatherSection from "../components/layouts/Homepage/WeatherSection";
 const HomePage = () => {
   return (
     <>
+      <Header />
+      <MobileScreenNav />
       <section className="hero-section w-full">
         <HeroBannerCarousel />
         <CategorySection />
@@ -31,6 +36,7 @@ const HomePage = () => {
         <FaqSection />
         <TyreProductsSlider />
       </section>
+      <Footer />
     </>
   );
 };

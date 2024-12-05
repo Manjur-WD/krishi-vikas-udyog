@@ -7,8 +7,14 @@ import FilterProductSidebar from "../components/elements/FilterProductSidebar";
 import SortProductTabs from "../components/elements/SortProductTabs";
 import { useParams } from "react-router-dom";
 import preloader_image from "../../src/assets/images/favicon/favicon-32x32.png";
+import Header from "../components/layouts/Header/Header";
+import MobileScreenNav from "../components/layouts/Header/MobileScreenNav";
+import Footer from "../components/layouts/Footer/Footer";
 // import { Skeleton } from "@/components/ui/skeleton";
-const skeletonArray = new Array(12).fill(true);
+const skeletonArray = new Array(4).fill(true);
+
+import { MdSort } from "react-icons/md";
+import { MdFilterList } from "react-icons/md";
 
 const CategoryWiseAllProduct = () => {
   const { category, type } = useParams();
@@ -104,14 +110,25 @@ const CategoryWiseAllProduct = () => {
 
   return (
     <>
+      <Header />
+      <MobileScreenNav />
       <BreadCrumb />
-
-      <section className="category-wise-all-product container md:px-10 px-4 grid grid-cols-[300px,1fr]">
+      <section className="mobile-filter-and-sort-btn lg:hidden block bg-lightgreen sticky md:top-[160px] top-[62px] z-10">
+        <div className="container px-10  grid grid-cols-2">
+          <button type="button" className="sort-btn text-lg text-white border-r border-white h-full py-2">
+            <MdFilterList className="inline mb-1" /> Filter
+          </button>
+          <button type="button" className="sort-btn text-lg text-white">
+            <MdSort className="inline mb-1" /> Sort
+          </button>
+        </div>
+      </section>
+      <main className="products-container-wrapper container bg-whitesmoke md:px-10 px-2">
         <FilterProductSidebar />
-        <div className="">
-          <SortProductTabs />
+        <SortProductTabs />
+        <section className="category-wise-all-product">
           {isLoading ? (
-            <div className="product-skeleton container grid md:grid-cols-3 2xl:grid-cols-4 px-5 gap-x-4">
+            <div className="product-skeleton grid md:grid-cols-3 2xl:grid-cols-4 px-5 gap-x-4">
               {skeletonArray.map((_, idx) => (
                 <div
                   className="product-card bg-white rounded-3xl overflow-hidden my-2 shadow-lg border hover:scale-95 transition-all"
@@ -132,44 +149,50 @@ const CategoryWiseAllProduct = () => {
                     <p className="distance">...</p>
                     <p className="pricing">...</p>
                   </div>
-                  <p className="distance bg-lightdark text-white text-center py-2">...</p>
+                  <p className="distance bg-lightdark text-white text-center py-2">
+                    ...
+                  </p>
                 </div>
               ))}
             </div>
           ) : (
-            <div className="grid md:grid-cols-3 2xl:grid-cols-4 px-5 gap-x-4">
-              {allProducts &&
-                allProducts.map((item) => (
-                  <ProductCard
-                    key={item.id}
-                    product_image={
-                      item.front_image ? item.front_image : item.image1
-                    }
-                    product_title={
-                      `${item.brand_name} ${item.model_name}` ===
-                        "Others Others" ||
-                      `${item.brand_name} ${item.model_name}` ===
-                        "undefined undefined" ||
-                      `${item.brand_name} ${item.model_name}` === "null null"
-                        ? item.title
-                        : `${item.brand_name} ${item.model_name}`
-                    }
-                    product_location={item.district_name}
-                    product_pricing={item.price}
-                    distance_product={item.distance}
-                    rent_type={
-                      type === "rent"
-                        ? item.rent_type
-                          ? ` / ${item.rent_type.slice(4)}`
+            <div className="product-list-container mb-10">
+              <div className="grid md:grid-cols-3 2xl:grid-cols-4 px-5 gap-x-4">
+                {allProducts &&
+                  allProducts.map((item) => (
+                    <ProductCard
+                      key={item.id}
+                      product_image={
+                        item.front_image ? item.front_image : item.image1
+                      }
+                      product_title={
+                        `${item.brand_name} ${item.model_name}` ===
+                          "Others Others" ||
+                        `${item.brand_name} ${item.model_name}` ===
+                          "undefined undefined" ||
+                        `${item.brand_name} ${item.model_name}` === "null null"
+                          ? item.title
+                          : `${item.brand_name} ${item.model_name}`
+                      }
+                      product_location={item.district_name}
+                      product_pricing={item.price}
+                      distance_product={item.distance}
+                      rent_type={
+                        type === "rent"
+                          ? item.rent_type
+                            ? ` / ${item.rent_type.slice(4)}`
+                            : ""
                           : ""
-                        : ""
-                    }
-                  />
-                ))}
+                      }
+                    />
+                  ))}
+              </div>
             </div>
           )}
-        </div>
-      </section>
+        </section>
+      </main>
+
+      <Footer />
     </>
   );
 };

@@ -53,7 +53,7 @@ details[open] .downarrow {
   @apply hidden;
 }
 
-.submenu.active{
+.submenu.active {
   @apply hidden;
 }
 
@@ -82,6 +82,24 @@ details[open] .downarrow {
   padding: 10px;
 }
 
+.products-container-wrapper {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  grid-template-rows: 85px 1fr;
+}
+
+.sort-product-tab-section {
+  grid-column: 2 / 3;
+}
+
+.filter-product-sidebar {
+  grid-column: 1 / 2;
+}
+
+.category-wise-all-product {
+  grid-column: 2 / 3;
+}
+
 @media (max-width: 992px) {
   .categories::-webkit-scrollbar,
   .populer-brand-list::-webkit-scrollbar,
@@ -89,10 +107,10 @@ details[open] .downarrow {
     display: none;
   }
 
-  .submenu{
+  .submenu {
     position: initial;
   }
-  .submenu-child{
+  .submenu-child {
     width: fit-content;
     text-wrap: nowrap;
     padding: 1rem;
@@ -110,6 +128,28 @@ details[open] .downarrow {
   }
   .nav-menus.active {
     inset: 0;
+  }
+
+  .products-container-wrapper {
+    display: initial;
+  }
+
+  .filter-product-sidebar {
+    background-color: white;
+    position: fixed;
+    left: -100%;
+    height: 100%;
+    top: 50px;
+    z-index: 10;
+    border-radius: 0 20px 20px 0;
+  }
+
+  .sort-product-tab-section {
+    position: fixed;
+    height: 350px;
+    top: 100%;
+    width: 100%;
+    border-radius: 20px 20px 0 0;
   }
 }
 
@@ -157,8 +197,8 @@ details[open] .downarrow {
   @apply block;
 }
 
-.mobile-nav__sell--rent--btn{
-  color: white; 
+.mobile-nav__sell--rent--btn {
+  color: white;
   padding: 10px;
   border-radius: 50%;
   border: 8px solid white;
@@ -170,21 +210,21 @@ details[open] .downarrow {
   background: linear-gradient(rgba(0, 0, 0, 0.356), rgba(0, 0, 0, 0.37));
 } */
 
-.rent-sell-btn a{
+.rent-sell-btn a {
   box-shadow: 5px 5px 0px white;
 }
 
 @keyframes animateGradient {
-  0%{
+  0% {
     background: linear-gradient(0deg, #13693a, #8cbf44);
-    scale:1
+    scale: 1;
   }
-  50%{
+  50% {
     background: linear-gradient(180deg, #13693a, #8cbf44);
     scale: 1.05;
   }
-  100%{
+  100% {
     background: linear-gradient(0deg, #13693a, #8cbf44);
-    scale:1
+    scale: 1;
   }
 }

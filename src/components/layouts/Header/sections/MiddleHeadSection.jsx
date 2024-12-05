@@ -8,6 +8,7 @@ import { CgMenuLeft } from "react-icons/cg";
 import { useContext } from "react";
 import { NavTogglerContext } from "../../../../context/HeaderMenuContext/NavTogglerContext";
 import { Link } from "react-router-dom";
+
 const MiddleHeadSection = () => {
     const {setActiveNav} = useContext(NavTogglerContext);
   return (

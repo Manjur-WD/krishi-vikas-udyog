@@ -12,11 +12,24 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 import Navbar from "../sections/Navbar";
+import BASE_URL from "../../../../../config";
 
 import AnimateButton from "../../../animation/AnimateButton";
 import { getCategoryList } from "../../../../services/api";
 import { useQuery } from "@tanstack/react-query";
 import Preloader from "../../../elements/Preloader";
+import { Link } from "react-router-dom";
+
+const categoryLinks = [
+  `${BASE_URL}/tractor/old`, // Link for first category
+  `${BASE_URL}/goods-vehicle/old`, // Link for second category
+  `${BASE_URL}/agri-inputs/seeds`, // Link for third category
+  `${BASE_URL}/agri-inputs/pesticides`, // Link for fourth category
+  `${BASE_URL}/agri-inputs/fertilizer`, // and so on...
+  `${BASE_URL}/harvester/old`,
+  `${BASE_URL}/implements/old`,
+  `${BASE_URL}/tyre/old`
+];
 
 const BottomHeadSection = () => {
   // Use the useQuery hook to fetch data
@@ -53,26 +66,26 @@ const BottomHeadSection = () => {
                 </DropdownMenuTrigger>
               </AnimateButton>
               <DropdownMenuContent className="w-[200px] mt-2 rounded-2xl px-2 py-2">
-                {
-                  categoryList && categoryList.length > 0 ? 
-                  (
-                    categoryList.map((item)=>(
-                        <DropdownMenuItem className="text-darkGreen uppercase bg-white rounded-2xl shadow p-1 mb-2 hover:scale-95 transition-all cursor-pointer" key={item.category_id}>
-                          <img
-                            src={item.category_icon}
-                            alt="tractor-icon"
-                            className="bg-white shadow-lg rounded-full p-1"
-                            width={35}
-                          />{" "}
-                          {item.category_name}
-                        </DropdownMenuItem>
-
-                    ))
-                  ):(
-                    <div>No Data Available</div>
-                  )
-                  
-                }
+                {categoryList && categoryList.length > 0 ? (
+                  categoryList.map((item, index) => (
+                    <Link
+                      key={item.category_id}
+                      to={categoryLinks[index]}
+                    >
+                      <DropdownMenuItem className="text-darkGreen uppercase bg-white rounded-2xl shadow p-1 mb-2 hover:scale-95 transition-all cursor-pointer">
+                        <img
+                          src={item.category_icon}
+                          alt="tractor-icon"
+                          className="bg-white shadow-lg rounded-full p-1"
+                          width={35}
+                        />{" "}
+                        {item.category_name}
+                      </DropdownMenuItem>
+                    </Link>
+                  ))
+                ) : (
+                  <div>No Data Available</div>
+                )}
               </DropdownMenuContent>
             </DropdownMenu>
           </div>

@@ -1,3 +1,5 @@
+import BASE_URL from "../../../../config";
+
 export const menuItems = [
   // {
   //   id: "m1",
@@ -13,17 +15,17 @@ export const menuItems = [
       {
         id: "tsm-1",
         label: "Buy New Tractor",
-        link: "/krishi-vikas-udyog/tractor/new",
+        link: `${BASE_URL}/tractor/new`,
       },
       {
         id: "tsm-2",
         label: "Buy Used Tractor",
-        link: "/krishi-vikas-udyog/tractor/old",
+        link: `${BASE_URL}/tractor/old`,
       },
       {
         id: "tsm-3",
         label: "Rent Tractor",
-        link: "/krishi-vikas-udyog/tractor/rent",
+        link: `${BASE_URL}/tractor/rent`,
       },
     ],
     image: "http://localhost:5173/krishi-vikas-udyog/src/assets/images/trac-drop.jpg"
@@ -36,17 +38,17 @@ export const menuItems = [
       {
         id: "gsm-1",
         label: "Buy New Goods Vehicle",
-        link: "/krishi-vikas-udyog/goods-vehicle/new",
+        link: `${BASE_URL}/goods-vehicle/new`,
       },
       {
         id: "gsm-2",
         label: "Buy Used Goods Vehicle",
-        link: "/krishi-vikas-udyog/goods-vehicle/old",
+        link: `${BASE_URL}/goods-vehicle/old`,
       },
       {
         id: "gsm-3",
         label: "Rent Goods Vehicle",
-        link: "/krishi-vikas-udyog/goods-vehicle/rent",
+        link: `${BASE_URL}/goods-vehicle/rent`,
       },
     ],
     image: "http://localhost:5173/krishi-vikas-udyog/src/assets/images/gv-drop.webp"
@@ -59,17 +61,17 @@ export const menuItems = [
       {
         id: "asm-1",
         label: "Seeds",
-        link: "/krishi-vikas-udyog/agri-inputs/seeds",
+        link: `${BASE_URL}/agri-inputs/seeds`,
       },
       {
         id: "asm-2",
         label: "Pesticides",
-        link: "/krishi-vikas-udyog/agri-inputs/pesticides",
+        link: `${BASE_URL}/agri-inputs/pesticides`,
       },
       {
         id: "asm-3",
         label: "Fertilizer",
-        link: "/krishi-vikas-udyog/agri-inputs/fertilizer",
+        link: `${BASE_URL}/agri-inputs/fertilizer`,
       },
     ],
     image: "http://localhost:5173/krishi-vikas-udyog/src/assets/images/agri-inputs-drop.png"
@@ -82,17 +84,17 @@ export const menuItems = [
       {
         id: "hsm-1",
         label: "Buy New Harvester",
-        link: "/krishi-vikas-udyog/harvester/new",
+        link: `${BASE_URL}/harvester/new`,
       },
       {
         id: "hsm-2",
         label: "Buy Used Harvester",
-        link: "/krishi-vikas-udyog/harvester/old",
+        link: `${BASE_URL}/harvester/old`,
       },
       {
         id: "hsm-3",
         label: "Rent Harvester",
-        link: "/krishi-vikas-udyog/harvester/rent",
+        link: `${BASE_URL}/harvester/rent`,
       },
     ],
     image: "http://localhost:5173/krishi-vikas-udyog/src/assets/images/harvest-drop.webp"
@@ -105,17 +107,17 @@ export const menuItems = [
       {
         id: "ism-1",
         label: "Buy New Implements",
-        link: "/krishi-vikas-udyog/implements/new",
+        link: `${BASE_URL}/implements/new`,
       },
       {
         id: "ism-2",
         label: "Buy Used Implements",
-        link: "/krishi-vikas-udyog/implements/old",
+        link: `${BASE_URL}/implements/old`,
       },
       {
         id: "ism-3",
         label: "Rent Implements",
-        link: "/krishi-vikas-udyog/implements/rent",
+        link: `${BASE_URL}/implements/rent`,
       },
     ],
     image: "http://localhost:5173/krishi-vikas-udyog/src/assets/images/implement-drop.jpg"
@@ -128,12 +130,12 @@ export const menuItems = [
       {
         id: "tysm-1",
         label: "Buy New Tyres",
-        link: "/krishi-vikas-udyog/tyre/new",
+        link: `${BASE_URL}/tyre/new`,
       },
       {
         id: "tysm-2",
         label: "Buy Used Tyres",
-        link: "/krishi-vikas-udyog/tyre/old",
+        link: `${BASE_URL}/tyre/old`,
       },
     ],
     image: "http://localhost:5173/krishi-vikas-udyog/src/assets/images/tyres-drop.jpg"
