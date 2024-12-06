@@ -193,6 +193,7 @@ const CategoryWiseAllProduct = () => {
                   allProducts.map((item) => (
                     <ProductCard
                       key={item.id}
+                      wishlist_status={item.wishlist_status}
                       product_image={
                         item.front_image ? item.front_image : item.image1
                       }
