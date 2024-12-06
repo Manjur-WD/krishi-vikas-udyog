@@ -6,7 +6,7 @@ const api = axios.create({
   baseURL: "https://krishivikas.com/api/v2",
   headers: {
     Authorization:
-      "Bearer 30609|IxX5Do8U2HvxfCTAhJimtbTXzExMHb97QejGeMjXe885fa10",
+      "Bearer 30948|ZJI68WkfGMVwoBze2HUmiElxBHeiojoa9LYo1ZOD9917eedf",
   },
 });
 
@@ -73,7 +73,7 @@ export const getWeatherData = async (pincode, latitude, longitude, time) => {
 
 export const getCategoryWiseProduct = async(category_id , type , skip , take) =>{
   try {
-    const response = await api.post("/category-filter", {
+    const response = await api.post("/category-view-all-data", {
       category_id: category_id,
       type: type,
       skip: skip,

@@ -11,16 +11,13 @@ const ProductCard = ({
   product_pricing,
   product_location,
   distance_product,
-  wishlist_status,
   rent_type,
 }) => {
   return (
     <>
       <div className="product-card bg-white rounded-3xl overflow-hidden my-2 shadow-lg border hover:scale-95 transition-all">
         <div className="product_image p-[2px] relative">
-          <div className="wishlist-icon absolute bg-white top-2 left-3 p-2 rounded-full">
-            {wishlist_status == 1 ? <RiHeart2Fill /> : <RiHeart2Line />}
-          </div>
+          
           <img
             src={product_image}
             alt="this is product image"
