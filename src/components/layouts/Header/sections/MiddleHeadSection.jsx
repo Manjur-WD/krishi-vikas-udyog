@@ -13,7 +13,7 @@ const MiddleHeadSection = () => {
     const {setActiveNav} = useContext(NavTogglerContext);
   return (
     <>
-      <section className="middle-header  py-3 lg:px-5 md:px-3 bg-white md:shadow-none shadow">
+      <section className="relative middle-header  py-3 lg:px-5 md:px-3 bg-white md:shadow-none shadow">
         <div className="navbar container flex justify-between md:p-0 px-5">
           <button
             type="button"
@@ -26,7 +26,7 @@ const MiddleHeadSection = () => {
             <img
               src={logo}
               alt="this is brand logo"
-              className="md:w-[200px] w-[150px]"
+              className="md:w-[200px] w-[150px] kv-logo"
             />
           </Link>
           <div className="header__app--link items-center lg:flex hidden">

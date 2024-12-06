@@ -1,7 +1,7 @@
 import BreadCrumb from "../components/elements/BreadCrumb";
 import { useQuery } from "@tanstack/react-query";
 import { getCategoryWiseProduct } from "../services/api";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import ProductCard from "../components/elements/ProductCard";
 import FilterProductSidebar from "../components/elements/FilterProductSidebar";
 import SortProductTabs from "../components/elements/SortProductTabs";
@@ -10,14 +10,26 @@ import preloader_image from "../../src/assets/images/favicon/favicon-32x32.png";
 import Header from "../components/layouts/Header/Header";
 import MobileScreenNav from "../components/layouts/Header/MobileScreenNav";
 import Footer from "../components/layouts/Footer/Footer";
+import toast, { Toaster } from "react-hot-toast";
+
 // import { Skeleton } from "@/components/ui/skeleton";
-const skeletonArray = new Array(4).fill(true);
+const skeletonArray = new Array(6).fill(true);
 
 import { MdSort } from "react-icons/md";
 import { MdFilterList } from "react-icons/md";
+import { FilterBtnContext } from "../context/CategoryWiseAllProduct/FilterBtnContext";
 
 const CategoryWiseAllProduct = () => {
   const { category, type } = useParams();
+
+  // Mobile View :  Sort and filter button state
+  const [sortBtnActive, setSortBtnActive] = useState(false);
+
+  const handleSortBtn = () => {
+    setSortBtnActive(!sortBtnActive);
+  };
+
+  // const handleFilterBtn = () => {};
 
   const [categoryId, setCategoryId] = useState(0);
   const [subtype, setSubType] = useState("");
@@ -32,6 +44,9 @@ const CategoryWiseAllProduct = () => {
     queryKey: ["category-wise-all-product", categoryId, subtype, skip, take], // Add the languageId to the queryKey for better cache management
     queryFn: () => getCategoryWiseProduct(categoryId, subtype, skip, take), // Pass a function that calls getCategoryList
   });
+
+  const { filterBtnState, setFilterBtnState } = useContext(FilterBtnContext);
+  console.log(filterBtnState);
 
   useEffect(() => {
     // Tractor
@@ -113,29 +128,45 @@ const CategoryWiseAllProduct = () => {
       <Header />
       <MobileScreenNav />
       <BreadCrumb />
-      <section className="mobile-filter-and-sort-btn lg:hidden block bg-lightgreen sticky md:top-[160px] top-[62px] z-10">
+      <Toaster />
+
+      {/* Mobile View: Sort and Filter Button */}
+      <section className="mobile-filter-and-sort-btn lg:hidden block bg-lightgreen sticky md:top-[158px] top-[62px] z-10">
         <div className="container px-10  grid grid-cols-2">
-          <button type="button" className="sort-btn text-lg text-white border-r border-white h-full py-2">
+          <button
+            type="button"
+            className="sort-btn text-lg text-white border-r border-white h-full py-2"
+            onClick={() => {
+              setFilterBtnState(true);
+            }}
+          >
             <MdFilterList className="inline mb-1" /> Filter
           </button>
-          <button type="button" className="sort-btn text-lg text-white">
+          <button
+            type="button"
+            className="sort-btn text-lg text-white"
+            onClick={() => {
+              handleSortBtn();
+            }}
+          >
             <MdSort className="inline mb-1" /> Sort
           </button>
         </div>
       </section>
-      <main className="products-container-wrapper container bg-whitesmoke md:px-10 px-2">
+      {/* Mobile View: Sort and Filter Button */}
+      <main className="products-container-wrapper container bg-whitesmoke md:px-10 ">
         <FilterProductSidebar />
-        <SortProductTabs />
+        <SortProductTabs sort_btn_state={sortBtnActive} />
         <section className="category-wise-all-product">
           {isLoading ? (
-            <div className="product-skeleton grid md:grid-cols-3 2xl:grid-cols-4 px-5 gap-x-4">
+            <div className="product-skeleton grid  md:grid-cols-3 2xl:grid-cols-4 grid-cols-2 px-5 gap-x-4">
               {skeletonArray.map((_, idx) => (
                 <div
                   className="product-card bg-white rounded-3xl overflow-hidden my-2 shadow-lg border hover:scale-95 transition-all"
                   key={idx}
                 >
                   <div className="product_image p-[2px] relative">
-                    <div className="w-full h-[220px] bg-slate-100 object-cover object-center rounded-3xl relative flex items-center justify-center">
+                    <div className="w-full md:h-[220px] h-[150px] bg-slate-100 object-cover object-center rounded-3xl relative flex items-center justify-center">
                       <span className="loader"></span>
                       <img
                         src={preloader_image}
@@ -157,7 +188,7 @@ const CategoryWiseAllProduct = () => {
             </div>
           ) : (
             <div className="product-list-container mb-10">
-              <div className="grid md:grid-cols-3 2xl:grid-cols-4 px-5 gap-x-4">
+              <div className="grid grid-cols-2 md:grid-cols-3 2xl:grid-cols-4 md:px-5  px-2 md:gap-x-4 gap-x-2">
                 {allProducts &&
                   allProducts.map((item) => (
                     <ProductCard

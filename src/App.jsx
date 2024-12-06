@@ -5,6 +5,7 @@ import Header from "./components/layouts/Header/Header";
 import MobileScreenNav from "./components/layouts/Header/MobileScreenNav";
 import React, { Suspense, useEffect } from "react";
 import Preloader from "./components/elements/Preloader";
+import { FilterButtonStateProvider } from "./context/CategoryWiseAllProduct/FilterBtnContext";
 
 // Lazy load the component
 
@@ -36,7 +37,9 @@ const App = () => {
           path={`${baseUrl}/:category/:type`}
           element={
             <Suspense fallback={<Preloader />}>
-              <LazyCategoryViewAllPage key={location.key} />
+              <FilterButtonStateProvider>
+                <LazyCategoryViewAllPage key={location.key} />
+              </FilterButtonStateProvider>
             </Suspense>
           }
         />

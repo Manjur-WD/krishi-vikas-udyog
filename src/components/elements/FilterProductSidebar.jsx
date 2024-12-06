@@ -1,9 +1,30 @@
+import { useContext, useEffect, useRef, useState } from "react";
 import { FaAngleDown } from "react-icons/fa6";
+import { HiOutlineArrowNarrowLeft } from "react-icons/hi";
+import { FilterBtnContext } from "../../context/CategoryWiseAllProduct/FilterBtnContext";
 
 const FilterProductSidebar = () => {
+  const { filterBtnState, setFilterBtnState } = useContext(FilterBtnContext);
+
   return (
     <>
-      <aside className="filter-product-sidebar">
+      <aside
+        className={
+          filterBtnState
+            ? "filter-product-sidebar active"
+            : "filter-product-sidebar"
+        }
+      >
+        <div className="lg:hidden filter-headeing flex items-center px-5 py-2 sticky -top-[10px] rounded-xl">
+          <HiOutlineArrowNarrowLeft
+            className="text-3xl text-white absolute"
+            onClick={() => {
+              setFilterBtnState(false);
+            }}
+          />
+          <p className="text-xl text-white text-center w-full ">Filter</p>
+        </div>
+
         <section className="w-full bg-white my-3 p-2 rounded-3xl shadow">
           <div className="product__brands">
             <details

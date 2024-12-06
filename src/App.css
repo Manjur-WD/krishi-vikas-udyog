@@ -101,6 +101,11 @@ details[open] .downarrow {
 }
 
 @media (max-width: 992px) {
+  .kv-logo {
+    position: absolute;
+    top: 5px;
+  }
+
   .categories::-webkit-scrollbar,
   .populer-brand-list::-webkit-scrollbar,
   body::-webkit-scrollbar {
@@ -134,22 +139,87 @@ details[open] .downarrow {
     display: initial;
   }
 
+  .filter-headeing {
+    background: linear-gradient(33deg, #13693a, #8cbf44, #13693a);
+  }
+
   .filter-product-sidebar {
+    width: 100%;
     background-color: white;
     position: fixed;
     left: -100%;
     height: 100%;
-    top: 50px;
-    z-index: 10;
-    border-radius: 0 20px 20px 0;
+    top: 0;
+    z-index: 99;
+    transition: 0.5s;
+    overflow-y: auto;
+    padding: 10px;
   }
 
-  .sort-product-tab-section {
+  .filter-product-sidebar.active {
+    left: 0;
+  }
+
+  .sort-product-tab-section > div {
     position: fixed;
-    height: 350px;
-    top: 100%;
     width: 100%;
+    left: 0;
+    margin: 0;
+    bottom: -100%;
+    z-index: 9;
     border-radius: 20px 20px 0 0;
+    box-shadow: 0 5px 10px black;
+    transition: 0.5s;
+  }
+
+  .sort-product-tab-section > div.active {
+    bottom: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .kv-logo {
+    position: initial;
+  }
+  .products-container-wrapper {
+    display: initial;
+  }
+
+  .filter-headeing {
+    background: linear-gradient(33deg, #13693a, #8cbf44, #13693a);
+  }
+
+  .filter-product-sidebar {
+    width: 100%;
+    background-color: white;
+    position: fixed;
+    left: -100%;
+    height: 100%;
+    top: 62px;
+    z-index: 10;
+    transition: 0.5s;
+    overflow-y: auto;
+    padding: 10px 10px 100px 10px;
+  }
+
+  .filter-product-sidebar.active {
+    left: 0;
+  }
+
+  .sort-product-tab-section > div {
+    position: fixed;
+    width: 100%;
+    left: 0;
+    margin: 0;
+    bottom: -100%;
+    z-index: 999;
+    border-radius: 20px 20px 0 0;
+    box-shadow: 0 5px 10px black;
+    transition: 0.5s;
+  }
+
+  .sort-product-tab-section > div.active {
+    bottom: 0;
   }
 }
 
