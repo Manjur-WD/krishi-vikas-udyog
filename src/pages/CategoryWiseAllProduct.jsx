@@ -5,7 +5,7 @@ import { useContext, useEffect, useState } from "react";
 import ProductCard from "../components/elements/ProductCard";
 import FilterProductSidebar from "../components/elements/FilterProductSidebar";
 import SortProductTabs from "../components/elements/SortProductTabs";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import preloader_image from "../../src/assets/images/favicon/favicon-32x32.png";
 import Header from "../components/layouts/Header/Header";
 import MobileScreenNav from "../components/layouts/Header/MobileScreenNav";
@@ -18,6 +18,7 @@ const skeletonArray = new Array(6).fill(true);
 import { MdSort } from "react-icons/md";
 import { MdFilterList } from "react-icons/md";
 import { FilterBtnContext } from "../context/CategoryWiseAllProduct/FilterBtnContext";
+import BASE_URL from "../../config";
 
 const CategoryWiseAllProduct = () => {
   const { category, type } = useParams();
@@ -123,6 +124,8 @@ const CategoryWiseAllProduct = () => {
     }
   }, [category, type]);
 
+  // console.log(allProducts);
+
   return (
     <>
       <Header />
@@ -165,8 +168,8 @@ const CategoryWiseAllProduct = () => {
                   className="product-card bg-white rounded-3xl overflow-hidden my-2 shadow-lg border hover:scale-95 transition-all"
                   key={idx}
                 >
-                  <div className="product_image p-[2px] relative">
-                    <div className="w-full md:h-[220px] h-[150px] bg-slate-100 object-cover object-center rounded-3xl relative flex items-center justify-center">
+                  <div className="product_image_skeleton p-[2px] relative">
+                    <div className="w-full md:h-[220px] h-[150px] object-cover object-center rounded-3xl relative flex items-center justify-center">
                       <span className="loader"></span>
                       <img
                         src={preloader_image}
@@ -191,8 +194,8 @@ const CategoryWiseAllProduct = () => {
               <div className="grid grid-cols-2 md:grid-cols-3 2xl:grid-cols-4 md:px-5  px-2 md:gap-x-4 gap-x-2">
                 {allProducts &&
                   allProducts.map((item) => (
-                    <ProductCard
-                      key={item.id}
+                    <Link key={item.id} to={`${BASE_URL}/${category}/${type}/${item.id}`}>
+                    <ProductCard   
                       product_image={
                         item.front_image ? item.front_image : item.image1
                       }
@@ -216,6 +219,7 @@ const CategoryWiseAllProduct = () => {
                           : ""
                       }
                     />
+                    </Link>
                   ))}
               </div>
             </div>

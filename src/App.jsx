@@ -13,6 +13,9 @@ const LazyHomepage = React.lazy(() => import("./pages/HomePage"));
 const LazyCategoryViewAllPage = React.lazy(() =>
   import("./pages/CategoryWiseAllProduct")
 );
+const LazySingleProductPage = React.lazy(() =>
+  import("./pages/SinglProductPage")
+);
 
 const App = () => {
   const baseUrl = "/krishi-vikas-udyog";
@@ -40,6 +43,14 @@ const App = () => {
               <FilterButtonStateProvider>
                 <LazyCategoryViewAllPage key={location.key} />
               </FilterButtonStateProvider>
+            </Suspense>
+          }
+        />
+        <Route
+          path={`${baseUrl}/:category/:type/:id`}
+          element={
+            <Suspense fallback={<Preloader />}>
+                <LazySingleProductPage key={location.key} />
             </Suspense>
           }
         />

@@ -85,3 +85,18 @@ export const getCategoryWiseProduct = async(category_id , type , skip , take) =>
     throw error; // Optionally throw or return a default value if you want to handle errors differently
   }
 }
+
+// SINGLE PRODUCT VIEW
+
+export const getSingleProduct = async(category_id , id) =>{
+  try {
+    const response = await api.post("/category-view-by-id", {
+      category_id: category_id,
+      id: id
+    });
+    return response.data.result.response; // Return the resolved data
+  } catch (error) {
+    console.error("Error loading category data:", error);
+    throw error; // Optionally throw or return a default value if you want to handle errors differently
+  }
+}
