@@ -132,11 +132,11 @@ details[open] .downarrow {
 .product_spec ul li{
   display: flex;
   justify-content: space-between;
-  padding: 10px;
+  padding: 10px 15px;
 }
 
 .product_spec ul li:nth-child(2n + 1){
-  background-color: rgb(224, 219, 219);
+  background-color: whitesmoke;
 }
 
 @keyframes skeleton {
