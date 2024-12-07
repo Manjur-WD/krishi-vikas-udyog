@@ -109,14 +109,13 @@ details[open] .downarrow {
   animation: skeleton 2s linear infinite alternate;
 }
 
-.big_image .slide_image img {
-  height: 500px;
-  object-fit: cover;
-  object-position: center;
-  border-radius: 30px;
+
+
+.product_img_nav .slide_image{
+  width: 100%;
 }
 .product_img_nav .slide_image img {
-  height: 90px;
+  height: 80px;
   width: 100%;
   border-radius: 10px;
   object-fit: cover;
@@ -124,6 +123,20 @@ details[open] .downarrow {
 
 .small_image .slide_image{
   padding: 10px;
+}
+
+.product_spec .heading{
+  background: linear-gradient(33deg, #13693a, #8cbf44);
+}
+
+.product_spec ul li{
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.product_spec ul li:nth-child(2n + 1){
+  background-color: rgb(224, 219, 219);
 }
 
 @keyframes skeleton {
@@ -264,7 +277,7 @@ details[open] .downarrow {
     flex-shrink: 0;
   }
   .product_img_nav .slide_image img {
-    height: 70px;
+    height: 50px;
     width: 100px;
   }
 
