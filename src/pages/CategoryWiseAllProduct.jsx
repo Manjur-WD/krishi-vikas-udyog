@@ -19,6 +19,7 @@ import { MdSort } from "react-icons/md";
 import { MdFilterList } from "react-icons/md";
 import { FilterBtnContext } from "../context/CategoryWiseAllProduct/FilterBtnContext";
 import BASE_URL from "../../config";
+import ProductCardSkeleton from "../components/elements/ProductCardSkeleton";
 
 const CategoryWiseAllProduct = () => {
   const { category, type } = useParams();
@@ -164,29 +165,7 @@ const CategoryWiseAllProduct = () => {
           {isLoading ? (
             <div className="product-skeleton grid  md:grid-cols-3 2xl:grid-cols-4 grid-cols-2 px-5 gap-x-4">
               {skeletonArray.map((_, idx) => (
-                <div
-                  className="product-card bg-white rounded-3xl overflow-hidden my-2 shadow-lg border hover:scale-95 transition-all"
-                  key={idx}
-                >
-                  <div className="product_image_skeleton p-[2px] relative">
-                    <div className="w-full md:h-[220px] h-[150px] object-cover object-center rounded-3xl relative flex items-center justify-center">
-                      <span className="loader"></span>
-                      <img
-                        src={preloader_image}
-                        alt="this is a icon of preloader"
-                        className="absolute top-[49.8%] left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full shadow-lg"
-                      />
-                    </div>
-                  </div>
-                  <p className="text-center p-5 product-title">...</p>
-                  <div className="flex text-sm justify-between items-center px-5 py-3 location-and-price">
-                    <p className="distance">...</p>
-                    <p className="pricing">...</p>
-                  </div>
-                  <p className="distance bg-lightdark text-white text-center py-2">
-                    ...
-                  </p>
-                </div>
+                <ProductCardSkeleton key={idx}/>
               ))}
             </div>
           ) : (
