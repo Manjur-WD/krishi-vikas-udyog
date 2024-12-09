@@ -81,7 +81,7 @@ const SinglProductPage = () => {
 
   const { data: similarProducts, isLoading: SimilarProductLoading } = useQuery({
     queryKey: ["similar-product", categoryId, type],
-    queryFn: () => getCategoryWiseProduct(categoryId, type, 0, 10),
+    queryFn: () => getCategoryWiseProduct(categoryId, type, 10, 7),
   });
 
   const [imgLink, setImgLink] = useState("");
@@ -277,20 +277,20 @@ const SinglProductPage = () => {
                   data-fancybox="product_img"
                   data-caption={imgType}
                 >
-                  {(singleProduct && singleProduct.front_image) ||
-                    (singleProduct && singleProduct.image1 && (
+                  {singleProduct &&
+                    (singleProduct.front_image || singleProduct.image1) && (
                       <img
                         src={
-                          imgLink == ""
-                            ? singleProduct.front_image
-                              ? singleProduct.front_image
-                              : singleProduct.image1
-                            : imgLink
+                          imgLink != null && imgLink !== "" // More strict check for imgLink
+                            ? imgLink
+                            : singleProduct.front_image ||
+                              singleProduct.image1 ||
+                              "/path/to/placeholder.jpg"
                         }
-                        alt="differt side image"
+                        alt="different side image"
                         className="lg:h-[550px] h-[350px] shadow rounded-3xl w-full object-cover object-center"
                       />
-                    ))}
+                    )}
                 </Link>
               </div>
             </div>

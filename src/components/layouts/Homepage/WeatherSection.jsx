@@ -25,13 +25,13 @@ const WeatherSection = () => {
   
   return (
     <>
-      <section className="weather-section-homepage p-5 mt-5" style={{background: `linear-gradient(rgba(0, 0, 0, 0.356), rgba(0, 0, 0, 0.37)),url(${weatherHomepage}) no-repeat center/cover`}}>
+      <section className="weather-section-homepage p-5" style={{background: `linear-gradient(rgba(0, 0, 0, 0.356), rgba(0, 0, 0, 0.37)),url(${weatherHomepage}) no-repeat center/cover`}}>
         <div className="container m-4 flex lg:flex-row flex-col md:gap-10 gap-5 items-center justify-center">
           <div className="current-status-weather flex md:gap-5 md:flex-row flex-col justify-center items-center">
             <img
               src={weatherData ? weatherData.data.current[0].icon : null}
               alt="weather-icon"
-              className="w-[150px]  drop-shadow-2xl -mt-[50px]"
+              className="w-[150px]  drop-shadow-2xl md:mt-4 mt-[50px]"
             />
             <div className="w-current-details md:text-start text-center">
               <p className="text-white text-2xl  font-semibold">{weatherData ? weatherData.data.current[0].main : null}</p>

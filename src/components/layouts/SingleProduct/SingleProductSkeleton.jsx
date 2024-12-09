@@ -16,7 +16,7 @@ const SingleProductSkeleton = () => {
           <img
             src={preloader_image}
             alt="product-image-skeleton "
-            className="absolute top-[47%] left-1/2 -translate-x-1/2"
+            className="absolute top-[46%] left-1/2 -translate-x-1/2"
           />
         </div>
       </div>
