@@ -2,7 +2,7 @@ import preloader_image from "../../../assets/images/favicon/favicon-32x32.png";
 const SingleProductSkeleton = () => {
   return (
     <>
-      <div className="product-image-details-section grid gap-2 md:grid-cols-[80px,1fr] grid-cols-[50px,1fr] my-3">
+      <div className="product-image-details-section grid gap-2 md:grid-cols-[80px,1fr] grid-cols-[50px,1fr] my-3 me-3">
         <div className="product_img_nav overflow-x-auto flex flex-col gap-3 items-center py-2 ps-2 w-full overflow-hidden">
           <div className="slide_image md:h-[80px]  w-full rounded-2xl skeleton-loading-gray"></div>
           <div className="slide_image md:h-[80px] h-[40px] w-full rounded-2xl skeleton-loading-gray"></div>

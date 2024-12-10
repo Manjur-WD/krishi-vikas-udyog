@@ -48,7 +48,30 @@ const CategoryWiseAllProduct = () => {
   });
 
   const { filterBtnState, setFilterBtnState } = useContext(FilterBtnContext);
-  console.log(filterBtnState);
+  // console.log(filterBtnState);
+
+  const handleInfiniteScroll = () => {
+    try {
+      const footer = document.querySelector("footer");
+      const scrollHeight =
+        document.documentElement.scrollHeight - footer.offsetHeight;
+      const windowHeight = window.innerHeight;
+      const scrollDone = window.scrollY + windowHeight;
+
+      console.log("Total document scroll height:", scrollHeight);
+      console.log("scroll:", scrollDone);
+
+      if (scrollDone >= scrollHeight) {
+        console.log("Youu Crossed");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleInfiniteScroll);
+  }, []);
 
   useEffect(() => {
     // Tractor
@@ -165,7 +188,7 @@ const CategoryWiseAllProduct = () => {
           {isLoading ? (
             <div className="product-skeleton grid  md:grid-cols-3 2xl:grid-cols-4 grid-cols-2 px-5 gap-x-4">
               {skeletonArray.map((_, idx) => (
-                <ProductCardSkeleton key={idx}/>
+                <ProductCardSkeleton key={idx} />
               ))}
             </div>
           ) : (
@@ -173,31 +196,35 @@ const CategoryWiseAllProduct = () => {
               <div className="grid grid-cols-2 md:grid-cols-3 2xl:grid-cols-4 md:px-5  px-2 md:gap-x-4 gap-x-2">
                 {allProducts &&
                   allProducts.map((item) => (
-                    <Link key={item.id} to={`${BASE_URL}/${category}/${type}/${item.id}`}>
-                    <ProductCard   
-                      product_image={
-                        item.front_image ? item.front_image : item.image1
-                      }
-                      product_title={
-                        `${item.brand_name} ${item.model_name}` ===
-                          "Others Others" ||
-                        `${item.brand_name} ${item.model_name}` ===
-                          "undefined undefined" ||
-                        `${item.brand_name} ${item.model_name}` === "null null"
-                          ? item.title
-                          : `${item.brand_name} ${item.model_name}`
-                      }
-                      product_location={item.district_name}
-                      product_pricing={item.price}
-                      distance_product={item.distance}
-                      rent_type={
-                        type === "rent"
-                          ? item.rent_type
-                            ? ` / ${item.rent_type.slice(4)}`
+                    <Link
+                      key={item.id}
+                      to={`${BASE_URL}/${category}/${type}/${item.id}`}
+                    >
+                      <ProductCard
+                        product_image={
+                          item.front_image ? item.front_image : item.image1
+                        }
+                        product_title={
+                          `${item.brand_name} ${item.model_name}` ===
+                            "Others Others" ||
+                          `${item.brand_name} ${item.model_name}` ===
+                            "undefined undefined" ||
+                          `${item.brand_name} ${item.model_name}` ===
+                            "null null"
+                            ? item.title
+                            : `${item.brand_name} ${item.model_name}`
+                        }
+                        product_location={item.district_name}
+                        product_pricing={item.price}
+                        distance_product={item.distance}
+                        rent_type={
+                          type === "rent"
+                            ? item.rent_type
+                              ? ` / ${item.rent_type.slice(4)}`
+                              : ""
                             : ""
-                          : ""
-                      }
-                    />
+                        }
+                      />
                     </Link>
                   ))}
               </div>

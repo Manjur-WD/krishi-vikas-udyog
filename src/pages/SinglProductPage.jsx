@@ -343,48 +343,64 @@ const SinglProductPage = () => {
                         <span>
                           {singleProduct && singleProduct.is_negotiable == 0
                             ? "No"
-                            : "Yes"}
+                            : singleProduct && singleProduct.is_negotiable == 1
+                            ? "Yes"
+                            : "NA"}
                         </span>
                       </li>
                     </ul>
                   ) : (
                     <ul className="mt-2">
-                      <li>
-                        <span className="font-bold">RC Available</span>
-                        <span>
-                          {singleProduct && singleProduct.rc_available == 0
-                            ? "No"
-                            : "Yes"}
-                        </span>
-                      </li>
-                      <li>
-                        <span className="font-bold">NOC Available</span>
-                        <span>
-                          {singleProduct && singleProduct.noc_available == 0
-                            ? "No"
-                            : "Yes"}
-                        </span>
-                      </li>
-                      <li>
-                        <span className="font-bold">Price Negotiable</span>{" "}
-                        <span>
-                          {singleProduct && singleProduct.is_negotiable == 0
-                            ? "No"
-                            : "Yes"}
-                        </span>
-                      </li>
-                      <li>
-                        <span className="font-bold">Registration Number</span>
-                        <span>
-                          {singleProduct && singleProduct.registration_no}
-                        </span>
-                      </li>
-                      <li>
-                        <span className="font-bold">Year Of Purchase</span>
-                        <span>
-                          {singleProduct && singleProduct.year_of_purchase}
-                        </span>
-                      </li>
+                      {singleProduct && singleProduct.rc_available != null && (
+                        <li>
+                          <span className="font-bold">RC Available</span>
+                          <span>
+                            {singleProduct && singleProduct.rc_available == 0
+                              ? "No"
+                              : singleProduct && singleProduct.rc_available == 1
+                              ? "Yes"
+                              : "NA"}
+                          </span>
+                        </li>
+                      )}
+                      {singleProduct && singleProduct.noc_available != null && (
+                        <li>
+                          <span className="font-bold">NOC Available</span>
+                          <span>
+                            {singleProduct.noc_available === 0
+                              ? "No"
+                              : singleProduct.noc_available === 1
+                              ? "Yes"
+                              : "NA"}
+                          </span>
+                        </li>
+                      )}
+                      {singleProduct && singleProduct.is_negotiable != null && (
+                        <li>
+                          <span className="font-bold">Price Negotiable</span>
+                          <span>
+                            {singleProduct.is_negotiable === 0
+                              ? "No"
+                              : singleProduct.is_negotiable === 1
+                              ? "Yes"
+                              : "NA"}
+                          </span>
+                        </li>
+                      )}
+
+                      {singleProduct && singleProduct.registration_no && (
+                        <li>
+                          <span className="font-bold">Registration Number</span>
+                          <span>{singleProduct.registration_no}</span>
+                        </li>
+                      )}
+
+                      {singleProduct && singleProduct.year_of_purchase && (
+                        <li>
+                          <span className="font-bold">Year Of Purchase</span>
+                          <span>{singleProduct.year_of_purchase}</span>
+                        </li>
+                      )}
                     </ul>
                   )}
                 </div>
