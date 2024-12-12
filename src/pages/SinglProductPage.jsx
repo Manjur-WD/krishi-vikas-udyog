@@ -5,7 +5,7 @@ import { FiPhoneCall } from "react-icons/fi";
 import { useState, useEffect, useRef } from "react";
 import Slider from "react-slick";
 import { getCategoryWiseProduct, getSingleProduct } from "../services/api";
-import { useQuery } from "@tanstack/react-query";
+import { QueryClient, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Link, useParams } from "react-router-dom";
 import { Fancybox } from "@fancyapps/ui";
 
@@ -23,6 +23,8 @@ const SinglProductPage = () => {
   const { category, type, id } = useParams();
 
   const [categoryId, setCategoryId] = useState(0);
+
+
   useEffect(() => {
     Fancybox.bind("[data-fancybox]", {
       // Your custom options
@@ -67,6 +69,12 @@ const SinglProductPage = () => {
   }, [category, type]);
 
   // SINGLE PRODUCT DATA
+  const queryClient = useQueryClient();
+   // Check if the prefetched data is available in the cache
+   const queryKey = ["single-product", +id];
+
+  // Log the queryKey to the console
+  console.log("Query Key:", queryKey);
   const {
     data: singleProduct,
     isLoading,
@@ -75,6 +83,9 @@ const SinglProductPage = () => {
   } = useQuery({
     queryKey: ["single-product", categoryId, id],
     queryFn: () => getSingleProduct(categoryId, id),
+    initialData: () =>
+      queryClient.getQueryData(["single-product", categoryId, id]), // Use prefetched data if available
+    staleTime: 1000 * 60 * 3, // Keep data fresh for 3 minutes
   });
 
   // SIMILAR PRODUCT DATA
