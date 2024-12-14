@@ -20,6 +20,7 @@ const CategoryWiseProductCarousel = ({
   product_data = {},
   populer_brand_id,
   company_id,
+  view_all_category
 }) => {
   return (
     <>
@@ -28,14 +29,7 @@ const CategoryWiseProductCarousel = ({
           <h3 className="md:text-2xl  text-lg md:w-[350px] w-1/2 md:p-4 p-2 font-semibold text-white md:font-bold shadow-lg text-center uppercase">
             {category_title}
           </h3>
-          <AnimateButton>
-            <a
-              href="#"
-              className="block uppercase border-lightgreen bg-white md:me-10 me-2 px-4 py-1 rounded-3xl md:font-semibold shadow text-darkGreen border md:text-md text-xs"
-            >
-              View All <TbArrowMoveRight className="inline mb-1" />
-            </a>
-          </AnimateButton>
+          
         </div>
 
         <div className="category__tabs  w-[95%] rounded-xl mx-auto">
@@ -55,6 +49,7 @@ const CategoryWiseProductCarousel = ({
                     {tab === "old" ? "used" : tab}
                   </TabsTrigger>
                 ))}
+                
               </TabsList>
 
               {/* Dynamically render TabsContent based on the selected tab */}
@@ -64,6 +59,14 @@ const CategoryWiseProductCarousel = ({
                     value={tab === "old" ? "used" : tab}
                     className="animate__animated animate__fadeIn"
                   >
+                    
+            <Link
+              to={`${BASE_URL}/${view_all_category}/${tab}`}
+              className="inline-block absolute md:top-4 top-2 right-5 uppercase border-lightgreen bg-white md:me-10 me-2 px-4 py-1 rounded-3xl md:font-semibold shadow text-darkGreen border md:text-md text-xs"
+            >
+              View All <TbArrowMoveRight className="inline mb-1" />
+            </Link>
+          
                     {/* POPULER BRAND RENDERING CODE START */}
 
                     {tab === "new" ? null : (

@@ -26,6 +26,7 @@ const GoodVehiclesProductSlider = () => {
         tabs={tabs}
         product_data={goodsVehicleData}
         populer_brand_id="3"
+        view_all_category="goods-vehicle"
       />
     </>
   );

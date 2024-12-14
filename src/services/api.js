@@ -6,7 +6,7 @@ const api = axios.create({
   baseURL: "https://krishivikas.com/api/v2",
   headers: {
     Authorization:
-      "Bearer 30948|ZJI68WkfGMVwoBze2HUmiElxBHeiojoa9LYo1ZOD9917eedf",
+      "Bearer 31084|pgDZr5S9qDoBEVPzxlAJOlONBcoo0TnvKS7xRZo5f54bba35",
   },
 });
 

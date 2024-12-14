@@ -1,13 +1,10 @@
 import React, { useCallback, useContext, useEffect, useState } from "react";
-import { useQuery } from "@tanstack/react-query";
 import { useQueryClient } from "@tanstack/react-query";
 import { Link, useParams } from "react-router-dom";
-import { getCategoryWiseProduct, getSingleProduct } from "../services/api";
+import { getSingleProduct } from "../services/api";
 import { FilterBtnContext } from "../context/CategoryWiseAllProduct/FilterBtnContext";
-import BreadCrumb from "../components/elements/BreadCrumb";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { getCategoryWiseProduct } from "../services/api";
-import { useContext, useEffect, useState } from "react";
 import ProductCard from "../components/elements/ProductCard";
 import ProductCardSkeleton from "../components/elements/ProductCardSkeleton";
 import BASE_URL from "../../config";
@@ -20,6 +17,7 @@ import MobileScreenNav from "../components/layouts/Header/MobileScreenNav";
 import Footer from "../components/layouts/Footer/Footer";
 import toast, { Toaster } from "react-hot-toast";
 import { useInView } from "react-intersection-observer";
+import preloader_image from "../assets/images/favicon/favicon-32x32.png";
 
 // Skeleton loading effect
 const skeletonArray = new Array(6).fill(true);
@@ -31,11 +29,7 @@ const CategoryWiseAllProduct = () => {
   const [skip, setSkip] = useState(0);
   const [take, setTake] = useState(12);
 
-  // Query to fetch category products
-  const { data: allProducts, isLoading } = useQuery({
-    queryKey: ["category-wise-all-product", categoryId, subtype, skip, take],
-    queryFn: () => getCategoryWiseProduct(categoryId, subtype, skip, take),
-  });
+ 
 
   // Handle filter and sort buttons for mobile view
   const {
@@ -52,7 +46,7 @@ const CategoryWiseAllProduct = () => {
       getCategoryWiseProduct(categoryId, subtype, pageParam * take, take), // Pass a function that calls getCategoryList
 
     getNextPageParam: (lastpage, allPages) => {
-      return lastpage && lastpage.length > 0 && lastpage.length <= 12
+      return lastpage && lastpage.length === 12
         ? allPages.length + 1
         : undefined;
     },
@@ -81,29 +75,7 @@ const CategoryWiseAllProduct = () => {
     });
   }, [queryClient]);
 
-  // Handle infinite scroll
-  const handleInfiniteScroll = () => {
-    try {
-      const footer = document.querySelector("footer");
-      const scrollHeight = document.documentElement.scrollHeight - footer.offsetHeight;
-      const windowHeight = window.innerHeight;
-      const scrollDone = window.scrollY + windowHeight;
 
-      if (scrollDone >= scrollHeight) {
-        console.log("You have reached the end of the page");
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    window.addEventListener("scroll", handleInfiniteScroll);
-    return () => {
-      window.removeEventListener("scroll", handleInfiniteScroll);
-    };
-  }, []);
-  // console.log(filterBtnState);
 
   const { ref, inView } = useInView({
     threshold: 0,
@@ -114,14 +86,7 @@ const CategoryWiseAllProduct = () => {
       if (hasNextPage) {
         fetchNextPage();
       } else {
-        toast.success("All products are loaded!", {
-          duration: 4000,
-          style: {
-            background: "linear-gradient(33deg, #030303, #8cbf44)",
-            color: "white",
-            fontSize: "18px",
-          },
-        });
+        toast.success("All products are loaded!",{duration: 5000});
       }
     }
   }, [inView, hasNextPage]);
@@ -156,11 +121,9 @@ const CategoryWiseAllProduct = () => {
       <MobileScreenNav />
       <BreadCrumb />
       <Toaster />
-      
-      <Toaster position="bottom-right" reverseOrder={false} />
 
       {/* Mobile View: Sort and Filter Button */}
-      <section className="mobile-filter-and-sort-btn lg:hidden block bg-lightgreen sticky md:top-[158px] top-[62px] z-10">
+      <section className="mobile-filter-and-sort-btn lg:hidden block bg-lightgreen sticky md:top-[147px] top-[62px] z-10">
         <div className="container px-10  grid grid-cols-2">
           <button type="button" className="sort-btn text-lg text-white border-r border-white h-full py-2" onClick={() => setFilterBtnState(true)}>
             <MdFilterList className="inline mb-1" /> Filter
@@ -185,23 +148,6 @@ const CategoryWiseAllProduct = () => {
           ) : (
             <div className="product-list-container mb-5">
               <div className="grid grid-cols-2 md:grid-cols-3 2xl:grid-cols-4 md:px-5  px-2 md:gap-x-4 gap-x-2">
-                {allProducts &&
-                  allProducts.map((item) => (
-                    <Link
-                      key={item.id}
-                      to={`${BASE_URL}/${category}/${type}/${item.id}`}
-                      onMouseOver={() => prefetchProduct(categoryId, item.id)} // Prefetch when hovering
-                    >
-                      <ProductCard
-                        product_image={item.front_image || item.image1}
-                        product_title={item.brand_name + " " + item.model_name || item.title}
-                        product_location={item.district_name}
-                        product_pricing={item.price}
-                        distance_product={item.distance}
-                        rent_type={type === "rent" ? ` / ${item.rent_type?.slice(4)}` : ""}
-                      />
-                    </Link>
-                  ))}
                 {allProducts?.pages?.map(
                   (page) =>
                     page &&

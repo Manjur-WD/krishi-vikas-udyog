@@ -28,6 +28,7 @@ const TractorProductSLider = () => {
         tabs={tabs}
         product_data={tractorData}
         populer_brand_id="1"
+        view_all_category="tractor"
       />
     </>
   );

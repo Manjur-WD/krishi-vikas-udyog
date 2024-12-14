@@ -24,6 +24,9 @@ const SinglProductPage = () => {
 
   const [categoryId, setCategoryId] = useState(0);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location]);
 
   useEffect(() => {
     Fancybox.bind("[data-fancybox]", {
@@ -70,8 +73,8 @@ const SinglProductPage = () => {
 
   // SINGLE PRODUCT DATA
   const queryClient = useQueryClient();
-   // Check if the prefetched data is available in the cache
-   const queryKey = ["single-product", +id];
+  // Check if the prefetched data is available in the cache
+  const queryKey = ["single-product", +id];
 
   // Log the queryKey to the console
   console.log("Query Key:", queryKey);
@@ -282,7 +285,7 @@ const SinglProductPage = () => {
                   to={
                     imgLink == ""
                       ? (singleProduct && singleProduct.front_image) ||
-                        (singleProduct && singleProduct.image1)
+                      (singleProduct && singleProduct.image1)
                       : imgLink
                   }
                   data-fancybox="product_img"
@@ -295,11 +298,11 @@ const SinglProductPage = () => {
                           imgLink != null && imgLink !== "" // More strict check for imgLink
                             ? imgLink
                             : singleProduct.front_image ||
-                              singleProduct.image1 ||
-                              "/path/to/placeholder.jpg"
+                            singleProduct.image1 ||
+                            "/path/to/placeholder.jpg"
                         }
                         alt="different side image"
-                        className="lg:h-[550px] h-[350px] shadow rounded-3xl w-full object-cover object-center"
+                        className="md:h-[550px] h-[350px] shadow rounded-3xl w-full object-cover object-center"
                       />
                     )}
                 </Link>
@@ -314,7 +317,7 @@ const SinglProductPage = () => {
               <h2 className="prod-name uppercase md:text-3xl text-2xl text-darkGreen font-black">
                 {singleProduct
                   ? // Check if either brand_name or model_name is null, undefined, or "Others"
-                    singleProduct.brand_name == null ||
+                  singleProduct.brand_name == null ||
                     singleProduct.brand_name === "Others" ||
                     singleProduct.model_name == null ||
                     singleProduct.model_name === "Others"
@@ -337,7 +340,7 @@ const SinglProductPage = () => {
                 <TbCurrencyRupee className="inline mb-2 text-darkGreen" />
                 {type == "rent"
                   ? singleProduct &&
-                    `${singleProduct.price}/${singleProduct.rent_type.slice(4)}`
+                  `${singleProduct.price}/${singleProduct.rent_type.slice(4)}`
                   : singleProduct && `${singleProduct.price}`}
               </h4>
               <div className="grid md:grid-cols-2 grid-cols-1 gap-2">
@@ -346,8 +349,8 @@ const SinglProductPage = () => {
                     Specifications
                   </p>
                   {type === "seeds" ||
-                  type === "pesticides" ||
-                  type === "fertilizer" ? (
+                    type === "pesticides" ||
+                    type === "fertilizer" ? (
                     <ul className="mt-2">
                       <li>
                         <span className="font-bold">Price Negotiable</span>{" "}
@@ -355,8 +358,8 @@ const SinglProductPage = () => {
                           {singleProduct && singleProduct.is_negotiable == 0
                             ? "No"
                             : singleProduct && singleProduct.is_negotiable == 1
-                            ? "Yes"
-                            : "NA"}
+                              ? "Yes"
+                              : "NA"}
                         </span>
                       </li>
                     </ul>
@@ -369,8 +372,8 @@ const SinglProductPage = () => {
                             {singleProduct && singleProduct.rc_available == 0
                               ? "No"
                               : singleProduct && singleProduct.rc_available == 1
-                              ? "Yes"
-                              : "NA"}
+                                ? "Yes"
+                                : "NA"}
                           </span>
                         </li>
                       )}
@@ -381,8 +384,8 @@ const SinglProductPage = () => {
                             {singleProduct.noc_available === 0
                               ? "No"
                               : singleProduct.noc_available === 1
-                              ? "Yes"
-                              : "NA"}
+                                ? "Yes"
+                                : "NA"}
                           </span>
                         </li>
                       )}
@@ -393,8 +396,8 @@ const SinglProductPage = () => {
                             {singleProduct.is_negotiable === 0
                               ? "No"
                               : singleProduct.is_negotiable === 1
-                              ? "Yes"
-                              : "NA"}
+                                ? "Yes"
+                                : "NA"}
                           </span>
                         </li>
                       )}
@@ -424,7 +427,7 @@ const SinglProductPage = () => {
                   <p className="name-user uppercase mt-5 font-bold flex items-center justify-center">
                     {singleProduct && `${singleProduct.name}`}
                     {singleProduct &&
-                    singleProduct.verify_tag == null ? null : (
+                      singleProduct.verify_tag == null ? null : (
                       <span className="ms-2">
                         <img
                           src={singleProduct && singleProduct.verify_tag}

@@ -29,6 +29,7 @@ const TyreProductsSlider = () => {
         tabs={tabs}
         product_data={tyresData}
         populer_brand_id="7"
+        view_all_category="tyre"
       />
     </>
   );

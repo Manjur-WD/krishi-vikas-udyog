@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { loadAllCategoryWiseData } from "../../../services/api";
 import { useEffect, useState } from "react";
 
-const tabs = ["seeds", "pesticides", "fertilizers"];
+const tabs = ["seeds", "pesticides", "fertilizer"];
 
 const AgriInputsProductSlider = () => {
   const [agriInputsData, setAgriInputsData] = useState({});
@@ -25,6 +25,7 @@ const AgriInputsProductSlider = () => {
         category_title="agri inputs"
         tabs={tabs}
         product_data={agriInputsData}
+        view_all_category="agri-inputs"
       />
     </>
   );
