@@ -1,5 +1,5 @@
 import BreadCrumb from "../components/elements/BreadCrumb";
-import { useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { getCategoryWiseProduct } from "../services/api";
 import { useContext, useEffect, useState } from "react";
 import ProductCard from "../components/elements/ProductCard";
@@ -11,6 +11,7 @@ import Header from "../components/layouts/Header/Header";
 import MobileScreenNav from "../components/layouts/Header/MobileScreenNav";
 import Footer from "../components/layouts/Footer/Footer";
 import toast, { Toaster } from "react-hot-toast";
+import { useInView } from "react-intersection-observer";
 
 // import { Skeleton } from "@/components/ui/skeleton";
 const skeletonArray = new Array(6).fill(true);
@@ -39,39 +40,49 @@ const CategoryWiseAllProduct = () => {
   const [take, setTake] = useState(12);
   const {
     data: allProducts,
+    hasNextPage,
+    fetchNextPage,
+    isFetchingNextPage,
     isLoading,
     isError,
     error,
-  } = useQuery({
+  } = useInfiniteQuery({
     queryKey: ["category-wise-all-product", categoryId, subtype, skip, take], // Add the languageId to the queryKey for better cache management
-    queryFn: () => getCategoryWiseProduct(categoryId, subtype, skip, take), // Pass a function that calls getCategoryList
+    queryFn: ({ pageParam }) =>
+      getCategoryWiseProduct(categoryId, subtype, pageParam * take, take), // Pass a function that calls getCategoryList
+
+    getNextPageParam: (lastpage, allPages) => {
+      return lastpage && lastpage.length > 0 && lastpage.length <= 12
+        ? allPages.length + 1
+        : undefined;
+    },
+
+    initialPageParam: 0,
   });
 
   const { filterBtnState, setFilterBtnState } = useContext(FilterBtnContext);
   // console.log(filterBtnState);
 
-  const handleInfiniteScroll = () => {
-    try {
-      const footer = document.querySelector("footer");
-      const scrollHeight =
-        document.documentElement.scrollHeight - footer.offsetHeight;
-      const windowHeight = window.innerHeight;
-      const scrollDone = window.scrollY + windowHeight;
-
-      console.log("Total document scroll height:", scrollHeight);
-      console.log("scroll:", scrollDone);
-
-      if (scrollDone >= scrollHeight) {
-        console.log("Youu Crossed");
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const { ref, inView } = useInView({
+    threshold: 0,
+  });
 
   useEffect(() => {
-    window.addEventListener("scroll", handleInfiniteScroll);
-  }, []);
+    if (inView) {
+      if (hasNextPage) {
+        fetchNextPage();
+      } else {
+        toast.success("All products are loaded!", {
+          duration: 4000,
+          style: {
+            background: "linear-gradient(33deg, #030303, #8cbf44)",
+            color: "white",
+            fontSize: "18px",
+          },
+        });
+      }
+    }
+  }, [inView, hasNextPage]);
 
   useEffect(() => {
     // Tractor
@@ -155,7 +166,7 @@ const CategoryWiseAllProduct = () => {
       <Header />
       <MobileScreenNav />
       <BreadCrumb />
-      <Toaster />
+      <Toaster position="bottom-right" reverseOrder={false} />
 
       {/* Mobile View: Sort and Filter Button */}
       <section className="mobile-filter-and-sort-btn lg:hidden block bg-lightgreen sticky md:top-[158px] top-[62px] z-10">
@@ -192,42 +203,61 @@ const CategoryWiseAllProduct = () => {
               ))}
             </div>
           ) : (
-            <div className="product-list-container mb-10">
+            <div className="product-list-container mb-5">
               <div className="grid grid-cols-2 md:grid-cols-3 2xl:grid-cols-4 md:px-5  px-2 md:gap-x-4 gap-x-2">
-                {allProducts &&
-                  allProducts.map((item) => (
-                    <Link
-                      key={item.id}
-                      to={`${BASE_URL}/${category}/${type}/${item.id}`}
-                    >
-                      <ProductCard
-                        product_image={
-                          item.front_image ? item.front_image : item.image1
-                        }
-                        product_title={
-                          `${item.brand_name} ${item.model_name}` ===
-                            "Others Others" ||
-                          `${item.brand_name} ${item.model_name}` ===
-                            "undefined undefined" ||
-                          `${item.brand_name} ${item.model_name}` ===
-                            "null null"
-                            ? item.title
-                            : `${item.brand_name} ${item.model_name}`
-                        }
-                        product_location={item.district_name}
-                        product_pricing={item.price}
-                        distance_product={item.distance}
-                        rent_type={
-                          type === "rent"
-                            ? item.rent_type
-                              ? ` / ${item.rent_type.slice(4)}`
+                {allProducts?.pages?.map(
+                  (page) =>
+                    page &&
+                    page.map((item) => (
+                      <Link
+                        key={item.id}
+                        to={`${BASE_URL}/${category}/${type}/${item.id}`}
+                      >
+                        <ProductCard
+                          product_image={
+                            item.front_image ? item.front_image : item.image1
+                          }
+                          product_title={
+                            `${item.brand_name} ${item.model_name}` ===
+                              "Others Others" ||
+                            `${item.brand_name} ${item.model_name}` ===
+                              "undefined undefined" ||
+                            `${item.brand_name} ${item.model_name}` ===
+                              "null null"
+                              ? item.title
+                              : `${item.brand_name} ${item.model_name}`
+                          }
+                          product_location={item.district_name}
+                          product_pricing={item.price}
+                          distance_product={item.distance}
+                          rent_type={
+                            type === "rent"
+                              ? item.rent_type
+                                ? ` / ${item.rent_type.slice(4)}`
+                                : ""
                               : ""
-                            : ""
-                        }
-                      />
-                    </Link>
-                  ))}
+                          }
+                        />
+                      </Link>
+                    ))
+                )}
               </div>
+              {hasNextPage ? (
+                <div
+                  ref={ref}
+                  className="lod-more-product flex items-center gap-2 justify-center w-full mt-5"
+                >
+                  <div className="relative">
+                    <span className="loader"></span>
+                    <img
+                      src={preloader_image}
+                      alt="this is a icon of preloader"
+                      className="absolute top-[49.5%] left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full shadow-lg"
+                    />
+                  </div>
+                  <span className="text-darkGreen text-2xl">Loading More</span>
+                </div>
+              ) : null}
             </div>
           )}
         </section>
