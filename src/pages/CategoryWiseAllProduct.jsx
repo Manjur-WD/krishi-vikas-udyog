@@ -1,43 +1,43 @@
+import React, { useCallback, useContext, useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
+import { Link, useParams } from "react-router-dom";
+import { getCategoryWiseProduct, getSingleProduct } from "../services/api";
+import { FilterBtnContext } from "../context/CategoryWiseAllProduct/FilterBtnContext";
 import BreadCrumb from "../components/elements/BreadCrumb";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { getCategoryWiseProduct } from "../services/api";
 import { useContext, useEffect, useState } from "react";
 import ProductCard from "../components/elements/ProductCard";
+import ProductCardSkeleton from "../components/elements/ProductCardSkeleton";
+import BASE_URL from "../../config";
+import { MdSort, MdFilterList } from "react-icons/md";
+import BreadCrumb from "../components/elements/BreadCrumb";
 import FilterProductSidebar from "../components/elements/FilterProductSidebar";
 import SortProductTabs from "../components/elements/SortProductTabs";
-import { Link, useParams } from "react-router-dom";
-import preloader_image from "../../src/assets/images/favicon/favicon-32x32.png";
 import Header from "../components/layouts/Header/Header";
 import MobileScreenNav from "../components/layouts/Header/MobileScreenNav";
 import Footer from "../components/layouts/Footer/Footer";
 import toast, { Toaster } from "react-hot-toast";
 import { useInView } from "react-intersection-observer";
 
-// import { Skeleton } from "@/components/ui/skeleton";
+// Skeleton loading effect
 const skeletonArray = new Array(6).fill(true);
-
-import { MdSort } from "react-icons/md";
-import { MdFilterList } from "react-icons/md";
-import { FilterBtnContext } from "../context/CategoryWiseAllProduct/FilterBtnContext";
-import BASE_URL from "../../config";
-import ProductCardSkeleton from "../components/elements/ProductCardSkeleton";
 
 const CategoryWiseAllProduct = () => {
   const { category, type } = useParams();
-
-  // Mobile View :  Sort and filter button state
-  const [sortBtnActive, setSortBtnActive] = useState(false);
-
-  const handleSortBtn = () => {
-    setSortBtnActive(!sortBtnActive);
-  };
-
-  // const handleFilterBtn = () => {};
-
   const [categoryId, setCategoryId] = useState(0);
   const [subtype, setSubType] = useState("");
   const [skip, setSkip] = useState(0);
   const [take, setTake] = useState(12);
+
+  // Query to fetch category products
+  const { data: allProducts, isLoading } = useQuery({
+    queryKey: ["category-wise-all-product", categoryId, subtype, skip, take],
+    queryFn: () => getCategoryWiseProduct(categoryId, subtype, skip, take),
+  });
+
+  // Handle filter and sort buttons for mobile view
   const {
     data: allProducts,
     hasNextPage,
@@ -61,6 +61,48 @@ const CategoryWiseAllProduct = () => {
   });
 
   const { filterBtnState, setFilterBtnState } = useContext(FilterBtnContext);
+  const [sortBtnActive, setSortBtnActive] = useState(false);
+
+  const handleSortBtn = () => {
+    setSortBtnActive(!sortBtnActive);
+  };
+
+  const queryClient = useQueryClient();
+
+  // Prefetch product data
+  const prefetchProduct = useCallback((categoryId, id) => {
+    const queryKey = ["single-product", id];
+    console.log("Prefetch Query Key:", queryKey);
+
+    queryClient.prefetchQuery({
+      queryKey: queryKey,
+      queryFn: () => getSingleProduct(categoryId, id),
+      staleTime: 1000 * 60 * 3, // Cache duration
+    });
+  }, [queryClient]);
+
+  // Handle infinite scroll
+  const handleInfiniteScroll = () => {
+    try {
+      const footer = document.querySelector("footer");
+      const scrollHeight = document.documentElement.scrollHeight - footer.offsetHeight;
+      const windowHeight = window.innerHeight;
+      const scrollDone = window.scrollY + windowHeight;
+
+      if (scrollDone >= scrollHeight) {
+        console.log("You have reached the end of the page");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleInfiniteScroll);
+    return () => {
+      window.removeEventListener("scroll", handleInfiniteScroll);
+    };
+  }, []);
   // console.log(filterBtnState);
 
   const { ref, inView } = useInView({
@@ -85,119 +127,57 @@ const CategoryWiseAllProduct = () => {
   }, [inView, hasNextPage]);
 
   useEffect(() => {
-    // Tractor
-    if (category == "tractor" && type == "new") {
+    // Set categoryId and subtype based on route params
+    if (category === "tractor") {
       setCategoryId(1);
       setSubType(type);
-    } else if (category == "tractor" && type == "old") {
-      setCategoryId(1);
-      setSubType(type);
-    } else if (category == "tractor" && type == "rent") {
-      setCategoryId(1);
-      setSubType(type);
-    }
-
-    // Goods Vehicle
-    else if (category == "goods-vehicle" && type == "new") {
+    } else if (category === "goods-vehicle") {
       setCategoryId(3);
       setSubType(type);
-    } else if (category == "goods-vehicle" && type == "old") {
-      setCategoryId(3);
-      setSubType(type);
-    } else if (category == "goods-vehicle" && type == "rent") {
-      setCategoryId(3);
-      setSubType(type);
-    }
-
-    // Harvester
-    else if (category == "harvester" && type == "new") {
+    } else if (category === "harvester") {
       setCategoryId(4);
       setSubType(type);
-    } else if (category == "harvester" && type == "old") {
-      setCategoryId(4);
-      setSubType(type);
-    } else if (category == "harvester" && type == "rent") {
-      setCategoryId(4);
-      setSubType(type);
-    }
-
-    // Implements
-    else if (category == "implements" && type == "new") {
+    } else if (category === "implements") {
       setCategoryId(5);
       setSubType(type);
-    } else if (category == "implements" && type == "old") {
-      setCategoryId(5);
-      setSubType(type);
-    } else if (category == "implements" && type == "rent") {
-      setCategoryId(5);
-      setSubType(type);
-    }
-
-    // Tyres
-    else if (category == "tyre" && type == "new") {
+    } else if (category === "tyre") {
       setCategoryId(7);
       setSubType(type);
-    } else if (category == "tyre" && type == "old") {
-      setCategoryId(7);
-      setSubType(type);
-    }
-
-    // Seeds
-    else if (category == "agri-inputs" && type == "seeds") {
-      setCategoryId(6);
-      setSubType("");
-    }
-    // Pesticides
-    else if (category == "agri-inputs" && type == "pesticides") {
-      setCategoryId(8);
-      setSubType("");
-    }
-    // Fertilizers
-    else if (category == "agri-inputs" && type == "fertilizer") {
-      setCategoryId(9);
-      setSubType("");
+    } else if (category === "agri-inputs") {
+      if (type === "seeds") setCategoryId(6);
+      if (type === "pesticides") setCategoryId(8);
+      if (type === "fertilizer") setCategoryId(9);
     }
   }, [category, type]);
-
-  // console.log(allProducts);
 
   return (
     <>
       <Header />
       <MobileScreenNav />
       <BreadCrumb />
+      <Toaster />
+      
       <Toaster position="bottom-right" reverseOrder={false} />
 
       {/* Mobile View: Sort and Filter Button */}
       <section className="mobile-filter-and-sort-btn lg:hidden block bg-lightgreen sticky md:top-[158px] top-[62px] z-10">
         <div className="container px-10  grid grid-cols-2">
-          <button
-            type="button"
-            className="sort-btn text-lg text-white border-r border-white h-full py-2"
-            onClick={() => {
-              setFilterBtnState(true);
-            }}
-          >
+          <button type="button" className="sort-btn text-lg text-white border-r border-white h-full py-2" onClick={() => setFilterBtnState(true)}>
             <MdFilterList className="inline mb-1" /> Filter
           </button>
-          <button
-            type="button"
-            className="sort-btn text-lg text-white"
-            onClick={() => {
-              handleSortBtn();
-            }}
-          >
+          <button type="button" className="sort-btn text-lg text-white" onClick={handleSortBtn}>
             <MdSort className="inline mb-1" /> Sort
           </button>
         </div>
       </section>
-      {/* Mobile View: Sort and Filter Button */}
+
       <main className="products-container-wrapper container bg-whitesmoke md:px-10 ">
         <FilterProductSidebar />
         <SortProductTabs sort_btn_state={sortBtnActive} />
+        
         <section className="category-wise-all-product">
           {isLoading ? (
-            <div className="product-skeleton grid  md:grid-cols-3 2xl:grid-cols-4 grid-cols-2 px-5 gap-x-4">
+            <div className="product-skeleton grid md:grid-cols-3 2xl:grid-cols-4 grid-cols-2 px-5 gap-x-4">
               {skeletonArray.map((_, idx) => (
                 <ProductCardSkeleton key={idx} />
               ))}
@@ -205,6 +185,23 @@ const CategoryWiseAllProduct = () => {
           ) : (
             <div className="product-list-container mb-5">
               <div className="grid grid-cols-2 md:grid-cols-3 2xl:grid-cols-4 md:px-5  px-2 md:gap-x-4 gap-x-2">
+                {allProducts &&
+                  allProducts.map((item) => (
+                    <Link
+                      key={item.id}
+                      to={`${BASE_URL}/${category}/${type}/${item.id}`}
+                      onMouseOver={() => prefetchProduct(categoryId, item.id)} // Prefetch when hovering
+                    >
+                      <ProductCard
+                        product_image={item.front_image || item.image1}
+                        product_title={item.brand_name + " " + item.model_name || item.title}
+                        product_location={item.district_name}
+                        product_pricing={item.price}
+                        distance_product={item.distance}
+                        rent_type={type === "rent" ? ` / ${item.rent_type?.slice(4)}` : ""}
+                      />
+                    </Link>
+                  ))}
                 {allProducts?.pages?.map(
                   (page) =>
                     page &&
