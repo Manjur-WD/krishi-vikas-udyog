@@ -29,7 +29,7 @@ const CategoryWiseAllProduct = () => {
   const [skip, setSkip] = useState(0);
   const [take, setTake] = useState(12);
 
- 
+
 
   // Handle filter and sort buttons for mobile view
   const {
@@ -61,21 +61,6 @@ const CategoryWiseAllProduct = () => {
     setSortBtnActive(!sortBtnActive);
   };
 
-  const queryClient = useQueryClient();
-
-  // Prefetch product data
-  const prefetchProduct = useCallback((categoryId, id) => {
-    const queryKey = ["single-product", id];
-    console.log("Prefetch Query Key:", queryKey);
-
-    queryClient.prefetchQuery({
-      queryKey: queryKey,
-      queryFn: () => getSingleProduct(categoryId, id),
-      staleTime: 1000 * 60 * 3, // Cache duration
-    });
-  }, [queryClient]);
-
-
 
   const { ref, inView } = useInView({
     threshold: 0,
@@ -86,7 +71,7 @@ const CategoryWiseAllProduct = () => {
       if (hasNextPage) {
         fetchNextPage();
       } else {
-        toast.success("All products are loaded!",{duration: 5000});
+        toast.success("All products are loaded!", { duration: 5000 });
       }
     }
   }, [inView, hasNextPage]);
@@ -137,7 +122,7 @@ const CategoryWiseAllProduct = () => {
       <main className="products-container-wrapper container bg-whitesmoke md:px-10 ">
         <FilterProductSidebar />
         <SortProductTabs sort_btn_state={sortBtnActive} />
-        
+
         <section className="category-wise-all-product">
           {isLoading ? (
             <div className="product-skeleton grid md:grid-cols-3 2xl:grid-cols-4 grid-cols-2 px-5 gap-x-4">
@@ -157,15 +142,16 @@ const CategoryWiseAllProduct = () => {
                         to={`${BASE_URL}/${category}/${type}/${item.id}`}
                       >
                         <ProductCard
+                          product_full_details={item}
                           product_image={
                             item.front_image ? item.front_image : item.image1
                           }
                           product_title={
                             `${item.brand_name} ${item.model_name}` ===
                               "Others Others" ||
-                            `${item.brand_name} ${item.model_name}` ===
+                              `${item.brand_name} ${item.model_name}` ===
                               "undefined undefined" ||
-                            `${item.brand_name} ${item.model_name}` ===
+                              `${item.brand_name} ${item.model_name}` ===
                               "null null"
                               ? item.title
                               : `${item.brand_name} ${item.model_name}`

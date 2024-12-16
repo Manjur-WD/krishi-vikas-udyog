@@ -23,10 +23,37 @@ const SinglProductPage = () => {
   const { category, type, id } = useParams();
 
   const [categoryId, setCategoryId] = useState(0);
+  const [sessionData, setSessionData] = useState(undefined);
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location]);
+
+
+
+  // Retrieve the single product from session storage
+  useEffect(() => {
+    const singleProductRaw = sessionStorage.getItem("single-product-detail");
+    if (singleProductRaw) {
+      setSessionData(JSON.parse(singleProductRaw));
+    }
+  }, []); // Run only once on component mount
+  const singleProductFromSession = sessionData;
+
+
+  const {
+    data: singleProductFromApi,
+    isLoading,
+    isError,
+    error,
+  } = useQuery({
+    queryKey: ["single-product", categoryId, id],
+    queryFn: () => getSingleProduct(categoryId, id),
+    enabled: !sessionData
+  });
+
+  const singleProduct = singleProductFromSession || singleProductFromApi
+
 
   useEffect(() => {
     Fancybox.bind("[data-fancybox]", {
@@ -71,25 +98,7 @@ const SinglProductPage = () => {
     }
   }, [category, type]);
 
-  // SINGLE PRODUCT DATA
-  const queryClient = useQueryClient();
-  // Check if the prefetched data is available in the cache
-  const queryKey = ["single-product", +id];
 
-  // Log the queryKey to the console
-  console.log("Query Key:", queryKey);
-  const {
-    data: singleProduct,
-    isLoading,
-    isError,
-    error,
-  } = useQuery({
-    queryKey: ["single-product", categoryId, id],
-    queryFn: () => getSingleProduct(categoryId, id),
-    initialData: () =>
-      queryClient.getQueryData(["single-product", categoryId, id]), // Use prefetched data if available
-    staleTime: 1000 * 60 * 3, // Keep data fresh for 3 minutes
-  });
 
   // SIMILAR PRODUCT DATA
 

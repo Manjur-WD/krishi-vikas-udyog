@@ -12,12 +12,19 @@ const ProductCard = ({
   product_location,
   distance_product,
   rent_type,
+  product_full_details
 }) => {
+
+  const storeProductToSession = (item) => {
+    sessionStorage.setItem("single-product-detail", JSON.stringify(item))
+  }
+
   return (
     <>
-      <div className="product-card bg-white rounded-3xl overflow-hidden my-2 shadow-lg border hover:scale-95 transition-all">
+      <div className="product-card bg-white rounded-3xl overflow-hidden my-2 shadow-lg border hover:scale-95 transition-all"
+        onMouseEnter={() => storeProductToSession(product_full_details)}>
         <div className="product_image p-[2px] relative">
-          
+
           <img
             src={product_image}
             alt="this is product image"
