@@ -123,6 +123,10 @@ details[open] .downarrow {
   padding: 10px;
 }
 
+.bg-gradient-green{
+  background: linear-gradient(33deg, #13693a, #8cbf44);
+}
+
 .product_spec .heading {
   background: linear-gradient(33deg, #13693a, #8cbf44);
 }
@@ -157,6 +161,7 @@ details[open] .downarrow {
 
   .categories::-webkit-scrollbar,
   .populer-brand-list::-webkit-scrollbar,
+  .ten-days-forecast::-webkit-scrollbar,
   body::-webkit-scrollbar {
     display: none;
   }

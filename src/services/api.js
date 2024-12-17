@@ -71,7 +71,7 @@ export const getWeatherData = async (pincode, latitude, longitude, time) => {
 
 // CATEGORY VIEW ALL DATA
 
-export const getCategoryWiseProduct = async(category_id , type , skip , take) =>{
+export const getCategoryWiseProduct = async (category_id, type, skip, take) => {
   try {
     const response = await api.post("/category-view-all-data", {
       category_id: category_id,
@@ -84,19 +84,33 @@ export const getCategoryWiseProduct = async(category_id , type , skip , take) =>
     console.error("Error loading category data:", error);
     throw error; // Optionally throw or return a default value if you want to handle errors differently
   }
-}
+};
 
 // SINGLE PRODUCT VIEW
 
-export const getSingleProduct = async(category_id , id) =>{
+export const getSingleProduct = async (category_id, id) => {
   try {
     const response = await api.post("/category-view-by-id", {
       category_id: category_id,
-      id: id
+      id: id,
     });
     return response.data.result.response; // Return the resolved data
   } catch (error) {
     console.error("Error loading category data:", error);
     throw error; // Optionally throw or return a default value if you want to handle errors differently
   }
-}
+};
+
+// COMPANY PRODUCT
+
+export const getCompanyProduct = async (company_id) => {
+  try {
+    const response = await api.post("company/products", {
+      company_id: company_id,
+    });
+    return response.data.result.response;
+  } catch (error) {
+    console.error("Error loading category data:", error);
+    throw error; // Optionally throw or return a default value if you want to handle errors differently
+  }
+};

@@ -16,15 +16,15 @@ const BreadCrumb = () => {
         }}
       >
         <div className="breadcrumb-content">
-          <div className="breadcrumb-links flex justify-center items-center text-2xl text-white">
+          <div className="breadcrumb-links flex justify-center items-center md:text-2xl text-white">
             <p className="hover:text-lightgreen px-3">Home</p>
             <FaChevronRight />
-            <p className="hover:text-lightgreen px-3 capitalize">
+            <p className="hover:text-lightgreen px-3 capitalize ">
               {category === "goods-vehicle" ? "goods vehicle" : category === "agri-inputs" ? "agri inputs" : category}
             </p>
           </div>
           <p
-            className="text-lightgreen md:text-6xl text-4xl font-bold text-center mt-3 uppercase"
+            className="text-lightgreen md:text-6xl text-3xl font-bold text-center mt-3 uppercase"
             style={{ textShadow: "0 0 15px black" }}
           >
             {category === "goods-vehicle"

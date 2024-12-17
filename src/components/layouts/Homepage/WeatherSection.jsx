@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { getWeatherData } from "../../../services/api";
 import { useQuery } from "@tanstack/react-query";
 import humidity from "../../../assets/humidity.svg";
@@ -6,6 +5,8 @@ import airpressure from "../../../assets/airpressure.svg";
 import feelslike from "../../../assets/feelslike.svg";
 import windspeed from "../../../assets/windspeed.svg";
 import weatherHomepage from "../../../assets/images/short_weather_report.webp";
+import { Link } from "react-router-dom";
+import BASE_URL from "../../../../config";
 
 const WeatherSection = () => {
   const now = new Date();
@@ -17,15 +18,20 @@ const WeatherSection = () => {
   const date = now.toLocaleDateString("en-GB");
 
   const { data: weatherData } = useQuery({
-    queryKey: [""],
+    queryKey: ["weather-data"],
     queryFn: () => getWeatherData(722205, "22.515310", "88.348038", "20"),
   });
 
   // console.log(weatherData.data.current[0].icon);
-  
+
   return (
     <>
-      <section className="weather-section-homepage p-5" style={{background: `linear-gradient(rgba(0, 0, 0, 0.356), rgba(0, 0, 0, 0.37)),url(${weatherHomepage}) no-repeat center/cover`}}>
+      <section
+        className="weather-section-homepage p-5"
+        style={{
+          background: `linear-gradient(rgba(0, 0, 0, 0.356), rgba(0, 0, 0, 0.37)),url(${weatherHomepage}) no-repeat center/cover`,
+        }}
+      >
         <div className="container m-4 flex lg:flex-row flex-col md:gap-10 gap-5 items-center justify-center">
           <div className="current-status-weather flex md:gap-5 md:flex-row flex-col justify-center items-center">
             <img
@@ -34,7 +40,9 @@ const WeatherSection = () => {
               className="w-[150px]  drop-shadow-2xl md:mt-4 mt-[50px]"
             />
             <div className="w-current-details md:text-start text-center">
-              <p className="text-white text-2xl  font-semibold">{weatherData ? weatherData.data.current[0].main : null}</p>
+              <p className="text-white text-2xl  font-semibold">
+                {weatherData ? weatherData.data.current[0].main : null}
+              </p>
               <p className="text-xl text-white">{dayOfWeek}</p>
               <p className="text-xl text-white font-light">{date}</p>
               <p className="text-7xl font-bold text-white">
@@ -57,7 +65,7 @@ const WeatherSection = () => {
                 {weatherData ? weatherData.data.current[0].humidity : null}
               </p>
             </div>
-            <div className="additional-weather-data-box md:border-r md:p-5 p-2 " >
+            <div className="additional-weather-data-box md:border-r md:p-5 p-2 ">
               <p className="text-xl text-white uppercase">
                 <img
                   src={airpressure}
@@ -66,7 +74,9 @@ const WeatherSection = () => {
                 />
                 air pressure
               </p>
-              <p className="text-2xl text-center">{weatherData ? weatherData.data.current[0].pressure : null}</p>
+              <p className="text-2xl text-center">
+                {weatherData ? weatherData.data.current[0].pressure : null}
+              </p>
             </div>
             <div className="additional-weather-data-box md:border-r md:p-5 p-2">
               <p className="text-xl text-white uppercase">
@@ -77,7 +87,9 @@ const WeatherSection = () => {
                 />
                 feels like
               </p>
-              <p className="text-2xl text-center">{weatherData ? weatherData.data.current[0].feels_like : null}°C</p>
+              <p className="text-2xl text-center">
+                {weatherData ? weatherData.data.current[0].feels_like : null}°C
+              </p>
             </div>
             <div className="additional-weather-data-box  md:p-5 p-2">
               <p className="text-xl text-white uppercase">
@@ -88,9 +100,14 @@ const WeatherSection = () => {
                 />
                 wind speed
               </p>
-              <p className="text-2xl text-center">{weatherData ? weatherData.data.current[0].wind_speed : null}</p>
+              <p className="text-2xl text-center">
+                {weatherData ? weatherData.data.current[0].wind_speed : null}
+              </p>
             </div>
           </div>
+        </div>
+        <div className="text-center">
+          <Link to={`${BASE_URL}/weather-forecast`} className="text-white border px-3 py-2 rounded-3xl hover:shadow hover:bg-white hover:text-lightdark">10 days Forcast</Link>
         </div>
       </section>
     </>

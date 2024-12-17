@@ -134,6 +134,7 @@ const CategoryWiseProductCarousel = ({
                                         : ""
                                       : ""
                                   }
+                                  // product_full_details= {item}
                                 />
                               </Link>
                             </CarouselItem>

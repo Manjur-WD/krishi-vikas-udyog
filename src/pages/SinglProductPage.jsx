@@ -23,36 +23,23 @@ const SinglProductPage = () => {
   const { category, type, id } = useParams();
 
   const [categoryId, setCategoryId] = useState(0);
-  const [sessionData, setSessionData] = useState(undefined);
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location]);
 
 
-
-  // Retrieve the single product from session storage
-  useEffect(() => {
-    const singleProductRaw = sessionStorage.getItem("single-product-detail");
-    if (singleProductRaw) {
-      setSessionData(JSON.parse(singleProductRaw));
-    }
-  }, []); // Run only once on component mount
-  const singleProductFromSession = sessionData;
-
-
   const {
-    data: singleProductFromApi,
+    data: singleProduct,
     isLoading,
     isError,
     error,
   } = useQuery({
     queryKey: ["single-product", categoryId, id],
     queryFn: () => getSingleProduct(categoryId, id),
-    enabled: !sessionData
+    // enabled: !sessionData
   });
 
-  const singleProduct = singleProductFromSession || singleProductFromApi
 
 
   useEffect(() => {

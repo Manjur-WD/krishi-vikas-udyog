@@ -16,6 +16,12 @@ const LazyCategoryViewAllPage = React.lazy(() =>
 const LazySingleProductPage = React.lazy(() =>
   import("./pages/SinglProductPage")
 );
+const LazyIffcoProductPage = React.lazy(()=>
+  import("./pages/IffcoProductsPage")
+)
+const LazyWeatherForecastPage = React.lazy(()=>
+  import("./pages/WeatherForecastPage")
+)
 
 const App = () => {
   const baseUrl = "/krishi-vikas-udyog";
@@ -51,6 +57,22 @@ const App = () => {
           element={
             <Suspense fallback={<Preloader />}>
                 <LazySingleProductPage key={location.key} />
+            </Suspense>
+          }
+        />
+        <Route
+          path={`${baseUrl}/iffco-products`}
+          element={
+            <Suspense fallback={<Preloader />}>
+                <LazyIffcoProductPage key={location.key} />
+            </Suspense>
+          }
+        />
+        <Route
+          path={`${baseUrl}/weather-forecast`}
+          element={
+            <Suspense fallback={<Preloader />}>
+                <LazyWeatherForecastPage key={location.key} />
             </Suspense>
           }
         />
