@@ -12,13 +12,69 @@ import humidity from "../assets/weather-icons/humidity.svg";
 import wind from "../assets/weather-icons/wind.svg";
 import { FaMapLocationDot } from "react-icons/fa6";
 
+// Shadcn Chart
+import { TrendingUp } from "lucide-react";
+import {
+  CartesianGrid,
+  Bar,
+  BarChart,
+  XAxis,
+  YAxis,
+  Tooltip,
+  Legend,
+} from "recharts";
+
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+} from "@/components/ui/chart";
+
+// WeatherForecastPage Component
 const WeatherForecastPage = () => {
   const { data: weatherData } = useQuery({
     queryKey: ["weather-data"],
     queryFn: () => getWeatherData(722205, "22.515310", "88.348038", "20"),
   });
 
-  console.log(weatherData);
+  // Custom Tooltip component to display both X (time) and Y (temperature)
+  const CustomTooltip = ({ active, payload, label }) => {
+    if (active && payload && payload.length) {
+      return (
+        <div className="custom-tooltip bg-black text-white p-3 rounded-md">
+          <p className="label">{`Time: ${label}`}</p>
+          <p className="temperature">{`Temperature: ${payload[0].value}°C`}</p>
+        </div>
+      );
+    }
+    return null;
+  };
+
+  // Map the weather data for charting
+  const chartData = weatherData?.data?.hours?.map((hourData) => ({
+    time: hourData.hours, // X-axis label (hours)
+    temperature: hourData.temp, // Y-axis value (temperature)
+  }));
+
+  // Chart configuration (without TypeScript type-checking)
+  const chartConfig = {
+    desktop: {
+      label: "Desktop",
+      color: "#f5f5f5c3",
+    },
+    mobile: {
+      label: "Mobile",
+      color: "hsl(var(--chart-2))",
+    },
+  };
 
   return (
     <>
@@ -31,7 +87,7 @@ const WeatherForecastPage = () => {
         }}
       >
         <div className="container">
-          <div className="weather-container-wrapper grid grid-cols-3">
+          <div className="weather-container-wrapper grid grid-cols-1 lg:grid-cols-3 items-center">
             <div className="weather-shortcut grid grid-cols-2">
               <figure className="icons-and-desc flex items-center">
                 <img src={sunrise} alt="icon" width={80} />
@@ -90,6 +146,8 @@ const WeatherForecastPage = () => {
                 </figcaption>
               </figure>
             </div>
+
+            {/* Temperature and Weather Overview */}
             <div
               className="weather-temperature-main rounded-[50px] py-10"
               style={{
@@ -107,21 +165,82 @@ const WeatherForecastPage = () => {
               <p className="text-center font-bold text-6xl text-white mt-4">
                 {weatherData?.data?.current[0]?.temp}°C
               </p>
-              <p className="text-center text-xl  text-white mt-4">
+              <p className="text-center text-xl text-white mt-4">
                 <FaMapLocationDot className="inline" /> {weatherData?.city_name}
               </p>
             </div>
+
+            {/* Hourly Forecast Chart */}
+            <div className="weather-chart">
+              <Card className="bg-transparent border-0 text-white shadow-none text-center uppercase">
+                <CardHeader>
+                  <CardTitle>Today's Hourly Forecast</CardTitle>
+                  {/* <CardDescription>January - June 2024</CardDescription> */}
+                </CardHeader>
+                <CardContent>
+                  <ChartContainer config={chartConfig}>
+                    <BarChart
+                      data={chartData}
+                      margin={{
+                        left: 12,
+                        right: 12,
+                      }}
+                    >
+                      <CartesianGrid vertical={false} />
+                      <XAxis
+                        dataKey="time"
+                        tickLine={false}
+                        axisLine={{ stroke: "#ffffff", strokeWidth: 1 }}
+                        tick={{
+                          fontSize: 12,
+                          fill: "#ffffff", // Label color white
+                        }}
+                        tickMargin={8}
+                        tickFormatter={(value) => value.slice(0, 5)}
+                      />
+                      <YAxis
+                        tickLine={false}
+                        axisLine={{ stroke: "#ffffff", strokeWidth: 1 }}
+                        tick={{
+                          fontSize: 12,
+                          fill: "#ffffff", // Y-axis labels in white
+                        }}
+                      />
+                      <Tooltip
+                        content={<CustomTooltip />} // Use custom tooltip
+                      />
+                      <Bar
+                        dataKey="temperature"
+                        fill="var(--color-desktop)" // Use the color defined for desktop
+                        barSize={12} // Adjust the bar width
+                      />
+                    </BarChart>
+                  </ChartContainer>
+                </CardContent>
+              </Card>
+            </div>
           </div>
 
+          {/* 10-day forecast */}
           <div className="ten-days-forecast flex gap-5 xl:justify-center justify-start mt-10 overflow-auto py-3">
             {weatherData?.data?.days.map((item, idx) => (
-              <div className="forecast-box text-center flex-shrink-0 p-6 text-white rounded-3xl" key={idx} style={{
-                background: "linear-gradient(45deg, #000000c7, transparent)",
-              }}>
-                <img src={item.icon} alt="status icon" width={50} />
+              <div
+                className="forecast-box hover:scale-105 transition-[0.5s] text-center flex-shrink-0 p-6 text-white rounded-3xl"
+                key={idx}
+                style={{
+                  background: "linear-gradient(45deg, #000000c7, transparent)",
+                }}
+              >
+                <img
+                  src={item.icon}
+                  alt="status icon"
+                  className="w-[50px] mx-auto"
+                />
                 <p className="day-status">{item.weather}</p>
                 <p className="day-temp">{item.temp}°C</p>
-                <p className="day-name"></p>
+                <p className="day-name uppercase text-xl">
+                  {weatherData?.data?.week[idx].day_name.slice(0, 3)}
+                </p>
               </div>
             ))}
           </div>

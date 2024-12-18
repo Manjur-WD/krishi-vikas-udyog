@@ -138,7 +138,7 @@ details[open] .downarrow {
 }
 
 .product_spec ul li:nth-child(2n + 1) {
-  background-color: whitesmoke;
+  background-color: rgba(245, 245, 245, 0.295);
 }
 
 @keyframes skeleton {
@@ -283,6 +283,24 @@ details[open] .downarrow {
     height: 50px;
     width: 100px;
   }
+}
+
+.pagination-iffco-dealer ul {
+  @apply flex justify-center items-center gap-2 flex-wrap
+}
+
+.pagination-iffco-dealer ul li {
+  @apply border 
+}
+
+.pagination-iffco-dealer ul li a{
+  @apply px-3 py-2  rounded-2xl w-[50px] text-center cursor-pointer
+}
+
+
+
+.pagination-iffco-dealer ul li.selected a, .pagination-iffco-dealer ul li:hover{
+  @apply bg-gradient-green shadow-lg text-white
 }
 
 .category,

@@ -114,3 +114,18 @@ export const getCompanyProduct = async (company_id) => {
     throw error; // Optionally throw or return a default value if you want to handle errors differently
   }
 };
+
+
+// COMPANY DEALERS
+
+export const getCompanyDealers = async (company_id) => {
+  try {
+    const response = await api.post("company/dealer", {
+      company_id: company_id,
+    });
+    return response.data.result.response;
+  } catch (error) {
+    console.error("Error loading category data:", error);
+    throw error; // Optionally throw or return a default value if you want to handle errors differently
+  }
+};

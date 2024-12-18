@@ -19,6 +19,9 @@ const LazySingleProductPage = React.lazy(() =>
 const LazyIffcoProductPage = React.lazy(()=>
   import("./pages/IffcoProductsPage")
 )
+const LazyIffcoDealerPage = React.lazy(()=>
+  import("./pages/IffcoDealersPage")
+)
 const LazyWeatherForecastPage = React.lazy(()=>
   import("./pages/WeatherForecastPage")
 )
@@ -27,9 +30,9 @@ const App = () => {
   const baseUrl = "/krishi-vikas-udyog";
   const location = useLocation();
 
-  // useEffect(() => {
-  //   window.scrollTo(0, 0);
-  // }, [location]);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location]);
 
   return (
     <>
@@ -65,6 +68,14 @@ const App = () => {
           element={
             <Suspense fallback={<Preloader />}>
                 <LazyIffcoProductPage key={location.key} />
+            </Suspense>
+          }
+        />
+        <Route
+          path={`${baseUrl}/iffco-dealers`}
+          element={
+            <Suspense fallback={<Preloader />}>
+                <LazyIffcoDealerPage key={location.key} />
             </Suspense>
           }
         />
