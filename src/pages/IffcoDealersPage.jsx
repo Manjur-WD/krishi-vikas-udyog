@@ -15,19 +15,27 @@ import { Link } from "react-router-dom";
 import { FiChevronsLeft } from "react-icons/fi";
 import { FiChevronsRight } from "react-icons/fi";
 import { data } from "autoprefixer";
+import { useContext } from "react";
+import { IffcoDataContext } from "../context/IffcoData/IffcoDataContext";
 
 const IffcoDealersPage = () => {
+  
+  const { iffcoDealerData } = useContext(IffcoDataContext);
+  
   const { data: iffcoDealers, isLoading } = useQuery({
-    queryKey: ["iffco-dealers" , data],
+    queryKey: ["iffco-dealers", data],
     queryFn: () => getCompanyDealers(1),
+    enabled: iffcoDealerData.length === 0
   });
 
-  console.log(iffcoDealers);
-  let contacts_per_page = 22;
-  
-  let total_pages =  2266;
+  const finalIffcoDealer = iffcoDealerData || iffcoDealers;
 
-  const chunksDealers = iffcoDealers ? iffcoDealers.slice(0, contacts_per_page) : [];
+
+  let contacts_per_page = 22;
+
+  let total_pages = 2266;
+
+  const chunksDealers = finalIffcoDealer ? finalIffcoDealer.slice(0, contacts_per_page) : [];
   const handlePageClick = (data) => {
     console.log(data);
     // console.log(iffcoDealers.length);

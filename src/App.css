@@ -289,17 +289,13 @@ details[open] .downarrow {
   @apply flex justify-center items-center gap-2 flex-wrap
 }
 
-.pagination-iffco-dealer ul li {
-  @apply border 
-}
-
 .pagination-iffco-dealer ul li a{
-  @apply px-3 py-2  rounded-2xl w-[50px] text-center cursor-pointer
+  @apply px-3 py-2 border  rounded-2xl text-center cursor-pointer inline-block
 }
 
 
 
-.pagination-iffco-dealer ul li.selected a, .pagination-iffco-dealer ul li:hover{
+.pagination-iffco-dealer ul li.selected a, .pagination-iffco-dealer ul li a:hover{
   @apply bg-gradient-green shadow-lg text-white
 }
 

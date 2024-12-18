@@ -21,6 +21,8 @@ import {
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import BASE_URL from "../../config";
+import { useContext, useEffect } from "react";
+import { IffcoDataContext } from "../context/IffcoData/IffcoDataContext";
 
 const IffcoProductsPage = () => {
 
@@ -31,10 +33,15 @@ const IffcoProductsPage = () => {
     queryFn: () => getCompanyProduct(1),
   });
 
-  const { data: iffcoDealers, isLoading } = useQuery({
+  const { data: iffcoDealers } = useQuery({
     queryKey: ["iffco-dealers"],
     queryFn: () => getCompanyDealers(1),
   });
+
+  const { iffcoDealerData, setIffcoDealerData } = useContext(IffcoDataContext);
+  setIffcoDealerData(iffcoDealers);
+  // console.log(iffcoDealerData);
+  
 
   // console.log(iffcoDealers);
 
@@ -94,7 +101,7 @@ const IffcoProductsPage = () => {
                     </div>
                   </DrawerTrigger>
                   <DrawerContent>
-                    <div className="container lg:h-auto h-[400px] overflow-y-auto">
+                    <div className="container h-[400px] overflow-y-auto">
                       <div className="grid lg:grid-cols-2 grid-cols-1">
                         <img
                           src={item.product_image}
@@ -110,12 +117,12 @@ const IffcoProductsPage = () => {
                           <p className="">{item.description}</p>
                           <p className="my-4 text-darkGreen text-xl">PRICE : <MdOutlineCurrencyRupee className="inline-block mb-1 " />{item.price}</p>
                         </div>
-                       
+
                       </div>
                     </div>
 
                     <DrawerFooter className="text-center">
-                      <Button className="uppercase w-[300px] mx-auto bg-gradient-green" onClick = {() => {navigate(`${BASE_URL}/iffco-dealers`)}}>Show All Dealers</Button>
+                      <Button className="uppercase w-[300px] mx-auto bg-gradient-green" onClick={() => { navigate(`${BASE_URL}/iffco-dealers`) }}>Show All Dealers</Button>
                       <DrawerClose>
                         <Button variant="outline">close</Button>
                       </DrawerClose>

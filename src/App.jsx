@@ -6,6 +6,7 @@ import MobileScreenNav from "./components/layouts/Header/MobileScreenNav";
 import React, { Suspense, useEffect } from "react";
 import Preloader from "./components/elements/Preloader";
 import { FilterButtonStateProvider } from "./context/CategoryWiseAllProduct/FilterBtnContext";
+import { IffcoDataProvider } from "./context/IffcoData/IffcoDataContext";
 
 // Lazy load the component
 
@@ -16,13 +17,13 @@ const LazyCategoryViewAllPage = React.lazy(() =>
 const LazySingleProductPage = React.lazy(() =>
   import("./pages/SinglProductPage")
 );
-const LazyIffcoProductPage = React.lazy(()=>
+const LazyIffcoProductPage = React.lazy(() =>
   import("./pages/IffcoProductsPage")
 )
-const LazyIffcoDealerPage = React.lazy(()=>
+const LazyIffcoDealerPage = React.lazy(() =>
   import("./pages/IffcoDealersPage")
 )
-const LazyWeatherForecastPage = React.lazy(()=>
+const LazyWeatherForecastPage = React.lazy(() =>
   import("./pages/WeatherForecastPage")
 )
 
@@ -36,58 +37,61 @@ const App = () => {
 
   return (
     <>
-      <Routes>
-        <Route
-          path={`${baseUrl}`}
-          element={
-            <Suspense fallback={<Preloader />}>
-              <LazyHomepage />
-            </Suspense>
-          }
-        />
-        <Route
-          path={`${baseUrl}/:category/:type`}
-          element={
-            <Suspense fallback={<Preloader />}>
-              <FilterButtonStateProvider>
-                <LazyCategoryViewAllPage key={location.key} />
-              </FilterButtonStateProvider>
-            </Suspense>
-          }
-        />
-        <Route
-          path={`${baseUrl}/:category/:type/:id`}
-          element={
-            <Suspense fallback={<Preloader />}>
+      <IffcoDataProvider>
+        <Routes>
+          <Route
+            path={`${baseUrl}`}
+            element={
+              <Suspense fallback={<Preloader />}>
+                <LazyHomepage />
+              </Suspense>
+            }
+          />
+          <Route
+            path={`${baseUrl}/:category/:type`}
+            element={
+              <Suspense fallback={<Preloader />}>
+                <FilterButtonStateProvider>
+                  <LazyCategoryViewAllPage key={location.key} />
+                </FilterButtonStateProvider>
+              </Suspense>
+            }
+          />
+          <Route
+            path={`${baseUrl}/:category/:type/:id`}
+            element={
+              <Suspense fallback={<Preloader />}>
                 <LazySingleProductPage key={location.key} />
-            </Suspense>
-          }
-        />
-        <Route
-          path={`${baseUrl}/iffco-products`}
-          element={
-            <Suspense fallback={<Preloader />}>
+              </Suspense>
+            }
+          />
+          <Route
+            path={`${baseUrl}/iffco-products`}
+            element={
+              <Suspense fallback={<Preloader />}>
                 <LazyIffcoProductPage key={location.key} />
-            </Suspense>
-          }
-        />
-        <Route
-          path={`${baseUrl}/iffco-dealers`}
-          element={
-            <Suspense fallback={<Preloader />}>
+              </Suspense>
+            }
+          />
+          <Route
+            path={`${baseUrl}/iffco-dealers`}
+            element={
+              <Suspense fallback={<Preloader />}>
                 <LazyIffcoDealerPage key={location.key} />
-            </Suspense>
-          }
-        />
-        <Route
-          path={`${baseUrl}/weather-forecast`}
-          element={
-            <Suspense fallback={<Preloader />}>
+              </Suspense>
+            }
+          />
+          <Route
+            path={`${baseUrl}/weather-forecast`}
+            element={
+              <Suspense fallback={<Preloader />}>
                 <LazyWeatherForecastPage key={location.key} />
-            </Suspense>
-          }
-        />
-      </Routes>
+              </Suspense>
+            }
+          />
+        </Routes>
+      </IffcoDataProvider>
+
     </>
   );
 };
