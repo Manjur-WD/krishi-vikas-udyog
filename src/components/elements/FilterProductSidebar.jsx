@@ -1,10 +1,47 @@
+/* eslint-disable react/prop-types */
 import { useContext, useEffect, useRef, useState } from "react";
 import { FaAngleDown } from "react-icons/fa6";
 import { HiOutlineArrowNarrowLeft } from "react-icons/hi";
 import { FilterBtnContext } from "../../context/CategoryWiseAllProduct/FilterBtnContext";
+import { useQuery } from "@tanstack/react-query";
+import { getBrandList, getMaxMinPrice, getStateDistrictList, getYearOfPurchaseList } from "../../services/api";
+import BrandModelSkeleton from "./BrandModelSkeleton";
 
-const FilterProductSidebar = () => {
+const FilterProductSidebar = ({ categoryId, type }) => {
   const { filterBtnState, setFilterBtnState } = useContext(FilterBtnContext);
+  console.log(categoryId);
+  console.log(type);
+
+  const { data: brandList, isLoading : brandLoading } = useQuery({
+    queryKey: ["brand-list", categoryId, type],
+    queryFn: () => getBrandList(categoryId, type),
+  });
+  const { data: statedistrictList, isLoading: stateLoading } = useQuery({
+    queryKey: ["state-district-list", categoryId, type],
+    queryFn: () => getStateDistrictList(categoryId, type),
+  });
+  const { data: yearOfPurchaseList, isLoading: yopLoading } = useQuery({
+    queryKey: ["year-of-purchase-list", categoryId, type],
+    queryFn: () => getYearOfPurchaseList(categoryId, type),
+  });
+  const { data: maxminPrice, isLoading: maxminpriceLoading } = useQuery({
+    queryKey: ["maxmin-price-list", categoryId, type],
+    queryFn: () => getMaxMinPrice(categoryId, type),
+  });
+
+  const popular_brand_list = brandList
+    ? brandList.filter((brand) => brand.popular === 1 && brand.item_count != 0)
+    : [];
+  const all_brand_list = brandList
+    ? brandList.filter((brand) => brand.item_count != 0)
+    : [];
+
+  console.log(statedistrictList);
+  console.log(yearOfPurchaseList);
+  console.log(maxminPrice);
+
+
+  // console.log(data);
 
   return (
     <>
@@ -26,7 +63,9 @@ const FilterProductSidebar = () => {
         </div>
 
         <section className="w-full bg-white my-3 p-2 rounded-3xl shadow">
-          <div className="product__brands">
+          {
+            brandList && brandList.length > 0 && 
+            <div className="product__brands">
             <details
               open
               className="rounded-3xl bg-white overflow-hidden shadow mb-3"
@@ -37,40 +76,70 @@ const FilterProductSidebar = () => {
                   <FaAngleDown className="inline" />
                 </div>
               </summary>
-              <div className="brands-list border-t p-2">
-                <div className="popular-brands grid grid-cols-3 gap-2">
-                  <div className="brand-select text-center border rounded-2xl p-2">
-                    <img
-                      src="https://krishivikas.com/storage/images/brands/mf.png"
-                      alt="brand-select"
-                      className="w-[60px] h-[60px] object-contain mx-auto"
-                    />
-                    <p className="brand-name capitalize">brand</p>
-                    <p className="brand-product-count text-sm">(250)</p>
+              <div className="brands-list border-t p-2 h-[400px] overflow-y-auto">
+                <div className="popular-brands text-center">
+                  <p className="text-sm bg-gradient-green text-white px-3 py-2 mb-2 rounded-xl">
+                    POPULAR BRANDS
+                  </p>
+                  <div className="grid grid-cols-3 gap-2">
+                    {brandLoading ? (
+                      <BrandModelSkeleton />
+                    ) : (
+                      popular_brand_list &&
+                      popular_brand_list.map((item) => (
+                        <div
+                          className="brand-select text-center border rounded-2xl p-2"
+                          key={item.brand_id}
+                        >
+                          <img
+                            src={item.brand_logo}
+                            alt="brand-logo"
+                            className="w-[40px] h-[40px] object-contain mx-auto"
+                          />
+                          <p className="brand-name capitalize text-sm truncate">
+                            {item.brand_name}
+                          </p>
+                          <p className="brand-product-count text-sm">
+                            ({item.item_count})
+                          </p>
+                        </div>
+                      ))
+                    )}
                   </div>
-                  <div className="brand-select text-center border rounded-2xl p-2">
-                    <img
-                      src="https://krishivikas.com/storage/images/brands/mf.png"
-                      alt="brand-select"
-                      className="w-[60px] h-[60px] object-contain mx-auto"
-                    />
-                    <p className="brand-name capitalize">brand</p>
-                    <p className="brand-product-count text-sm">(250)</p>
-                  </div>
-                  <div className="brand-select text-center border rounded-2xl p-2">
-                    <img
-                      src="https://krishivikas.com/storage/images/brands/mf.png"
-                      alt="brand-select"
-                      className="w-[60px] h-[60px] object-contain mx-auto"
-                    />
-                    <p className="brand-name capitalize">brand</p>
-                    <p className="brand-product-count text-sm">(250)</p>
+                  <p className="text-sm bg-gradient-green text-white px-3 py-2 my-3 rounded-xl">
+                    ALL BRANDS
+                  </p>
+                  <div className="grid grid-cols-3 gap-2">
+                    {brandLoading ? (
+                      <BrandModelSkeleton />
+                    ) : (
+                      all_brand_list &&
+                      all_brand_list.map((item) => (
+                        <div
+                          className="brand-select text-center border rounded-2xl p-2"
+                          key={item.brand_id}
+                        >
+                          <img
+                            src={item.brand_logo}
+                            alt="brand-logo"
+                            className="w-[40px] h-[40px] object-contain mx-auto"
+                          />
+                          <p className="brand-name capitalize text-sm truncate">
+                            {item.brand_name}
+                          </p>
+                          <p className="brand-product-count text-sm">
+                            ({item.item_count})
+                          </p>
+                        </div>
+                      ))
+                    )}
                   </div>
                 </div>
                 <div className="all-brands"></div>
               </div>
             </details>
           </div>
+          }
           <div className="product_statewise">
             <details className="rounded-3xl bg-white overflow-hidden shadow mb-3">
               <summary className="list-none ">

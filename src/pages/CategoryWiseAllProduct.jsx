@@ -29,8 +29,6 @@ const CategoryWiseAllProduct = () => {
   const [skip, setSkip] = useState(0);
   const [take, setTake] = useState(12);
 
-
-
   // Handle filter and sort buttons for mobile view
   const {
     data: allProducts,
@@ -60,7 +58,6 @@ const CategoryWiseAllProduct = () => {
   const handleSortBtn = () => {
     setSortBtnActive(!sortBtnActive);
   };
-
 
   const { ref, inView } = useInView({
     threshold: 0,
@@ -110,17 +107,25 @@ const CategoryWiseAllProduct = () => {
       {/* Mobile View: Sort and Filter Button */}
       <section className="mobile-filter-and-sort-btn lg:hidden block bg-lightgreen sticky md:top-[147px] top-[62px] z-10">
         <div className="container px-10  grid grid-cols-2">
-          <button type="button" className="sort-btn text-lg text-white border-r border-white h-full py-2" onClick={() => setFilterBtnState(true)}>
+          <button
+            type="button"
+            className="sort-btn text-lg text-white border-r border-white h-full py-2"
+            onClick={() => setFilterBtnState(true)}
+          >
             <MdFilterList className="inline mb-1" /> Filter
           </button>
-          <button type="button" className="sort-btn text-lg text-white" onClick={handleSortBtn}>
+          <button
+            type="button"
+            className="sort-btn text-lg text-white"
+            onClick={handleSortBtn}
+          >
             <MdSort className="inline mb-1" /> Sort
           </button>
         </div>
       </section>
 
       <main className="products-container-wrapper container bg-whitesmoke md:px-10 ">
-        <FilterProductSidebar />
+        <FilterProductSidebar categoryId={categoryId} type={type} />
         <SortProductTabs sort_btn_state={sortBtnActive} />
 
         <section className="category-wise-all-product">
@@ -149,9 +154,9 @@ const CategoryWiseAllProduct = () => {
                           product_title={
                             `${item.brand_name} ${item.model_name}` ===
                               "Others Others" ||
-                              `${item.brand_name} ${item.model_name}` ===
+                            `${item.brand_name} ${item.model_name}` ===
                               "undefined undefined" ||
-                              `${item.brand_name} ${item.model_name}` ===
+                            `${item.brand_name} ${item.model_name}` ===
                               "null null"
                               ? item.title
                               : `${item.brand_name} ${item.model_name}`

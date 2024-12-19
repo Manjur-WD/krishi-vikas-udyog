@@ -8,7 +8,7 @@ import { IoAdd } from "react-icons/io5";
 const MobileScreenNav = () => {
   return (
     <>
-      <div className="mobile-nav flex justify-between gap-5 text-2xl fixed md:-bottom-[100%] bottom-0 md:-z-50 z-50 bg-white px-10 py-5 rounded-t-3xl shadow-xl w-full left-1/2 -translate-x-1/2">
+      <div className="mobile-nav flex justify-between border-t border-t-gray-300 gap-5 text-2xl fixed md:-bottom-[100%] bottom-0 md:-z-50 z-50 bg-white px-10 py-5 rounded-t-3xl shadow-xl w-full left-1/2 -translate-x-1/2">
         <div className="left_nav_menus flex items-center gap-10">
           <div className="mobile-nav__menus">
             <a href="#">

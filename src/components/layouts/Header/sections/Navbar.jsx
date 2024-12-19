@@ -13,8 +13,8 @@ const Navbar = () => {
     <ul
       className={
         activeNav
-          ? "nav-menus active flex lg:flex-row flex-col text-white items-center gap-10 uppercase"
-          : "nav-menus flex lg:flex-row flex-col text-white items-center gap-10 uppercase"
+          ? "nav-menus active flex lg:flex-row flex-col text-white items-center gap-10 uppercase xl:text-sm text-[12px]"
+          : "nav-menus flex lg:flex-row flex-col text-white items-center gap-10 uppercase xl:text-sm text-[12px]"
       }
     >
       {menuItems.map((navlink, index) => (

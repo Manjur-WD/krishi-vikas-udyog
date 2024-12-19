@@ -73,7 +73,7 @@ export const getWeatherData = async (pincode, latitude, longitude, time) => {
 
 export const getCategoryWiseProduct = async (category_id, type, skip, take) => {
   try {
-    const response = await api.post("/category-view-all-data", {
+    const response = await api.post("/category-filter", {
       category_id: category_id,
       type: type,
       skip: skip,
@@ -115,13 +115,66 @@ export const getCompanyProduct = async (company_id) => {
   }
 };
 
-
 // COMPANY DEALERS
 
 export const getCompanyDealers = async (company_id) => {
   try {
     const response = await api.post("company/dealer", {
       company_id: company_id,
+    });
+    return response.data.result.response;
+  } catch (error) {
+    console.error("Error loading category data:", error);
+    throw error; // Optionally throw or return a default value if you want to handle errors differently
+  }
+};
+
+// GET BRAND LIST
+export const getBrandList = async (category_id, type) => {
+  try {
+    const response = await api.post("/brand-data-show", {
+      category_id: category_id,
+      type: type,
+    });
+    return response.data.result.response;
+  } catch (error) {
+    console.error("Error loading category data:", error);
+    throw error; // Optionally throw or return a default value if you want to handle errors differently
+  }
+};
+
+// GET STATE WISE DISTRICT
+export const getStateDistrictList = async (category_id, type) => {
+  try {
+    const response = await api.post("/state-wise-district-show", {
+      category_id: category_id,
+      type: type,
+    });
+    return response.data.result.response;
+  } catch (error) {
+    console.error("Error loading category data:", error);
+    throw error; // Optionally throw or return a default value if you want to handle errors differently
+  }
+};
+// GET YEAR OF PURCHASE LIST
+export const getYearOfPurchaseList = async (category_id, type) => {
+  try {
+    const response = await api.post("/year-of-purchase-data", {
+      category_id: category_id,
+      type: type,
+    });
+    return response.data.result.response;
+  } catch (error) {
+    console.error("Error loading category data:", error);
+    throw error; // Optionally throw or return a default value if you want to handle errors differently
+  }
+};
+// GET STATE WISE DISTRICT
+export const getMaxMinPrice = async (category_id, type) => {
+  try {
+    const response = await api.post("/price-max-min-data", {
+      category_id: category_id,
+      type: type,
     });
     return response.data.result.response;
   } catch (error) {

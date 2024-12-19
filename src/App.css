@@ -348,7 +348,7 @@ details[open] .downarrow {
   padding: 10px;
   border-radius: 50%;
   border: 8px solid white;
-  /* box-shadow: 0 0 5px rgb(163, 162, 162); */
+  box-shadow: 0 -1px 0px rgb(163, 162, 162);
   animation: animateGradient3 forwards 2s infinite linear;
 }
 

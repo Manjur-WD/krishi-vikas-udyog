@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import Footer from "../components/layouts/Footer/Footer";
 import Header from "../components/layouts/Header/Header";
 import MobileScreenNav from "../components/layouts/Header/MobileScreenNav";
-import { getCompanyDealers, getCompanyProduct } from "../services/api";
+import { getCompanyDealers } from "../services/api";
 import iffcoLogo from "../assets/images/IFFCO-LOGO.jpg";
 import Preloader from "../components/elements/Preloader";
 import breadcrumbImage from "../assets/images/img_hero.jpg";
@@ -12,54 +12,69 @@ import { IoMdCall } from "react-icons/io";
 import { FaHouseLaptop } from "react-icons/fa6";
 import ReactPaginate from "react-paginate";
 import { Link } from "react-router-dom";
-import { FiChevronsLeft } from "react-icons/fi";
-import { FiChevronsRight } from "react-icons/fi";
-import { data } from "autoprefixer";
-import { useContext } from "react";
+import { FiChevronsLeft, FiChevronsRight } from "react-icons/fi";
+import { LuMapPin } from "react-icons/lu";
+import { useContext, useState, useEffect, useMemo } from "react";
 import { IffcoDataContext } from "../context/IffcoData/IffcoDataContext";
+import { Input } from "@/components/ui/input";
 
 const IffcoDealersPage = () => {
-  
   const { iffcoDealerData } = useContext(IffcoDataContext);
-  
+  const [searchText, setSearchText] = useState("");
+  const [currentPage, setCurrentPage] = useState(0);
+  const contactsPerPage = 22;
+
   const { data: iffcoDealers, isLoading } = useQuery({
-    queryKey: ["iffco-dealers", data],
+    queryKey: ["iffco-dealers"],
     queryFn: () => getCompanyDealers(1),
-    enabled: iffcoDealerData.length === 0
+    enabled: !iffcoDealerData?.length, // Fetch only if context is empty
   });
 
-  const finalIffcoDealer = iffcoDealerData || iffcoDealers;
+  // Use context data if available, otherwise fall back to fetched data
+  const finalIffcoDealer = iffcoDealerData?.length ? iffcoDealerData : iffcoDealers;
 
+  // Filter data based on search text (memoize to prevent unnecessary recalculations)
+  const filteredData = useMemo(() => {
+    return finalIffcoDealer?.filter(
+      (contact) =>
+        contact?.name?.toLowerCase().includes(searchText.toLowerCase()) ||
+        contact?.company_name?.toLowerCase().includes(searchText.toLowerCase()) ||
+        contact?.address?.toLowerCase().includes(searchText.toLowerCase()) ||
+        (contact?.zipcode && contact.zipcode.toString().includes(searchText))
+    );
+  }, [finalIffcoDealer, searchText]);
 
-  let contacts_per_page = 22;
+  // Paginate filtered data
+  const totalContacts = filteredData?.length || 0;
+  const currentPageData = useMemo(() => {
+    const start = currentPage * contactsPerPage;
+    return filteredData?.slice(start, start + contactsPerPage);
+  }, [filteredData, currentPage]);
 
-  let total_pages = 2266;
-
-  const chunksDealers = finalIffcoDealer ? finalIffcoDealer.slice(0, contacts_per_page) : [];
+  // Handle page change for pagination
   const handlePageClick = (data) => {
-    console.log(data);
-    // console.log(iffcoDealers.length);
+    setCurrentPage(data.selected);
+    window.scrollTo(0, 0); // Scroll to top on page change
   };
 
   return (
     <>
       <Header />
       <MobileScreenNav />
+
       <section
         className="breadcrumb flex justify-center items-center md:h-[300px] h-[200px]"
         style={{
           backgroundImage: `linear-gradient(#13693a, #13693a6e),url(${breadcrumbImage})`,
-          backgroundSize: "cover", // Ensures the image covers the entire section
-          backgroundPosition: "center", // Centers the image
+          backgroundSize: "cover",
+          backgroundPosition: "center",
         }}
       >
         <div className="breadcrumb-content">
           <div className="breadcrumb-links flex justify-center items-center text-2xl text-white">
             <p className="hover:text-lightgreen px-3">Home</p>
             <FaChevronRight />
-            <p className="hover:text-lightgreen px-3 capitalize">
-              Company Dealer
-            </p>
+            <p className="hover:text-lightgreen px-3 capitalize">Company Dealer</p>
           </div>
           <p
             className="text-lightgreen md:text-6xl text-4xl font-bold text-center mt-3 uppercase"
@@ -70,14 +85,26 @@ const IffcoDealersPage = () => {
         </div>
       </section>
 
+      <section className="search-section-contact p-4 sticky lg:top-[158.25px] top-[62.44px] z-10 bg-lightdark">
+        <div className="bg-white rounded-lg container lg:w-[500px] w-auto">
+          <Input
+            type="text"
+            placeholder="Search with dealer name, location, pincode, etc."
+            className="placeholder:text-gray-300"
+            onChange={(e) => setSearchText(e.target.value)}
+          />
+        </div>
+      </section>
+
       <section className="dealer-wrapper">
         {isLoading ? (
           <Preloader />
         ) : (
           <div className="container">
             <div className="iffco-dealer-list grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5 p-5 place-content-center">
-              {chunksDealers &&
-                chunksDealers.map((item, idx) => (
+              {currentPageData.length > 0 ? 
+              (
+                currentPageData?.map((item, idx) => (
                   <div
                     className="dealer-card bg-white flex gap-5 shadow rounded-3xl hover:scale-105 transition-[0.5s]"
                     key={idx}
@@ -92,11 +119,17 @@ const IffcoDealersPage = () => {
                         <FaHouseLaptop className="inline me-2 " />
                         {item.name}
                       </p>
-                      {item.address ? (
+                      {item.address && (
                         <p className="text-start text-sm bg-whitesmoke p-3">
                           <GrMapLocation className="inline" /> {item.address}
                         </p>
-                      ) : null}
+                      )}
+                      {item.zipcode && (
+                        <p className="uppercase text-start py-3">
+                          <LuMapPin className="inline mb-1" />
+                          Pincode: {item.zipcode}
+                        </p>
+                      )}
                       <Link
                         to={`tel:${item.mobile}`}
                         className="py-2 shadow-lg px-5 text-white my-3 rounded-3xl md:text-xl text-sm bg-gradient-green inline-flex items-center animate-pulse"
@@ -106,23 +139,33 @@ const IffcoDealersPage = () => {
                       </Link>
                     </div>
                   </div>
-                ))}
+                ))
+              ):
+              (
+                <div className="text-center">
+                  <p className="text-2xl p-5 border text-center inline-block">NO DATA FOUND</p>
+                </div>
+              )
+            }
             </div>
           </div>
         )}
       </section>
 
-      <div className="pagination-iffco-dealer my-5">
-        <ReactPaginate
-          breakLabel="..."
-          nextLabel={<FiChevronsRight />}
-          onPageChange={handlePageClick}
-          pageRangeDisplayed={5}
-          pageCount={total_pages}
-          previousLabel={<FiChevronsLeft />}
-          renderOnZeroPageCount={null}
-        />
-      </div>
+      {/* Conditionally render pagination if filtered data exceeds contactsPerPage */}
+      {totalContacts > contactsPerPage && (
+        <div className="pagination-iffco-dealer my-5">
+          <ReactPaginate
+            breakLabel="..."
+            nextLabel={<FiChevronsRight />}
+            onPageChange={handlePageClick}
+            pageRangeDisplayed={5}
+            pageCount={Math.ceil(totalContacts / contactsPerPage)}
+            previousLabel={<FiChevronsLeft />}
+            renderOnZeroPageCount={null}
+          />
+        </div>
+      )}
 
       <Footer />
     </>
