@@ -18,6 +18,7 @@ import Footer from "../components/layouts/Footer/Footer";
 import toast, { Toaster } from "react-hot-toast";
 import { useInView } from "react-intersection-observer";
 import preloader_image from "../assets/images/favicon/favicon-32x32.png";
+import { SortStatusContext } from "../context/SortingProductContext/SortProductContext";
 
 // Skeleton loading effect
 const skeletonArray = new Array(6).fill(true);
@@ -25,9 +26,22 @@ const skeletonArray = new Array(6).fill(true);
 const CategoryWiseAllProduct = () => {
   const { category, type } = useParams();
   const [categoryId, setCategoryId] = useState(0);
-  const [subtype, setSubType] = useState("");
+  const [subtype, setSubType] = useState(null);
+
+  const { priceSort } = useContext(SortStatusContext);
+
+  const [stateId, setstateId] = useState(null);
+  const [districtId, setdistrictId] = useState(null);
+  const [yom, setYom] = useState(null);
+  const [brandId, setbrandId] = useState(null);
+  const [modelId, setmodelId] = useState(null);
+  const [minPrice, setminPrice] = useState(null);
+  const [maxPrice, setmaxPrice] = useState(null);
   const [skip, setSkip] = useState(0);
   const [take, setTake] = useState(12);
+
+  // console.log(priceSort);
+  
 
   // Handle filter and sort buttons for mobile view
   const {
@@ -39,9 +53,36 @@ const CategoryWiseAllProduct = () => {
     isError,
     error,
   } = useInfiniteQuery({
-    queryKey: ["category-wise-all-product", categoryId, subtype, skip, take], // Add the languageId to the queryKey for better cache management
+    queryKey: [
+      "category-wise-all-product",
+      categoryId,
+      subtype,
+      skip,
+      take,
+      priceSort,
+      stateId,
+      districtId,
+      yom,
+      brandId,
+      modelId,
+      minPrice,
+      maxPrice,
+    ], // Add the languageId to the queryKey for better cache management
     queryFn: ({ pageParam }) =>
-      getCategoryWiseProduct(categoryId, subtype, pageParam * take, take), // Pass a function that calls getCategoryList
+      getCategoryWiseProduct(
+        categoryId,
+        subtype,
+        priceSort,
+        stateId,
+        districtId,
+        yom,
+        brandId,
+        modelId,
+        minPrice,
+        maxPrice,
+        pageParam * take,
+        take
+      ), // Pass a function that calls getCategoryList
 
     getNextPageParam: (lastpage, allPages) => {
       return lastpage && lastpage.length === 12
@@ -125,8 +166,12 @@ const CategoryWiseAllProduct = () => {
       </section>
 
       <main className="products-container-wrapper container bg-whitesmoke md:px-10 ">
-        <FilterProductSidebar categoryId={categoryId} type={type} />
-        <SortProductTabs sort_btn_state={sortBtnActive} />
+        <FilterProductSidebar
+          categoryId={categoryId}
+          type={type}
+          categoryProduct={allProducts}
+        />
+        <SortProductTabs sort_btn_state={sortBtnActive}  />
 
         <section className="category-wise-all-product">
           {isLoading ? (

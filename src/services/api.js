@@ -71,11 +71,32 @@ export const getWeatherData = async (pincode, latitude, longitude, time) => {
 
 // CATEGORY VIEW ALL DATA
 
-export const getCategoryWiseProduct = async (category_id, type, skip, take) => {
+export const getCategoryWiseProduct = async (
+  category_id,
+  type,
+  price_sort,
+  state_id,
+  district_id,
+  yom,
+  brand_id,
+  model_id,
+  min_price,
+  max_price,
+  skip,
+  take
+) => {
   try {
     const response = await api.post("/category-filter", {
       category_id: category_id,
       type: type,
+      price_sort: price_sort,
+      state_id: state_id,
+      district_id: district_id,
+      yom: yom,
+      brand_id: brand_id,
+      model_id: model_id,
+      min_price: min_price,
+      max_price: max_price,
       skip: skip,
       take: take,
     });

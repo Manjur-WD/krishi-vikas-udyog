@@ -1,15 +1,28 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { SortStatusContext } from "../../context/SortingProductContext/SortProductContext";
 
 // eslint-disable-next-line react/prop-types
 const SortProductTabs = ({ sort_btn_state }) => {
-
-  
   // Set the initial active button index to 0 (first button active initially)
   const [activeButton, setActiveButton] = useState(0);
+  const { setPriceSort } = useContext(SortStatusContext);
 
   // Function to handle button click
   const handleButtonClick = (index) => {
     setActiveButton(index); // Set the clicked button as active
+    switch (index) {
+      case 1:
+        setPriceSort("desc");
+        break;
+      case 2:
+        setPriceSort("asc");
+        break;
+      case 3:
+        setPriceSort("nf");
+        break;
+      default:
+        break;
+    }
   };
 
   return (
