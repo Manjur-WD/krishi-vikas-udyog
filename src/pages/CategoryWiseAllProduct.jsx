@@ -41,7 +41,7 @@ const CategoryWiseAllProduct = () => {
   const [take, setTake] = useState(12);
 
   // console.log(priceSort);
-  
+
 
   // Handle filter and sort buttons for mobile view
   const {
@@ -171,7 +171,7 @@ const CategoryWiseAllProduct = () => {
           type={type}
           categoryProduct={allProducts}
         />
-        <SortProductTabs sort_btn_state={sortBtnActive}  />
+        <SortProductTabs sort_btn_state={sortBtnActive} sortBtnActive={sortBtnActive} setSortBtnActive={setSortBtnActive} />
 
         <section className="category-wise-all-product">
           {isLoading ? (
@@ -199,9 +199,9 @@ const CategoryWiseAllProduct = () => {
                           product_title={
                             `${item.brand_name} ${item.model_name}` ===
                               "Others Others" ||
-                            `${item.brand_name} ${item.model_name}` ===
+                              `${item.brand_name} ${item.model_name}` ===
                               "undefined undefined" ||
-                            `${item.brand_name} ${item.model_name}` ===
+                              `${item.brand_name} ${item.model_name}` ===
                               "null null"
                               ? item.title
                               : `${item.brand_name} ${item.model_name}`

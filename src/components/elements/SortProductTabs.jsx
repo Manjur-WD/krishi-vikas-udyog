@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import { SortStatusContext } from "../../context/SortingProductContext/SortProductContext";
 
 // eslint-disable-next-line react/prop-types
-const SortProductTabs = ({ sort_btn_state }) => {
+const SortProductTabs = ({ sort_btn_state, sortBtnActive, setSortBtnActive }) => {
   // Set the initial active button index to 0 (first button active initially)
   const [activeButton, setActiveButton] = useState(0);
   const { setPriceSort } = useContext(SortStatusContext);
@@ -13,12 +13,15 @@ const SortProductTabs = ({ sort_btn_state }) => {
     switch (index) {
       case 1:
         setPriceSort("desc");
+        setSortBtnActive(!sortBtnActive)
         break;
       case 2:
         setPriceSort("asc");
+        setSortBtnActive(!sortBtnActive)
         break;
       case 3:
         setPriceSort("nf");
+        setSortBtnActive(!sortBtnActive)
         break;
       default:
         break;
@@ -41,33 +44,30 @@ const SortProductTabs = ({ sort_btn_state }) => {
           <div className="sort-buttons flex lg:flex-row items-center flex-col">
             <button
               onClick={() => handleButtonClick(1)} // Set first button as active
-              className={`px-4 py-2 m-2 ${
-                activeButton === 1
+              className={`px-4 py-2 m-2 ${activeButton === 1
                   ? "border-b border-darkGreen text-darkGreen"
                   : "border-b text-black"
-              }`}
+                }`}
             >
               Price High to Low
             </button>
 
             <button
               onClick={() => handleButtonClick(2)} // Set second button as active
-              className={`px-4 py-2 m-2 ${
-                activeButton === 2
+              className={`px-4 py-2 m-2 ${activeButton === 2
                   ? "border-b border-darkGreen text-darkGreen"
                   : "border-b text-black"
-              }`}
+                }`}
             >
               Price Low to High
             </button>
 
             <button
               onClick={() => handleButtonClick(3)} // Set third button as active
-              className={`px-4 py-2 m-2 ${
-                activeButton === 3
+              className={`px-4 py-2 m-2 ${activeButton === 3
                   ? "border-b border-darkGreen text-darkGreen"
                   : "border-b text-black"
-              }`}
+                }`}
             >
               Newest First
             </button>
