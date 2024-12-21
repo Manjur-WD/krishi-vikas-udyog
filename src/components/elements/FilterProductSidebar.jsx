@@ -11,6 +11,8 @@ import {
   getYearOfPurchaseList,
 } from "../../services/api";
 import BrandModelSkeleton from "./BrandModelSkeleton";
+import { useDispatch, useSelector } from "react-redux";
+import { addBrand } from "../../redux/features/filterProducts/CounterSlice";
 
 const FilterProductSidebar = ({ categoryId, type, categoryProduct }) => {
   const { filterBtnState, setFilterBtnState } = useContext(FilterBtnContext);
@@ -45,11 +47,17 @@ const FilterProductSidebar = ({ categoryId, type, categoryProduct }) => {
     ? brandList.filter((brand) => brand.item_count != 0)
     : [];
 
-  console.log(statedistrictList);
-  console.log(yearOfPurchaseList);
-  console.log(maxminPrice);
+  // console.log(statedistrictList);
+  // console.log(yearOfPurchaseList);
+  // console.log(maxminPrice);
 
-  // console.log(data);
+  console.log(brandList);
+
+  const dispatch = useDispatch();
+
+  const brands = useSelector((state) => state.counter.filterParams.brandId);
+
+  console.log(`"${brands}"`);
 
   return (
     <>
@@ -98,6 +106,7 @@ const FilterProductSidebar = ({ categoryId, type, categoryProduct }) => {
                             <div
                               className="brand-select text-center border rounded-2xl p-2"
                               key={item.brand_id}
+                              onClick={() => dispatch(addBrand(item.brand_id))}
                             >
                               <img
                                 src={item.brand_logo}
@@ -126,6 +135,7 @@ const FilterProductSidebar = ({ categoryId, type, categoryProduct }) => {
                             <div
                               className="brand-select text-center border rounded-2xl p-2"
                               key={item.brand_id}
+                              onClick={() => dispatch(addBrand(item))}
                             >
                               <img
                                 src={item.brand_logo}
@@ -157,15 +167,19 @@ const FilterProductSidebar = ({ categoryId, type, categoryProduct }) => {
                   <div className="state-list border-t p-2 max-h-[400px] overflow-y-auto">
                     <ul>
                       {statedistrictList &&
-                        statedistrictList.filter((state) => state.item_count != 0).map((state) => (
-                          <li
-                            key={state.state_id}
-                            className="state-and-district-list flex bg-white shadow m-3 p-3 rounded-2xl text-sm items-center justify-between hover:scale-105"
-                          >
-                            <span>{state.state_name}</span>
-                            <span className="text-nowrap">{state.item_count}{" "}Items</span>
-                          </li>
-                        ))}
+                        statedistrictList
+                          .filter((state) => state.item_count != 0)
+                          .map((state) => (
+                            <li
+                              key={state.state_id}
+                              className="state-and-district-list flex bg-white shadow m-3 p-3 rounded-2xl text-sm items-center justify-between hover:scale-105"
+                            >
+                              <span>{state.state_name}</span>
+                              <span className="text-nowrap">
+                                {state.item_count} Items
+                              </span>
+                            </li>
+                          ))}
                     </ul>
                   </div>
                 </details>
@@ -181,43 +195,42 @@ const FilterProductSidebar = ({ categoryId, type, categoryProduct }) => {
                   <div className="state-list border-t p-2 max-h-[400px] overflow-y-auto">
                     <ul>
                       {yearOfPurchaseList &&
-                        yearOfPurchaseList.filter((yop) => yop.item_count != 0).map((yop) => (
-                          <li
-                            key={yop.state_id}
-                            className="state-and-district-list flex bg-white shadow m-3 p-3 rounded-2xl text-sm items-center justify-between hover:scale-105"
-                          >
-                            <span>{yop.year}</span>
-                            <span className="text-nowrap">{yop.item_count}{" "}Items</span>
-                          </li>
-                        ))}
+                        yearOfPurchaseList
+                          .filter((yop) => yop.item_count != 0)
+                          .map((yop) => (
+                            <li
+                              key={yop.year}
+                              className="state-and-district-list flex bg-white shadow m-3 p-3 rounded-2xl text-sm items-center justify-between hover:scale-105"
+                            >
+                              <span>{yop.year}</span>
+                              <span className="text-nowrap">
+                                {yop.item_count} Items
+                              </span>
+                            </li>
+                          ))}
                     </ul>
                   </div>
                 </details>
               </div>
-              
             </>
+          ) : null}
 
-          ) :
-            null
-          }
-
-<div className="product_by_year">
-                <details className="rounded-3xl bg-white overflow-hidden shadow mb-3">
-                  <summary className="list-none ">
-                    <div className="flex text-darkGreen w-full justify-between items-center px-5 py-4">
-                      <span>PRICE</span>
-                      <FaAngleDown className="inline" />
-                    </div>
-                  </summary>
-                  <ul>
-                    <li>manjur</li>
-                    <li>manjur</li>
-                    <li>manjur</li>
-                    <li>manjur</li>
-                  </ul>
-                </details>
-              </div>
-
+          <div className="product_by_year">
+            <details className="rounded-3xl bg-white overflow-hidden shadow mb-3">
+              <summary className="list-none ">
+                <div className="flex text-darkGreen w-full justify-between items-center px-5 py-4">
+                  <span>PRICE</span>
+                  <FaAngleDown className="inline" />
+                </div>
+              </summary>
+              <ul>
+                <li>manjur</li>
+                <li>manjur</li>
+                <li>manjur</li>
+                <li>manjur</li>
+              </ul>
+            </details>
+          </div>
         </section>
       </aside>
     </>

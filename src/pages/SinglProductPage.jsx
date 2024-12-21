@@ -4,7 +4,7 @@ import MobileScreenNav from "../components/layouts/Header/MobileScreenNav";
 import { FiPhoneCall } from "react-icons/fi";
 import { useState, useEffect, useRef } from "react";
 import Slider from "react-slick";
-import { getCategoryWiseProduct, getSingleProduct } from "../services/api";
+import { getCategoryWiseAllProduct, getCategoryWiseProduct, getSingleProduct } from "../services/api";
 import { QueryClient, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Link, useParams } from "react-router-dom";
 import { Fancybox } from "@fancyapps/ui";
@@ -91,7 +91,7 @@ const SinglProductPage = () => {
 
   const { data: similarProducts, isLoading: SimilarProductLoading } = useQuery({
     queryKey: ["similar-product", categoryId, type],
-    queryFn: () => getCategoryWiseProduct(categoryId, type, 10, 7),
+    queryFn: () => getCategoryWiseAllProduct(categoryId, type, 10, 7),
   });
 
   const [imgLink, setImgLink] = useState("");

@@ -3,10 +3,10 @@ import axios from "axios";
 // Base API configuration
 
 const api = axios.create({
-  baseURL: "https://krishivikas.com/api/v2",
+  baseURL: "https://database.businessenquiry.co.in/api/v3",
   headers: {
     Authorization:
-      "Bearer 31084|pgDZr5S9qDoBEVPzxlAJOlONBcoo0TnvKS7xRZo5f54bba35",
+      "Bearer 1280|wxPHniERi5WY1UEJ2kg0p26m1yj93JsDKAGwK7048ebf885b",
   },
 });
 
@@ -32,7 +32,7 @@ export const loadHeroSlides = async (langId) => {
 
 export const loadAllCategoryWiseData = async () => {
   try {
-    const response = await api.get("/home2"); // Make the API request
+    const response = await api.get("/home"); // Make the API request
     return response.data.result.response; // Return the resolved data
   } catch (error) {
     console.error("Error loading category data:", error);
@@ -69,7 +69,30 @@ export const getWeatherData = async (pincode, latitude, longitude, time) => {
   }
 };
 
-// CATEGORY VIEW ALL DATA
+// CATEGORY VIEW ALL PRODUCT
+
+export const getCategoryWiseAllProduct = async (
+  category_id,
+  type,
+  skip,
+  take
+) => {
+  try {
+    const response = await api.post("/category-view-all-data", {
+      category_id: category_id,
+      type: type,
+      skip: skip,
+      take: take,
+    });
+    return response.data.result.response; // Return the resolved data
+  } catch (error) {
+    console.error("Error loading category data:", error);
+    throw error; // Optionally throw or return a default value if you want to handle errors differently
+  }
+};
+
+
+// CATEGORY FILTER ALL DATA
 
 export const getCategoryWiseProduct = async (
   category_id,
@@ -86,7 +109,7 @@ export const getCategoryWiseProduct = async (
   take
 ) => {
   try {
-    const response = await api.post("/category-filter", {
+    const response = await api.post("/category-view-all-data", {
       category_id: category_id,
       type: type,
       price_sort: price_sort,

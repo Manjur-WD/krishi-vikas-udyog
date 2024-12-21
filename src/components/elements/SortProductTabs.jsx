@@ -14,14 +14,17 @@ const SortProductTabs = ({ sort_btn_state, sortBtnActive, setSortBtnActive }) =>
       case 1:
         setPriceSort("desc");
         setSortBtnActive(!sortBtnActive)
+        window.scrollTo(0, 0);
         break;
       case 2:
         setPriceSort("asc");
         setSortBtnActive(!sortBtnActive)
+        window.scrollTo(0, 0);
         break;
       case 3:
         setPriceSort("nf");
         setSortBtnActive(!sortBtnActive)
+        window.scrollTo(0, 0);
         break;
       default:
         break;
