@@ -141,6 +141,18 @@ details[open] .downarrow {
   background-color: rgba(245, 245, 245, 0.295);
 }
 
+.filter-product-sidebar label {
+  display: block;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Change background color when checkbox is checked */
+.filter-product-sidebar input[type="checkbox"]:checked + label {
+  color: white;
+background: #8cbf44e1 /* Light blue */
+}
+
 @keyframes skeleton {
   0% {
     background: white;

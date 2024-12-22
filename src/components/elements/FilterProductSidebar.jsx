@@ -12,7 +12,7 @@ import {
 } from "../../services/api";
 import BrandModelSkeleton from "./BrandModelSkeleton";
 import { useDispatch, useSelector } from "react-redux";
-import { addBrand } from "../../redux/features/filterProducts/CounterSlice";
+import { addBrand, addStates } from "../../redux/features/filterProducts/CounterSlice";
 
 const FilterProductSidebar = ({ categoryId, type, categoryProduct }) => {
   const { filterBtnState, setFilterBtnState } = useContext(FilterBtnContext);
@@ -43,8 +43,8 @@ const FilterProductSidebar = ({ categoryId, type, categoryProduct }) => {
   const popular_brand_list = brandList
     ? brandList.filter((brand) => brand.popular === 1 && brand.item_count != 0)
     : [];
-  const all_brand_list = brandList
-    ? brandList.filter((brand) => brand.item_count != 0)
+  const other_brand_list = brandList
+    ? brandList.filter((brand) => brand.item_count != 0 && brand.popular != 1)
     : [];
 
   // console.log(statedistrictList);
@@ -56,8 +56,10 @@ const FilterProductSidebar = ({ categoryId, type, categoryProduct }) => {
   const dispatch = useDispatch();
 
   const brands = useSelector((state) => state.counter.filterParams.brandId);
+  const states = useSelector((state) => state.counter.filterParams.stateId);
 
   console.log(`"${brands}"`);
+  console.log(`"${states}"`);
 
   return (
     <>
@@ -103,51 +105,60 @@ const FilterProductSidebar = ({ categoryId, type, categoryProduct }) => {
                         ) : (
                           popular_brand_list &&
                           popular_brand_list.map((item) => (
-                            <div
-                              className="brand-select text-center border rounded-2xl p-2"
-                              key={item.brand_id}
-                              onClick={() => dispatch(addBrand(item.brand_id))}
-                            >
-                              <img
-                                src={item.brand_logo}
-                                alt="brand-logo"
-                                className="w-[40px] h-[40px] object-contain mx-auto"
-                              />
-                              <p className="brand-name capitalize text-sm truncate">
-                                {item.brand_name}
-                              </p>
-                              <p className="brand-product-count text-sm">
-                                ({item.item_count})
-                              </p>
+                            <div className="brand-select " key={item.brand_id}>
+                              <input type="checkbox" id={item.brand_id} className="hidden" />
+                              <label htmlFor={item.brand_id} className=" border rounded-2xl p-2">
+                                <div
+                                  className="text-center"
+                                  onClick={() => dispatch(addBrand(item.brand_id))}
+                                >
+                                  <img
+                                    src={item.brand_logo}
+                                    alt="brand-logo"
+                                    className="w-[40px] h-[40px] object-contain mx-auto"
+                                  />
+                                  <p className="brand-name capitalize text-sm truncate">
+                                    {item.brand_name}
+                                  </p>
+                                  <p className="brand-product-count text-sm">
+                                    ({item.item_count})
+                                  </p>
+                                </div>
+                              </label>
                             </div>
+
                           ))
                         )}
                       </div>
                       <p className="text-sm bg-gradient-green text-white px-3 py-2 my-3 rounded-xl">
-                        ALL BRANDS
+                        OTHER BRANDS
                       </p>
                       <div className="grid grid-cols-3 gap-2">
                         {brandLoading ? (
                           <BrandModelSkeleton />
                         ) : (
-                          all_brand_list &&
-                          all_brand_list.map((item) => (
-                            <div
-                              className="brand-select text-center border rounded-2xl p-2"
-                              key={item.brand_id}
-                              onClick={() => dispatch(addBrand(item))}
-                            >
-                              <img
-                                src={item.brand_logo}
-                                alt="brand-logo"
-                                className="w-[40px] h-[40px] object-contain mx-auto"
-                              />
-                              <p className="brand-name capitalize text-sm truncate">
-                                {item.brand_name}
-                              </p>
-                              <p className="brand-product-count text-sm">
-                                ({item.item_count})
-                              </p>
+                          other_brand_list &&
+                          other_brand_list.map((item) => (
+                            <div className="brand-select " key={item.brand_id}>
+                              <input type="checkbox" id={item.brand_id} className="hidden" />
+                              <label htmlFor={item.brand_id} className=" border rounded-2xl p-2">
+                                <div
+                                  className="text-center"
+                                  onClick={() => dispatch(addBrand(item.brand_id))}
+                                >
+                                  <img
+                                    src={item.brand_logo}
+                                    alt="brand-logo"
+                                    className="w-[40px] h-[40px] object-contain mx-auto"
+                                  />
+                                  <p className="brand-name capitalize text-sm truncate">
+                                    {item.brand_name}
+                                  </p>
+                                  <p className="brand-product-count text-sm">
+                                    ({item.item_count})
+                                  </p>
+                                </div>
+                              </label>
                             </div>
                           ))
                         )}
@@ -172,12 +183,18 @@ const FilterProductSidebar = ({ categoryId, type, categoryProduct }) => {
                           .map((state) => (
                             <li
                               key={state.state_id}
-                              className="state-and-district-list flex bg-white shadow m-3 p-3 rounded-2xl text-sm items-center justify-between hover:scale-105"
+                              className="state-and-district-list "
                             >
-                              <span>{state.state_name}</span>
-                              <span className="text-nowrap">
-                                {state.item_count} Items
-                              </span>
+                              <input type="checkbox" id={state.state_name} className="hidden" />
+                              <label htmlFor={state.state_name} className=" bg-white shadow m-3 p-3 rounded-2xl text-sm items-center justify-between transition-[0.3s] hover:scale-105"
+                              onClick={() => dispatch(addStates(state.state_id))}>
+                                <div className="flex justify-between">
+                                  <span className="inline-block">{state.state_name}</span>
+                                  <span className="text-nowrap inline-block">
+                                    {state.item_count} Items
+                                  </span>
+                                </div>
+                              </label>
                             </li>
                           ))}
                     </ul>
@@ -200,12 +217,17 @@ const FilterProductSidebar = ({ categoryId, type, categoryProduct }) => {
                           .map((yop) => (
                             <li
                               key={yop.year}
-                              className="state-and-district-list flex bg-white shadow m-3 p-3 rounded-2xl text-sm items-center justify-between hover:scale-105"
+                              className="year-of-manufacture"
                             >
-                              <span>{yop.year}</span>
-                              <span className="text-nowrap">
-                                {yop.item_count} Items
-                              </span>
+                              <input type="checkbox" id={yop.year} className="hidden" />
+                              <label htmlFor={yop.year} className=" bg-white shadow m-3 p-3 rounded-2xl text-sm justify-between hover:scale-105">
+                                <div className="flex justify-between items-center">
+                                  <span>{yop.year}</span>
+                                  <span className="text-nowrap">
+                                    {yop.item_count} Items
+                                  </span>
+                                </div>
+                              </label>
                             </li>
                           ))}
                     </ul>
