@@ -141,7 +141,7 @@ const CategoryWiseAllProduct = () => {
   return (
     <>
       <Header />
-      <MobileScreenNav />
+      {/* <MobileScreenNav /> */}
       <BreadCrumb />
       <Toaster />
 

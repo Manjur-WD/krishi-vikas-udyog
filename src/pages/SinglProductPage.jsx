@@ -105,7 +105,7 @@ const SinglProductPage = () => {
   return (
     <>
       <Header />
-      <MobileScreenNav />
+      {/* <MobileScreenNav /> */}
       <main className="single-product-wrapper">
         <div className="container  single-product-image grid lg:grid-cols-2 grid-cols-1 my-2 overflow-hidden">
           {isLoading ? (

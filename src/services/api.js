@@ -3,10 +3,12 @@ import axios from "axios";
 // Base API configuration
 
 const api = axios.create({
-  baseURL: "https://database.businessenquiry.co.in/api/v3",
+  // baseURL: "https://database.businessenquiry.co.in/api/v3",
+  baseURL: "https://krishivikas.com/api/v2",
   headers: {
     Authorization:
-      "Bearer 1280|wxPHniERi5WY1UEJ2kg0p26m1yj93JsDKAGwK7048ebf885b",
+      // "Bearer 1280|wxPHniERi5WY1UEJ2kg0p26m1yj93JsDKAGwK7048ebf885b",
+      "Bearer 31226|1jpUnaMnnQuHCUnq9cIlmdfjhZGZCr7ZIrrheJad77c32276",
   },
 });
 
@@ -32,7 +34,7 @@ export const loadHeroSlides = async (langId) => {
 
 export const loadAllCategoryWiseData = async () => {
   try {
-    const response = await api.get("/home"); // Make the API request
+    const response = await api.get("/home2"); // Make the API request
     return response.data.result.response; // Return the resolved data
   } catch (error) {
     console.error("Error loading category data:", error);
@@ -109,7 +111,7 @@ export const getCategoryWiseProduct = async (
   take
 ) => {
   try {
-    const response = await api.post("/category-view-all-data", {
+    const response = await api.post("/category-filter", {
       category_id: category_id,
       type: type,
       price_sort: price_sort,

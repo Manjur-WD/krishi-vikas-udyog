@@ -12,7 +12,9 @@ import {
 } from "../../services/api";
 import BrandModelSkeleton from "./BrandModelSkeleton";
 import { useDispatch, useSelector } from "react-redux";
-import { addBrand, addStates } from "../../redux/features/filterProducts/CounterSlice";
+import { addBrand, addDistricts, addModel, addStates, addYom, resetFilterParams } from "../../redux/features/filterProducts/FilterSlice";
+import { useLocation } from "react-router-dom";
+import PriceRangeSlider from "./PriceRangeSlider";
 
 const FilterProductSidebar = ({ categoryId, type, categoryProduct }) => {
   const { filterBtnState, setFilterBtnState } = useContext(FilterBtnContext);
@@ -49,17 +51,80 @@ const FilterProductSidebar = ({ categoryId, type, categoryProduct }) => {
 
   // console.log(statedistrictList);
   // console.log(yearOfPurchaseList);
-  // console.log(maxminPrice);
+  // console.log(Math.ceil(maxminPrice.min));
 
-  console.log(brandList);
+  // console.log(brandList);
+
+  const [brandwiseModelList, setBrandwiseModelList] = useState([]);
+  const [statewiseDistrictList, setStatewiseDistrictList] = useState([]);
+
+  const getModelList = (brandId) => {
+    const brand = brandList?.find((item) => item.brand_id === brandId);
+    if (!brand) return;
+
+    setBrandwiseModelList((prev) => {
+      const brandExists = prev.some((item) => item.brand_id === brand.brand_id);
+
+      if (brandExists) {
+        // If the brand is already in the list, remove it
+        return prev.filter((item) => item.brand_id !== brand.brand_id);
+      } else {
+        // If the brand is not in the list, add it
+        return [...prev, brand];
+      }
+    });
+  };
+
+  const getDistrictList = (stateId) => {
+
+    const clickedstate = statedistrictList?.find((item) => item.state_id === stateId);
+
+    if (!clickedstate) return;
+
+    setStatewiseDistrictList((prev) => {
+      const stateExists = prev.some((item) => item.state_id === clickedstate.state_id);
+
+      if (stateExists) {
+        // If the brand is already in the list, remove it
+        return prev.filter((item) => item.state_id !== clickedstate.state_id);
+      } else {
+        // If the brand is not in the list, add it
+        return [...prev, clickedstate];
+      }
+    });
+  }
+
+
+  // To log the updated state, use a useEffect hook
+  useEffect(() => {
+    console.log(statewiseDistrictList);
+  }, [statewiseDistrictList]);
+
+
 
   const dispatch = useDispatch();
+  const location = useLocation();
+
+  useEffect(() => {
+    // Reset filterParams whenever the route changes
+    dispatch(resetFilterParams());
+  }, [location.pathname, dispatch]);
 
   const brands = useSelector((state) => state.counter.filterParams.brandId);
+  const models = useSelector((state) => state.counter.filterParams.modelId);
   const states = useSelector((state) => state.counter.filterParams.stateId);
+  const districts = useSelector((state) => state.counter.filterParams.districtId);
+  const yoms = useSelector((state) => state.counter.filterParams.yom);
+  const minPrice = useSelector((state) => state.counter.filterParams.minPrice);
+  const maxPrice = useSelector((state) => state.counter.filterParams.maxPrice);
 
   console.log(`"${brands}"`);
+  console.log(`"${models}"`);
   console.log(`"${states}"`);
+  console.log(`"${districts}"`);
+  console.log(`"${yoms}"`);
+  console.log(`"${minPrice}"`);
+  console.log(`"${maxPrice}"`);
 
   return (
     <>
@@ -110,7 +175,10 @@ const FilterProductSidebar = ({ categoryId, type, categoryProduct }) => {
                               <label htmlFor={item.brand_id} className=" border rounded-2xl p-2">
                                 <div
                                   className="text-center"
-                                  onClick={() => dispatch(addBrand(item.brand_id))}
+                                  onClick={() => {
+                                    dispatch(addBrand(item.brand_id));
+                                    getModelList(item.brand_id)
+                                  }}
                                 >
                                   <img
                                     src={item.brand_logo}
@@ -144,7 +212,10 @@ const FilterProductSidebar = ({ categoryId, type, categoryProduct }) => {
                               <label htmlFor={item.brand_id} className=" border rounded-2xl p-2">
                                 <div
                                   className="text-center"
-                                  onClick={() => dispatch(addBrand(item.brand_id))}
+                                  onClick={() => {
+                                    dispatch(addBrand(item.brand_id));
+                                    getModelList(item.brand_id)
+                                  }}
                                 >
                                   <img
                                     src={item.brand_logo}
@@ -167,6 +238,64 @@ const FilterProductSidebar = ({ categoryId, type, categoryProduct }) => {
                   </div>
                 </details>
               </div>
+              {
+                brands != "" ?
+                  (
+                    <div className="brandwise__models">
+                      <details
+                        className="rounded-3xl bg-white overflow-hidden shadow mb-3"
+                      >
+                        <summary className="list-none">
+                          <div className="flex text-darkGreen w-full justify-between items-center px-5 py-4">
+                            <span>MODELS</span>
+                            <FaAngleDown className="inline" />
+                          </div>
+                        </summary>
+                        {
+                          brandwiseModelList && brandwiseModelList.map((item) => (
+                            <div className="brands-list border-t p-2 overflow-y-auto" key={item.id}>
+                              <div className="popular-brands text-center">
+                                <p className="text-sm bg-gradient-green text-white px-3 py-2 mb-2 rounded-xl">
+                                  {item.brand_name}
+                                </p>
+                                <div className="grid grid-cols-3 gap-2">
+                                  {brandLoading ? (
+                                    <BrandModelSkeleton />
+                                  ) : (
+                                    item && item.model.filter((item) => item.item_count != 0).map((model) => (
+                                      <div className="model-select " key={model.model_id}>
+                                        <input type="checkbox" id={model.model_id} className="hidden" />
+                                        <label htmlFor={model.model_id} className=" border rounded-2xl p-2">
+                                          <div
+                                            className="text-center"
+                                            onClick={ () => dispatch(addModel(model.model_id)) }
+                                          >
+                                            <img
+                                              src={model.model_image}
+                                              alt="brand-logo"
+                                              className="w-[40px] h-[40px] object-contain mx-auto"
+                                            />
+                                            <p className="brand-name capitalize text-sm truncate">
+                                              {model.model_name}
+                                            </p>
+                                            <p className="brand-product-count text-sm">
+                                              ({model.item_count})
+                                            </p>
+                                          </div>
+                                        </label>
+                                      </div>
+                                    ))
+                                  )}
+                                </div>
+                              </div>
+                            </div>
+                          ))
+                        }
+                      </details>
+                    </div>
+                  ) :
+                  (null)
+              }
               <div className="product_statewise">
                 <details className="rounded-3xl bg-white overflow-hidden shadow mb-3">
                   <summary className="list-none">
@@ -187,7 +316,11 @@ const FilterProductSidebar = ({ categoryId, type, categoryProduct }) => {
                             >
                               <input type="checkbox" id={state.state_name} className="hidden" />
                               <label htmlFor={state.state_name} className=" bg-white shadow m-3 p-3 rounded-2xl text-sm items-center justify-between transition-[0.3s] hover:scale-105"
-                              onClick={() => dispatch(addStates(state.state_id))}>
+                                onClick={() => {
+                                  dispatch(addStates(state.state_id))
+                                  getDistrictList(state.state_id)
+                                }}>
+
                                 <div className="flex justify-between">
                                   <span className="inline-block">{state.state_name}</span>
                                   <span className="text-nowrap inline-block">
@@ -201,6 +334,55 @@ const FilterProductSidebar = ({ categoryId, type, categoryProduct }) => {
                   </div>
                 </details>
               </div>
+              {
+                states != "" ?
+                  (
+                    <div className="product_districtwise">
+                      <details className="rounded-3xl bg-white overflow-hidden shadow mb-3">
+                        <summary className="list-none">
+                          <div className="flex text-darkGreen w-full justify-between items-center px-5 py-4">
+                            <span>DISTRICT</span>
+                            <FaAngleDown className="inline" />
+                          </div>
+                        </summary>
+                        {
+                          statewiseDistrictList &&
+                          statewiseDistrictList.map((gstate) => (
+                            <div className="district-list border-t p-2" key={gstate.state_id}>
+                              <p className="text-sm text-center bg-gradient-green text-white px-3 py-2 mb-2 rounded-xl">
+                                {gstate.state_name}
+                              </p>
+                              <ul>
+                                {
+                                  // console.log(gstate.dist)                                 
+                                  gstate.dist.map((district) => (
+                                    <li
+                                      key={district.dist_id}
+                                      className="state-and-district-list "
+                                    >
+                                      <input type="checkbox" id={district.dist_name} className="hidden" />
+                                      <label htmlFor={district.dist_name} className=" bg-white shadow m-3 p-3 rounded-2xl text-sm items-center justify-between transition-[0.3s] hover:scale-105"
+                                      onClick={ () => dispatch(addDistricts(district.dist_id)) }
+                                      >
+                                        <div className="flex justify-between">
+                                          <span className="inline-block">{district.dist_name}</span>
+                                          <span className="text-nowrap inline-block">
+                                            {district.item_count} Items
+                                          </span>
+                                        </div>
+                                      </label>
+                                    </li>
+                                  ))
+                                }
+
+                              </ul>
+                            </div>
+                          ))}
+                      </details>
+                    </div>
+                  ) :
+                  (null)
+              }
               <div className="product_districtwise">
                 <details className="rounded-3xl bg-white overflow-hidden shadow mb-3">
                   <summary className="list-none ">
@@ -220,7 +402,8 @@ const FilterProductSidebar = ({ categoryId, type, categoryProduct }) => {
                               className="year-of-manufacture"
                             >
                               <input type="checkbox" id={yop.year} className="hidden" />
-                              <label htmlFor={yop.year} className=" bg-white shadow m-3 p-3 rounded-2xl text-sm justify-between hover:scale-105">
+                              <label htmlFor={yop.year} className=" bg-white shadow m-3 p-3 rounded-2xl text-sm justify-between hover:scale-105"
+                                onClick={() => dispatch(addYom(yop.year))}>
                                 <div className="flex justify-between items-center">
                                   <span>{yop.year}</span>
                                   <span className="text-nowrap">
@@ -245,12 +428,7 @@ const FilterProductSidebar = ({ categoryId, type, categoryProduct }) => {
                   <FaAngleDown className="inline" />
                 </div>
               </summary>
-              <ul>
-                <li>manjur</li>
-                <li>manjur</li>
-                <li>manjur</li>
-                <li>manjur</li>
-              </ul>
+              <PriceRangeSlider max_price={maxminPrice && Math.ceil(maxminPrice.max)} min_price={maxminPrice && Math.ceil(maxminPrice.min)} />
             </details>
           </div>
         </section>
