@@ -1,7 +1,12 @@
 import { useEffect, useState } from "react";
 import { loadAllPopulerBrandAndCompanyData } from "../../../services/api";
 import { useQuery } from "@tanstack/react-query";
-const PopulerBrandList = ({ populer_brand_id, company_id }) => {
+import { useNavigate } from "react-router-dom";
+import BASE_URL from "../../../../config";
+import { useDispatch } from "react-redux";
+const PopulerBrandList = ({ populer_brand_id, company_id, tab }) => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [brandData, setBrandData] = useState([]);
   // console.log(populer_brand_id);
   const { data } = useQuery({
@@ -19,13 +24,42 @@ const PopulerBrandList = ({ populer_brand_id, company_id }) => {
 
   // console.log(data);
 
+  const getCategoryName = (cat_id) => {
+    const categoryId = +cat_id;
+    switch (categoryId) {
+      case 1:
+        return "tractor";
+      case 3:
+        return "goods-vehicle";
+      case 4:
+        return "harvester";
+      case 5:
+        return "implements";
+      case 7:
+        return "tyre";
+      case 6:
+      case 8:
+      case 9:
+        return "agri-inputs";
+    }
+  };
+
   return (
     <>
       <div className="populer-brand-list px-2 flex items-center container overflow-x-auto mt-3">
         {brandData.map((brand) => (
           <div
-            className="w-[150px] shadow shadow-lightgreen flex gap-2 justify-center items-center brand-card py-2 px-3 bg-white my-2 me-5 rounded-2xl hover:scale-95 flex-shrink-0 flex-grow-0"
+            className="w-[150px] shadow shadow-lightgreen flex gap-2 justify-center items-center brand-card py-2 px-3 bg-white my-2 me-5 rounded-2xl hover:scale-95 flex-shrink-0 flex-grow-0 cursor-pointer"
             key={brand.id}
+            onClick={() => {
+              sessionStorage.setItem("brand-name", brand.id);
+              console.log(brand.id);
+              navigate(
+                `${BASE_URL}/${getCategoryName(
+                  brand.category_id || brand.category
+                )}/${tab}`
+              );
+            }}
           >
             <img
               src={brand.logo}

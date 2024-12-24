@@ -19,7 +19,8 @@ import toast, { Toaster } from "react-hot-toast";
 import { useInView } from "react-intersection-observer";
 import preloader_image from "../assets/images/favicon/favicon-32x32.png";
 import { SortStatusContext } from "../context/SortingProductContext/SortProductContext";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { addBrand } from "../redux/features/filterProducts/FilterSlice";
 
 // Skeleton loading effect
 const skeletonArray = new Array(6).fill(true);
@@ -35,15 +36,19 @@ const CategoryWiseAllProduct = () => {
 
   console.log(filterParams);
 
-  const [stateId, setstateId] = useState(null);
-  const [districtId, setdistrictId] = useState(null);
-  const [yom, setYom] = useState(null);
-  const [brandId, setbrandId] = useState(null);
-  const [modelId, setmodelId] = useState(null);
-  const [minPrice, setminPrice] = useState(null);
-  const [maxPrice, setmaxPrice] = useState(null);
+  // const [stateId, setstateId] = useState(null);
+  // const [districtId, setdistrictId] = useState(null);
+  // const [yom, setYom] = useState(null);
+  // const [brandId, setbrandId] = useState(null);
+  // const [modelId, setmodelId] = useState(null);
+  // const [minPrice, setminPrice] = useState(null);
+  // const [maxPrice, setmaxPrice] = useState(null);
   const [skip, setSkip] = useState(0);
   const [take, setTake] = useState(12);
+
+  const dispatch = useDispatch();
+
+  const brand_id_session = sessionStorage.getItem("brand-name");
 
   // console.log(priceSort);
 
@@ -67,7 +72,7 @@ const CategoryWiseAllProduct = () => {
       filterParams.stateId.toString(),
       filterParams.districtId.toString(),
       filterParams.yom.toString(),
-      filterParams.brandId.toString(),
+      filterParams.brandId.toString() || brand_id_session,
       filterParams.modelId.toString(),
       filterParams.minPrice,
       filterParams.maxPrice,
@@ -82,7 +87,7 @@ const CategoryWiseAllProduct = () => {
         filterParams.stateId.toString(),
         filterParams.districtId.toString(),
         filterParams.yom.toString(),
-        filterParams.brandId.toString(),
+        filterParams.brandId.toString() || brand_id_session,
         filterParams.modelId.toString(),
         filterParams.minPrice,
         filterParams.maxPrice

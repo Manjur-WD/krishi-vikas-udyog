@@ -70,19 +70,19 @@ const CategoryWiseProductCarousel = ({
                     {/* POPULER BRAND RENDERING CODE START */}
 
                     {tab === "new" ? null : (
-                      <PopulerBrandList populer_brand_id={populer_brand_id} />
+                      <PopulerBrandList populer_brand_id={populer_brand_id} tab={tab} />
                     )}
 
                     {tab === "seeds" ? (
-                      <PopulerBrandList company_id="6" />
+                      <PopulerBrandList company_id="6" tab={tab} />
                     ) : null}
 
                     {tab === "pesticides" ? (
-                      <PopulerBrandList company_id="8" />
+                      <PopulerBrandList company_id="8" tab={tab} />
                     ) : null}
 
                     {tab === "fertilizers" ? (
-                      <PopulerBrandList company_id="9" />
+                      <PopulerBrandList company_id="9" tab={tab} />
                     ) : null}
 
                     {/* POPULER BRAND RENDERING CODE END */}
