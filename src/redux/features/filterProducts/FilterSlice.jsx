@@ -2,11 +2,11 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   filterParams: {
-    brandId: [],
-    modelId: [],
     stateId: [],
     districtId: [],
     yom: [],
+    brandId: [],
+    modelId: [],
     minPrice: null,
     maxPrice: null,
   },

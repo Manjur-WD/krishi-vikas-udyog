@@ -99,6 +99,8 @@ export const getCategoryWiseAllProduct = async (
 export const getCategoryWiseProduct = async (
   category_id,
   type,
+  skip,
+  take,
   price_sort,
   state_id,
   district_id,
@@ -107,8 +109,7 @@ export const getCategoryWiseProduct = async (
   model_id,
   min_price,
   max_price,
-  skip,
-  take
+  
 ) => {
   try {
     const response = await api.post("/category-filter", {

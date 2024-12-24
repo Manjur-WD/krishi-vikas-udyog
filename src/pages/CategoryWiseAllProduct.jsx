@@ -19,6 +19,7 @@ import toast, { Toaster } from "react-hot-toast";
 import { useInView } from "react-intersection-observer";
 import preloader_image from "../assets/images/favicon/favicon-32x32.png";
 import { SortStatusContext } from "../context/SortingProductContext/SortProductContext";
+import { useSelector } from "react-redux";
 
 // Skeleton loading effect
 const skeletonArray = new Array(6).fill(true);
@@ -29,6 +30,10 @@ const CategoryWiseAllProduct = () => {
   const [subtype, setSubType] = useState(null);
 
   const { priceSort } = useContext(SortStatusContext);
+
+  const filterParams = useSelector((state) => state.counter.filterParams);
+
+  console.log(filterParams);
 
   const [stateId, setstateId] = useState(null);
   const [districtId, setdistrictId] = useState(null);
@@ -41,7 +46,6 @@ const CategoryWiseAllProduct = () => {
   const [take, setTake] = useState(12);
 
   // console.log(priceSort);
-
 
   // Handle filter and sort buttons for mobile view
   const {
@@ -60,28 +64,28 @@ const CategoryWiseAllProduct = () => {
       skip,
       take,
       priceSort,
-      stateId,
-      districtId,
-      yom,
-      brandId,
-      modelId,
-      minPrice,
-      maxPrice,
+      filterParams.stateId.toString(),
+      filterParams.districtId.toString(),
+      filterParams.yom.toString(),
+      filterParams.brandId.toString(),
+      filterParams.modelId.toString(),
+      filterParams.minPrice,
+      filterParams.maxPrice,
     ], // Add the languageId to the queryKey for better cache management
     queryFn: ({ pageParam }) =>
       getCategoryWiseProduct(
         categoryId,
         subtype,
-        priceSort,
-        stateId,
-        districtId,
-        yom,
-        brandId,
-        modelId,
-        minPrice,
-        maxPrice,
         pageParam * take,
-        take
+        take,
+        priceSort,
+        filterParams.stateId.toString(),
+        filterParams.districtId.toString(),
+        filterParams.yom.toString(),
+        filterParams.brandId.toString(),
+        filterParams.modelId.toString(),
+        filterParams.minPrice,
+        filterParams.maxPrice
       ), // Pass a function that calls getCategoryList
 
     getNextPageParam: (lastpage, allPages) => {
@@ -171,7 +175,11 @@ const CategoryWiseAllProduct = () => {
           type={type}
           categoryProduct={allProducts}
         />
-        <SortProductTabs sort_btn_state={sortBtnActive} sortBtnActive={sortBtnActive} setSortBtnActive={setSortBtnActive} />
+        <SortProductTabs
+          sort_btn_state={sortBtnActive}
+          sortBtnActive={sortBtnActive}
+          setSortBtnActive={setSortBtnActive}
+        />
 
         <section className="category-wise-all-product">
           {isLoading ? (
@@ -199,9 +207,9 @@ const CategoryWiseAllProduct = () => {
                           product_title={
                             `${item.brand_name} ${item.model_name}` ===
                               "Others Others" ||
-                              `${item.brand_name} ${item.model_name}` ===
+                            `${item.brand_name} ${item.model_name}` ===
                               "undefined undefined" ||
-                              `${item.brand_name} ${item.model_name}` ===
+                            `${item.brand_name} ${item.model_name}` ===
                               "null null"
                               ? item.title
                               : `${item.brand_name} ${item.model_name}`

@@ -1,10 +1,8 @@
 import { Route, Routes, useLocation } from "react-router-dom";
 import "./App.css";
-import Footer from "./components/layouts/Footer/Footer";
-import Header from "./components/layouts/Header/Header";
-import MobileScreenNav from "./components/layouts/Header/MobileScreenNav";
-import React, { Suspense, useEffect } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import Preloader from "./components/elements/Preloader";
+import SplashScreen from "./components/elements/SplashScreen";
 import { FilterButtonStateProvider } from "./context/CategoryWiseAllProduct/FilterBtnContext";
 import { IffcoDataProvider } from "./context/IffcoData/IffcoDataContext";
 import { SortStatusProvider } from "./context/SortingProductContext/SortProductContext";
@@ -36,10 +34,13 @@ const App = () => {
     window.scrollTo(0, 0);
   }, [location]);
 
+  const [isloading, setLoading] = useState(true);
+
   return (
     <>
       <IffcoDataProvider>
         <SortStatusProvider>
+          {isloading ? <SplashScreen setLoading={setLoading} /> : null}
           <Routes>
             <Route
               path={`${baseUrl}`}

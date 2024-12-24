@@ -17,7 +17,6 @@ import VideoSection from "../components/layouts/Homepage/VideoSection";
 import WeatherSection from "../components/layouts/Homepage/WeatherSection";
 
 const HomePage = () => {
-  
   return (
     <>
       <Header />
