@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import BASE_URL from "../../../../config";
 import { useDispatch } from "react-redux";
+import { addBrand } from "../../../redux/features/filterProducts/FilterSlice";
 const PopulerBrandList = ({ populer_brand_id, company_id, tab }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -52,7 +53,7 @@ const PopulerBrandList = ({ populer_brand_id, company_id, tab }) => {
             className="w-[150px] shadow shadow-lightgreen flex gap-2 justify-center items-center brand-card py-2 px-3 bg-white my-2 me-5 rounded-2xl hover:scale-95 flex-shrink-0 flex-grow-0 cursor-pointer"
             key={brand.id}
             onClick={() => {
-              sessionStorage.setItem("brand-name", brand.id);
+              dispatch(addBrand(brand.id))
               console.log(brand.id);
               navigate(
                 `${BASE_URL}/${getCategoryName(

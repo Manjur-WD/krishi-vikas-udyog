@@ -112,10 +112,10 @@ const FilterProductSidebar = ({ categoryId, type, categoryProduct }) => {
   const dispatch = useDispatch();
   const location = useLocation();
 
-  useEffect(() => {
-    // Reset filterParams whenever the route changes
-    dispatch(resetFilterParams());
-  }, [location.pathname, dispatch]);
+  // useEffect(() => {
+  //   // Reset filterParams whenever the route changes
+  //   dispatch(resetFilterParams());
+  // }, [location.pathname, dispatch]);
 
   const brands = useSelector((state) => state.counter.filterParams.brandId);
   const models = useSelector((state) => state.counter.filterParams.modelId);
@@ -134,9 +134,6 @@ const FilterProductSidebar = ({ categoryId, type, categoryProduct }) => {
   console.log(`"${yoms}"`);
   console.log(`"${minPrice}"`);
   console.log(`"${maxPrice}"`);
-
-  const brand_session_id = sessionStorage.getItem("brand-name");
-  
 
   return (
     <>
@@ -187,10 +184,10 @@ const FilterProductSidebar = ({ categoryId, type, categoryProduct }) => {
                                 type="checkbox"
                                 id={item.brand_id}
                                 className="hidden"
-                                checked={item?.brand_id === +brand_session_id}
+                                
                               />
                               {console.log(typeof(item?.brand_id))}
-                              {console.log(typeof(+brand_session_id))}
+                              {/* {console.log(typeof(+brand_session_id))} */}
                               <label
                                 htmlFor={item.brand_id}
                                 className=" border rounded-2xl p-2"

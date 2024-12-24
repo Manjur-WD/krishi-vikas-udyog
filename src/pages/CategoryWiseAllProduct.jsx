@@ -48,8 +48,6 @@ const CategoryWiseAllProduct = () => {
 
   const dispatch = useDispatch();
 
-  const brand_id_session = sessionStorage.getItem("brand-name");
-
   // console.log(priceSort);
 
   // Handle filter and sort buttons for mobile view
@@ -72,7 +70,7 @@ const CategoryWiseAllProduct = () => {
       filterParams.stateId.toString(),
       filterParams.districtId.toString(),
       filterParams.yom.toString(),
-      filterParams.brandId.toString() || brand_id_session,
+      filterParams.brandId.toString(),
       filterParams.modelId.toString(),
       filterParams.minPrice,
       filterParams.maxPrice,
@@ -87,7 +85,7 @@ const CategoryWiseAllProduct = () => {
         filterParams.stateId.toString(),
         filterParams.districtId.toString(),
         filterParams.yom.toString(),
-        filterParams.brandId.toString() || brand_id_session,
+        filterParams.brandId.toString(),
         filterParams.modelId.toString(),
         filterParams.minPrice,
         filterParams.maxPrice
