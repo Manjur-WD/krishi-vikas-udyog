@@ -1,5 +1,11 @@
 /* eslint-disable react/prop-types */
-import { useContext, useEffect, useRef, useState } from "react";
+import {
+  useContext,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
 import { FaAngleDown } from "react-icons/fa6";
 import { HiOutlineArrowNarrowLeft } from "react-icons/hi";
 import { FilterBtnContext } from "../../context/CategoryWiseAllProduct/FilterBtnContext";
@@ -110,7 +116,7 @@ const FilterProductSidebar = ({ categoryId, type, categoryProduct }) => {
   }, [statewiseDistrictList]);
 
   const dispatch = useDispatch();
-  const location = useLocation();
+  // const location = useLocation();
 
   // useEffect(() => {
   //   // Reset filterParams whenever the route changes
@@ -126,14 +132,30 @@ const FilterProductSidebar = ({ categoryId, type, categoryProduct }) => {
   const yoms = useSelector((state) => state.counter.filterParams.yom);
   const minPrice = useSelector((state) => state.counter.filterParams.minPrice);
   const maxPrice = useSelector((state) => state.counter.filterParams.maxPrice);
+  const popularBrandId = useSelector(
+    (state) => state.counter.filterParams.populerBrandId
+  );
 
   console.log(`"${brands}"`);
-  console.log(`"${models}"`);
-  console.log(`"${states}"`);
-  console.log(`"${districts}"`);
-  console.log(`"${yoms}"`);
-  console.log(`"${minPrice}"`);
-  console.log(`"${maxPrice}"`);
+  // console.log(`"${models}"`);
+  // console.log(`"${states}"`);
+  // console.log(`"${districts}"`);
+  // console.log(`"${yoms}"`);
+  // console.log(`"${minPrice}"`);
+  // console.log(`"${maxPrice}"`);
+
+  console.log("popular Band:", popularBrandId);
+
+  useLayoutEffect(() => {
+    const labels = document.querySelectorAll(".brand-select label");
+    labels.forEach((label) => {
+      if (label && +label.getAttribute("label-id") === popularBrandId) {
+        label.click();
+      }
+      console.log(typeof label.getAttribute("label-id"));
+      console.log(typeof popularBrandId);
+    });
+  }, [brandList]);
 
   return (
     <>
@@ -168,7 +190,7 @@ const FilterProductSidebar = ({ categoryId, type, categoryProduct }) => {
                       <FaAngleDown className="inline" />
                     </div>
                   </summary>
-                  <div className="brands-list border-t p-2 h-[400px] overflow-y-auto">
+                  <div className="brands-list border-t p-2 max-h-[400px] overflow-y-auto">
                     <div className="popular-brands text-center">
                       <p className="text-sm bg-gradient-green text-white px-3 py-2 mb-2 rounded-xl">
                         POPULAR BRANDS
@@ -178,19 +200,19 @@ const FilterProductSidebar = ({ categoryId, type, categoryProduct }) => {
                           <BrandModelSkeleton />
                         ) : (
                           popular_brand_list &&
-                          popular_brand_list.map((item) => (
+                          popular_brand_list.map((item, idx) => (
                             <div className="brand-select " key={item.brand_id}>
                               <input
                                 type="checkbox"
                                 id={item.brand_id}
                                 className="hidden"
-                                
                               />
-                              {console.log(typeof(item?.brand_id))}
+                              {console.log(item?.brand_id)}
                               {/* {console.log(typeof(+brand_session_id))} */}
                               <label
                                 htmlFor={item.brand_id}
                                 className=" border rounded-2xl p-2"
+                                label-id={item.brand_id}
                               >
                                 <div
                                   className="text-center"
@@ -234,6 +256,7 @@ const FilterProductSidebar = ({ categoryId, type, categoryProduct }) => {
                               <label
                                 htmlFor={item.brand_id}
                                 className=" border rounded-2xl p-2"
+                                label-id={item.brand_id}
                               >
                                 <div
                                   className="text-center"
@@ -263,9 +286,11 @@ const FilterProductSidebar = ({ categoryId, type, categoryProduct }) => {
                   </div>
                 </details>
               </div>
-              {brands != "" ? (
+              {brands && brands.length != 0 ? (
                 <div className="brandwise__models">
-                  <details className="rounded-3xl bg-white overflow-hidden shadow mb-3">
+                  <details
+                    className="rounded-3xl bg-white overflow-hidden shadow mb-3"
+                  >
                     <summary className="list-none">
                       <div className="flex text-darkGreen w-full justify-between items-center px-5 py-4">
                         <span>MODELS</span>
@@ -493,9 +518,9 @@ const FilterProductSidebar = ({ categoryId, type, categoryProduct }) => {
 
         <div className="text-center animate-pulse sticky bottom-[-100px] right-0 md:hidden block">
           <button
-          onClick={() => {
-            setFilterBtnState(false);
-          }}
+            onClick={() => {
+              setFilterBtnState(false);
+            }}
             type="button"
             className="apply-filter w-[160px] text-center px-5 py-2 bg-gradient-green shadow-lg rounded-3xl  text-white ms-auto"
           >

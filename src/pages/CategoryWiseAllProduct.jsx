@@ -20,7 +20,11 @@ import { useInView } from "react-intersection-observer";
 import preloader_image from "../assets/images/favicon/favicon-32x32.png";
 import { SortStatusContext } from "../context/SortingProductContext/SortProductContext";
 import { useDispatch, useSelector } from "react-redux";
-import { addBrand } from "../redux/features/filterProducts/FilterSlice";
+import {
+  addBrand,
+  resetFilterParams,
+} from "../redux/features/filterProducts/FilterSlice";
+import NoDataFound from "../components/elements/NoDataFound";
 
 // Skeleton loading effect
 const skeletonArray = new Array(6).fill(true);
@@ -46,7 +50,7 @@ const CategoryWiseAllProduct = () => {
   const [skip, setSkip] = useState(0);
   const [take, setTake] = useState(12);
 
-  const dispatch = useDispatch();
+  // const brand_session_id = sessionStorage.getItem("brand-session-id");
 
   // console.log(priceSort);
 
@@ -71,6 +75,7 @@ const CategoryWiseAllProduct = () => {
       filterParams.districtId.toString(),
       filterParams.yom.toString(),
       filterParams.brandId.toString(),
+      // brand_session_id,
       filterParams.modelId.toString(),
       filterParams.minPrice,
       filterParams.maxPrice,
@@ -145,6 +150,16 @@ const CategoryWiseAllProduct = () => {
     }
   }, [category, type]);
 
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    return () => {
+      dispatch(resetFilterParams());
+    };
+  }, []);
+
+  console.log("all product", allProducts);
+
   return (
     <>
       <Header />
@@ -193,45 +208,52 @@ const CategoryWiseAllProduct = () => {
             </div>
           ) : (
             <div className="product-list-container mb-5">
-              <div className="grid grid-cols-2 md:grid-cols-3 2xl:grid-cols-4 md:px-5  px-2 md:gap-x-4 gap-x-2">
-                {allProducts?.pages?.map(
-                  (page) =>
-                    page &&
-                    page.map((item) => (
-                      <Link
-                        key={item.id}
-                        to={`${BASE_URL}/${category}/${type}/${item.id}`}
-                      >
-                        <ProductCard
-                          product_full_details={item}
-                          product_image={
-                            item.front_image ? item.front_image : item.image1
-                          }
-                          product_title={
-                            `${item.brand_name} ${item.model_name}` ===
-                              "Others Others" ||
-                            `${item.brand_name} ${item.model_name}` ===
-                              "undefined undefined" ||
-                            `${item.brand_name} ${item.model_name}` ===
-                              "null null"
-                              ? item.title
-                              : `${item.brand_name} ${item.model_name}`
-                          }
-                          product_location={item.district_name}
-                          product_pricing={item.price}
-                          distance_product={item.distance}
-                          rent_type={
-                            type === "rent"
-                              ? item.rent_type
-                                ? ` / ${item.rent_type.slice(4)}`
+              {allProducts.pages.length === 0 ? (
+                <div className="rounded-3xl md:ms-3 w-full md:h-[400px] bg-white flex justify-center items-center">
+                  <NoDataFound />
+                </div>
+              ) : (
+                <div className="grid grid-cols-2 md:grid-cols-3 2xl:grid-cols-4 md:px-5  px-2 md:gap-x-4 gap-x-2">
+                  {allProducts?.pages?.map(
+                    (page) =>
+                      page &&
+                      page.map((item) => (
+                        <Link
+                          key={item.id}
+                          to={`${BASE_URL}/${category}/${type}/${item.id}`}
+                        >
+                          <ProductCard
+                            product_full_details={item}
+                            product_image={
+                              item.front_image ? item.front_image : item.image1
+                            }
+                            product_title={
+                              `${item.brand_name} ${item.model_name}` ===
+                                "Others Others" ||
+                              `${item.brand_name} ${item.model_name}` ===
+                                "undefined undefined" ||
+                              `${item.brand_name} ${item.model_name}` ===
+                                "null null"
+                                ? item.title
+                                : `${item.brand_name} ${item.model_name}`
+                            }
+                            product_location={item.district_name}
+                            product_pricing={item.price}
+                            distance_product={item.distance}
+                            rent_type={
+                              type === "rent"
+                                ? item.rent_type
+                                  ? ` / ${item.rent_type.slice(4)}`
+                                  : ""
                                 : ""
-                              : ""
-                          }
-                        />
-                      </Link>
-                    ))
-                )}
-              </div>
+                            }
+                          />
+                        </Link>
+                      ))
+                  )}
+                </div>
+              )}
+
               {hasNextPage ? (
                 <div
                   ref={ref}

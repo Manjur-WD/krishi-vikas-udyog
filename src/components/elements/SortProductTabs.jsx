@@ -37,8 +37,8 @@ const SortProductTabs = ({ sort_btn_state, sortBtnActive, setSortBtnActive }) =>
         <div
           className={
             sort_btn_state
-              ? "active bg-white mx-3 mt-3 flex lg:flex-row flex-col items-center rounded-3xl md:gap-5"
-              : " bg-white mx-3 mt-3 flex lg:flex-row flex-col items-center rounded-3xl md:gap-5"
+              ? "active bg-white mx-3 mt-1 flex lg:flex-row flex-col items-center rounded-3xl md:gap-5"
+              : " bg-white mx-3 mt-1 flex lg:flex-row flex-col items-center rounded-3xl md:gap-5"
           }
         >
           <p className="label-sort text-white bg-darkGreen px-5 py-2 rounded-3xl m-2">

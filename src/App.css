@@ -94,6 +94,7 @@ details[open] .downarrow {
 
 .filter-product-sidebar {
   grid-column: 1 / 2;
+  grid-row: 1 / 3;
 }
 
 .category-wise-all-product {
@@ -123,7 +124,7 @@ details[open] .downarrow {
   padding: 10px;
 }
 
-.bg-gradient-green{
+.bg-gradient-green {
   background: linear-gradient(33deg, #13693a, #8cbf44);
 }
 
@@ -150,7 +151,7 @@ details[open] .downarrow {
 /* Change background color when checkbox is checked */
 .filter-product-sidebar input[type="checkbox"]:checked + label {
   color: white;
-background: linear-gradient(#13693a, #8cbf44) /* Light blue */
+  background: linear-gradient(#13693a, #8cbf44); /* Light blue */
 }
 
 @keyframes skeleton {
@@ -298,17 +299,16 @@ background: linear-gradient(#13693a, #8cbf44) /* Light blue */
 }
 
 .pagination-iffco-dealer ul {
-  @apply flex justify-center items-center gap-2 flex-wrap
+  @apply flex justify-center items-center gap-2 flex-wrap;
 }
 
-.pagination-iffco-dealer ul li a{
-  @apply px-3 py-2 border  rounded-2xl text-center cursor-pointer inline-block
+.pagination-iffco-dealer ul li a {
+  @apply px-3 py-2 border  rounded-2xl text-center cursor-pointer inline-block;
 }
 
-
-
-.pagination-iffco-dealer ul li.selected a, .pagination-iffco-dealer ul li a:hover{
-  @apply bg-gradient-green shadow-lg text-white
+.pagination-iffco-dealer ul li.selected a,
+.pagination-iffco-dealer ul li a:hover {
+  @apply bg-gradient-green shadow-lg text-white;
 }
 
 .category,
@@ -418,7 +418,6 @@ background: linear-gradient(#13693a, #8cbf44) /* Light blue */
   }
 }
 
-
 /* PRICE RANGE SLIDER */
 
 /* Import Google Font - Poppins */
@@ -512,8 +511,3 @@ background: linear-gradient(#13693a, #8cbf44) /* Light blue */
   -moz-appearance: none;
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.05);
 }
-
-
-
-
-

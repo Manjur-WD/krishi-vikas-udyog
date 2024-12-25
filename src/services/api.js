@@ -34,7 +34,7 @@ export const loadHeroSlides = async (langId) => {
 
 export const loadAllCategoryWiseData = async () => {
   try {
-    const response = await api.get("/home2"); // Make the API request
+    const response = await api.get("/home"); // Make the API request
     return response.data.result.response; // Return the resolved data
   } catch (error) {
     console.error("Error loading category data:", error);
