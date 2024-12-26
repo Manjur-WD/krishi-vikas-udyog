@@ -11,38 +11,44 @@ import { GrMapLocation } from "react-icons/gr";
 import { IoMdCall } from "react-icons/io";
 import { FaHouseLaptop } from "react-icons/fa6";
 import ReactPaginate from "react-paginate";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { FiChevronsLeft, FiChevronsRight } from "react-icons/fi";
 import { LuMapPin } from "react-icons/lu";
 import { useContext, useState, useEffect, useMemo } from "react";
-import { IffcoDataContext } from "../context/IffcoData/IffcoDataContext";
+import { CompanyDataContext } from "../context/CompanyData/CompanyDataContext";
 import { Input } from "@/components/ui/input";
 
 const IffcoDealersPage = () => {
-  const { iffcoDealerData } = useContext(IffcoDataContext);
+  const { companyDealerData } = useContext(CompanyDataContext);
   const [searchText, setSearchText] = useState("");
   const [currentPage, setCurrentPage] = useState(0);
   const contactsPerPage = 22;
 
-  const { data: iffcoDealers, isLoading } = useQuery({
-    queryKey: ["iffco-dealers"],
-    queryFn: () => getCompanyDealers(1),
-    enabled: !iffcoDealerData?.length, // Fetch only if context is empty
+  const {id} =  useParams();
+  // console.log(typeof(id));
+
+  const {companyLogo} = useContext(CompanyDataContext);
+  
+
+  const { data: companyDealers, isLoading } = useQuery({
+    queryKey: ["iffco-dealers",id],
+    queryFn: () => getCompanyDealers(id === "4" ? "2" : id),
+    enabled: !companyDealerData?.length, // Fetch only if context is empty
   });
 
   // Use context data if available, otherwise fall back to fetched data
-  const finalIffcoDealer = iffcoDealerData?.length ? iffcoDealerData : iffcoDealers;
+  const finalCompanyDealer = companyDealerData?.length ? companyDealerData : companyDealers;
 
   // Filter data based on search text (memoize to prevent unnecessary recalculations)
   const filteredData = useMemo(() => {
-    return finalIffcoDealer?.filter(
+    return finalCompanyDealer?.filter(
       (contact) =>
         contact?.name?.toLowerCase().includes(searchText.toLowerCase()) ||
         contact?.company_name?.toLowerCase().includes(searchText.toLowerCase()) ||
         contact?.address?.toLowerCase().includes(searchText.toLowerCase()) ||
         (contact?.zipcode && contact.zipcode.toString().includes(searchText))
     );
-  }, [finalIffcoDealer, searchText]);
+  }, [finalCompanyDealer, searchText]);
 
   // Paginate filtered data
   const totalContacts = filteredData?.length || 0;
@@ -80,7 +86,7 @@ const IffcoDealersPage = () => {
             className="text-lightgreen md:text-6xl text-4xl font-bold text-center mt-3 uppercase"
             style={{ textShadow: "0 0 15px black" }}
           >
-            Iffco Dealer
+            Company Dealer
           </p>
         </div>
       </section>
@@ -110,8 +116,8 @@ const IffcoDealersPage = () => {
                     key={idx}
                   >
                     <img
-                      src={iffcoLogo}
-                      alt="iffco-logo"
+                      src={companyLogo}
+                      alt="company-logo"
                       className="w-[100px] p-2 object-contain"
                     />
                     <div className="dealer-details w-full text-center">

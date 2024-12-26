@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { loadAllPopulerBrandAndCompanyData } from "../../../services/api";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import BASE_URL from "../../../../config";
 import { useDispatch } from "react-redux";
 import { addBrand, addPopulerBrand } from "../../../redux/features/filterProducts/FilterSlice";
+import { CompanyDataContext } from "../../../context/CompanyData/CompanyDataContext";
 const PopulerBrandList = ({ populer_brand_id, company_id, tab }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -23,7 +24,6 @@ const PopulerBrandList = ({ populer_brand_id, company_id, tab }) => {
     }
   }, [data, populer_brand_id, company_id]);
 
-  // console.log(data);
 
   const getCategoryName = (cat_id) => {
     const categoryId = +cat_id;
@@ -45,6 +45,12 @@ const PopulerBrandList = ({ populer_brand_id, company_id, tab }) => {
     }
   };
 
+  const {companyLogo,setCompanyLogo} = useContext(CompanyDataContext);
+
+
+
+
+
   return (
     <>
       <div className="populer-brand-list px-2 flex items-center container overflow-x-auto mt-3">
@@ -55,13 +61,22 @@ const PopulerBrandList = ({ populer_brand_id, company_id, tab }) => {
             onClick={() => {
               dispatch(addBrand(brand.id));
               dispatch(addPopulerBrand(brand.id));
-              console.log(brand.id);
-              navigate(
-                `${BASE_URL}/${getCategoryName(
-                  brand.category_id || brand.category
-                )}/${tab}`
-              );
+              setCompanyLogo(brand.logo)
+              // console.log(companyLogo);
+              brand.category === "6" || brand.category === "8" || brand.category === "9" ?
+                navigate(
+
+                  `${BASE_URL}/${brand.id}`
+
+                ) :
+                navigate(
+
+
+                  `${BASE_URL}/${getCategoryName(brand.category_id)}/${tab}`
+                )
+                ;
             }}
+
           >
             <img
               src={brand.logo}

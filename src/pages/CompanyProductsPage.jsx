@@ -19,29 +19,36 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 import { Button } from "@/components/ui/button";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import BASE_URL from "../../config";
 import { useContext, useEffect } from "react";
-import { IffcoDataContext } from "../context/IffcoData/IffcoDataContext";
+import { CompanyDataContext } from "../context/CompanyData/CompanyDataContext";
 
-const IffcoProductsPage = () => {
+const CompanyProductsPage = () => {
 
   const navigate = useNavigate();
 
-  const { data: iffcoProducts, isLoading: iffcoProductLoading } = useQuery({
-    queryKey: ["iffco-product"],
-    queryFn: () => getCompanyProduct(1),
+  const { companyId } = useParams();
+
+  console.log(companyId);
+
+  const {companyLogo} = useContext(CompanyDataContext);
+
+
+  const { data: companyProducts, isLoading: iffcoProductLoading } = useQuery({
+    queryKey: ["company-product", companyId],
+    queryFn: () => getCompanyProduct(companyId),
   });
 
-  const { data: iffcoDealers } = useQuery({
-    queryKey: ["iffco-dealers"],
-    queryFn: () => getCompanyDealers(1),
+  const { data: companyDealers } = useQuery({
+    queryKey: ["company-dealers", companyId],
+    queryFn: () => getCompanyDealers( companyId === "4" || companyId === "5" ? "2" : companyId === "11"? "1" : companyId),
   });
 
-  const { iffcoDealerData, setIffcoDealerData } = useContext(IffcoDataContext);
-  setIffcoDealerData(iffcoDealers);
+  const { companyDealerData, setCompanyDealerData } = useContext(CompanyDataContext);
+  setCompanyDealerData(companyDealers);
   // console.log(iffcoDealerData);
-  
+
 
   // console.log(iffcoDealers);
 
@@ -69,7 +76,7 @@ const IffcoProductsPage = () => {
             className="text-lightgreen md:text-6xl text-4xl font-bold text-center mt-3 uppercase"
             style={{ textShadow: "0 0 15px black" }}
           >
-            Iffco Product
+            Company Product
           </p>
         </div>
       </section>
@@ -78,19 +85,23 @@ const IffcoProductsPage = () => {
           <Preloader />
         ) : (
           <section className="iffco-products p-5 grid lg:grid-cols-4 grid-cols-2 md:px-5 gap-x-5">
-            {iffcoProducts &&
-              iffcoProducts.map((item) => (
+            {companyProducts &&
+              companyProducts.map((item) => (
                 <Drawer key={item.id}>
                   <DrawerTrigger>
                     <div className="iffco-product-card rounded-3xl overflow-hidden bg-white shadow mb-4 flex flex-col justify-between hover:scale-95 transition-[0.3s]">
                       <img
                         src={item.product_image}
                         alt="iffco-image"
-                        className="md:h-[300px] h-[150px] w-full object-contain object-center p-5"
+                        className={companyId === "4" || companyId === "5" ?
+                          "md:h-[300px] h-[150px] w-full object-cover object-center p-2 rounded-3xl"
+                          :
+                          "md:h-[300px] h-[150px] w-full object-contain object-center p-5"
+                        }
                       />
                       <div className="iffco-logo text-end px-5">
                         <img
-                          src={iffcoLogo}
+                          src={companyLogo}
                           alt="this is iffco logo"
                           className="md:w-[80px] w-[60px] ms-auto"
                         />
@@ -122,7 +133,7 @@ const IffcoProductsPage = () => {
                     </div>
 
                     <DrawerFooter className="text-center">
-                      <Button className="uppercase w-[300px] mx-auto bg-gradient-green" onClick={() => { navigate(`${BASE_URL}/iffco-dealers`) }}>Show All Dealers</Button>
+                      <Button className="uppercase w-[300px] mx-auto bg-gradient-green" onClick={() => { navigate(`${BASE_URL}/company-dealers/${companyId}`) }}>Show All Dealers</Button>
                       <DrawerClose>
                         <Button variant="outline">close</Button>
                       </DrawerClose>
@@ -139,4 +150,4 @@ const IffcoProductsPage = () => {
   );
 };
 
-export default IffcoProductsPage;
+export default CompanyProductsPage;

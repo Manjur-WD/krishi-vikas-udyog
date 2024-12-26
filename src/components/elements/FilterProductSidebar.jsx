@@ -213,12 +213,15 @@ const FilterProductSidebar = ({ categoryId, type, categoryProduct }) => {
                                 htmlFor={item.brand_id}
                                 className=" border rounded-2xl p-2"
                                 label-id={item.brand_id}
+                                onClick={()=>{
+                                  getModelList(item.brand_id);
+                                }}
                               >
                                 <div
                                   className="text-center"
                                   onClick={() => {
                                     dispatch(addBrand(item.brand_id));
-                                    getModelList(item.brand_id);
+                                    
                                   }}
                                 >
                                   <img

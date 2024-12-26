@@ -4,7 +4,7 @@ import React, { Suspense, useEffect, useState } from "react";
 import Preloader from "./components/elements/Preloader";
 import SplashScreen from "./components/elements/SplashScreen";
 import { FilterButtonStateProvider } from "./context/CategoryWiseAllProduct/FilterBtnContext";
-import { IffcoDataProvider } from "./context/IffcoData/IffcoDataContext";
+import { CompanyDataProvider } from "./context/CompanyData/CompanyDataContext";
 import { SortStatusProvider } from "./context/SortingProductContext/SortProductContext";
 
 // Lazy load the component
@@ -17,10 +17,10 @@ const LazySingleProductPage = React.lazy(() =>
   import("./pages/SinglProductPage")
 );
 const LazyIffcoProductPage = React.lazy(() =>
-  import("./pages/IffcoProductsPage")
+  import("./pages/CompanyProductsPage")
 );
 const LazyIffcoDealerPage = React.lazy(() =>
-  import("./pages/IffcoDealersPage")
+  import("./pages/CompanyDealersPage")
 );
 const LazyWeatherForecastPage = React.lazy(() =>
   import("./pages/WeatherForecastPage")
@@ -38,7 +38,7 @@ const App = () => {
 
   return (
     <>
-      <IffcoDataProvider>
+      <CompanyDataProvider>
         <SortStatusProvider>
           {isloading ? <SplashScreen setLoading={setLoading} /> : null}
           <Routes>
@@ -69,7 +69,7 @@ const App = () => {
               }
             />
             <Route
-              path={`${baseUrl}/iffco-products`}
+              path={`${baseUrl}/:companyId`}
               element={
                 <Suspense fallback={<Preloader />}>
                   <LazyIffcoProductPage key={location.key} />
@@ -77,7 +77,7 @@ const App = () => {
               }
             />
             <Route
-              path={`${baseUrl}/iffco-dealers`}
+              path={`${baseUrl}/company-dealers/:id`}
               element={
                 <Suspense fallback={<Preloader />}>
                   <LazyIffcoDealerPage key={location.key} />
@@ -94,7 +94,7 @@ const App = () => {
             />
           </Routes>
         </SortStatusProvider>
-      </IffcoDataProvider>
+      </CompanyDataProvider>
     </>
   );
 };
