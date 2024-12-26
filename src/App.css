@@ -9,6 +9,7 @@
   border-right: 4px solid transparent;
   box-sizing: border-box;
   animation: rotation 1s linear infinite;
+  color: #ffffff70;
   /* box-shadow: 0 0 1px rgb(0, 0, 0); */
 }
 

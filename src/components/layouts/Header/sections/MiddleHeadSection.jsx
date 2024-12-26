@@ -8,6 +8,7 @@ import { CgMenuLeft } from "react-icons/cg";
 import { useContext } from "react";
 import { NavTogglerContext } from "../../../../context/HeaderMenuContext/NavTogglerContext";
 import { Link } from "react-router-dom";
+import logInImg from "../../../../assets/images/login-img.webp";
 
 import { Button } from "@/components/ui/button"
 import {
@@ -25,14 +26,14 @@ const MiddleHeadSection = () => {
   return (
     <>
       <section className="relative middle-header  py-3 lg:px-5 md:px-3 bg-white md:shadow-none shadow">
-        <div className="navbar container flex justify-between md:p-0 px-5">
-          <div className="navtoggler-and-logo flex items-center gap-3">
+        <div className="navbar container flex justify-between md:p-0 px-2">
+          <div className="navtoggler-and-logo flex gap-2">
             <button
               type="button"
-              className="lg:hidden block nav-toggler border px-2 rounded-xl shadow shadow-whitesmoke"
+              className="lg:hidden block nav-toggler px-2 rounded-lg shadow shadow-gray-300"
               onClick={() => setActiveNav(true)}
             >
-              <CgMenuLeft className="text-2xl text-gray-300" />
+              <CgMenuLeft className="text-2xl text-slate-200" />
             </button>
             <Link to="/krishi-vikas-udyog/">
               <img
@@ -75,19 +76,30 @@ const MiddleHeadSection = () => {
               <span className="text-lg ms-2">Wishlist</span>
             </button>
 
-            <Dialog>
+            <Dialog >
               <DialogTrigger className="border border-dashed border-transparent hover:border-gray-200 hover:scale-95 px-4 py-1">
                 <PiUserCircleDashedFill className="me-2 inline align-bottom text-3xl text-lightgreen" />
                 <span className="text-lg">Login</span>
               </DialogTrigger>
-              <DialogContent>
-                <DialogHeader>
+              <DialogContent >
+                {/* <DialogHeader>
                   <DialogTitle>Are you absolutely sure?</DialogTitle>
                   <DialogDescription>
                     This action cannot be undone. This will permanently delete your account
                     and remove your data from our servers.
                   </DialogDescription>
-                </DialogHeader>
+                </DialogHeader> */}
+
+                <div className="login-screen p-1  grid md:grid-cols-2 grid-cols-1 bg-white rounded-3xl">
+                  <div className="login-banner md:h-[400px] w-full rounded-3xl flex flex-col   p-5 " style={{background:`linear-gradient(#13693a, #8cbf44b8),url(${logInImg}) center/cover`}}>
+                  <h1 className="text-6xl font-semibold uppercase text-white px-4">Welcome <span className="text-lightgreen">Back!</span></h1>
+                  <p className="px-4 text-white pt-3">Login to manage your agricultural needs.</p>
+                    
+                  </div>
+                  <div className="login-form">
+                    
+                  </div>
+                </div>
               </DialogContent>
             </Dialog>
 
