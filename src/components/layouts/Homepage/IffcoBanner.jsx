@@ -13,7 +13,7 @@ const IffcoBanner = () => {
           <img
             src={iffcoBanner}
             alt="this is iffco banner"
-            className=""
+            className="company-image"
           />
         </Link>
       </section>
