@@ -34,23 +34,14 @@ const LoginStepForm = () => {
         enabled: isClicked,
     });
 
-    // Decode OTP from Base64
-    const decodeOtp = (encodedOtp) => {
-        try {
-            const decoded = atob(encodedOtp);
-            setDecodedOtp(decoded); // Save decoded OTP to state
-            return decoded;
-        } catch (error) {
-            console.error("Error decoding OTP:", error);
-            return null;
-        }
-    };
-
     useEffect(() => {
         if (otpSent) {
             toast.success("OTP sent successfully");
-            const encodedOtp = otpSent.result?.response?.otp; // Get the Base64 encoded OTP from response
-            const decoded = decodeOtp(encodedOtp); // Decode OTP
+            setIsClicked(false);
+            console.log("oto sent", atob(otpSent.otp));
+            setDecodedOtp(atob(otpSent.otp));
+            
+            
             setCurrentStep(2);
         } else if (otpSentError) {
             toast.error("OTP not sent, Something went wrong!!");
@@ -64,7 +55,6 @@ const LoginStepForm = () => {
 
     const handleValidateOtp = () => {
         if (otpInput === decodedOtp) {
-            toast.success("OTP validated successfully");
             setCurrentStep(3); // Proceed to next step (successful login)
         } else {
             toast.error("Invalid OTP, please try again.");
@@ -75,8 +65,8 @@ const LoginStepForm = () => {
         setOtpInput(e);
     };
 
-    console.log("Decoded otp", decodedOtp);
-    console.log("Otp Typed", otpInput);
+    // console.log("Decoded otp", decodedOtp);
+    // console.log("Otp Typed", otpInput);
 
     return (
         <>
@@ -107,7 +97,9 @@ const LoginStepForm = () => {
                                     <button type="button" className="enter-number bg-gradient-green px-5 py-2 rounded-3xl text-white"
 
                                         onClick={handleSendOtp}>
-                                        Request OTP
+                                        {
+                                            isLoading ? "Sending OTP...":"Request OTP"
+                                        }
                                     </button>
                                 </div>
                             </div>
