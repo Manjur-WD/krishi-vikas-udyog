@@ -55,7 +55,7 @@ const LoginStepForm = () => {
 
     const handleValidateOtp = () => {
         if (otpInput === decodedOtp) {
-            setCurrentStep(3); // Proceed to next step (successful login)
+            setCurrentStep(3);
         } else {
             toast.error("Invalid OTP, please try again.");
         }
