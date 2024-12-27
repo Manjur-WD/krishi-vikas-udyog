@@ -229,3 +229,17 @@ export const getMaxMinPrice = async (category_id, type) => {
     throw error; // Optionally throw or return a default value if you want to handle errors differently
   }
 };
+
+// OTP SEND TO MOBILE NUMBER
+
+export const sendOtp = async (mobile_no) => {
+  try {
+    const response = await api.post("/otp-send", {
+      mobile: mobile_no,
+    });
+    return response.data.result.response;
+  } catch (error) {
+    console.error("Error loading category data:", error);
+    throw error; // Optionally throw or return a default value if you want to handle errors differently
+  }
+};

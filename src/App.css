@@ -512,3 +512,27 @@ details[open] .downarrow {
   -moz-appearance: none;
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.05);
 }
+
+.dialog-overlay {
+  backdrop-filter: blur(4px);
+}
+
+.input-phone-number input:placeholder-shown ~ .invalid-msg,
+.input-phone-number input:valid ~ .invalid-msg {
+  display: none;
+}
+
+.input-phone-number input:invalid:not(:placeholder-shown) {
+  border-color: red;
+}
+
+.input-phone-number input:invalid ~ div button {
+  display: none;
+}
+
+.input-phone-number input:invalid ~ .valid-msg {
+  display: none;
+}
+
+
+

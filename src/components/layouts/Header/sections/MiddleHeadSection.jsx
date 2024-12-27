@@ -10,6 +10,7 @@ import { NavTogglerContext } from "../../../../context/HeaderMenuContext/NavTogg
 import { Link } from "react-router-dom";
 import logInImg from "../../../../assets/images/login-img.webp";
 
+
 import { Button } from "@/components/ui/button"
 import {
   Dialog,
@@ -20,6 +21,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
+import LoginStepForm from "../../../elements/LoginStepForm";
 
 const MiddleHeadSection = () => {
   const { setActiveNav } = useContext(NavTogglerContext);
@@ -91,14 +93,13 @@ const MiddleHeadSection = () => {
                 </DialogHeader> */}
 
                 <div className="login-screen p-1  grid md:grid-cols-2 grid-cols-1 bg-white rounded-3xl">
-                  <div className="login-banner md:h-[400px] w-full rounded-3xl flex flex-col   p-5 " style={{background:`linear-gradient(#13693a, #8cbf44b8),url(${logInImg}) center/cover`}}>
-                  <h1 className="text-6xl font-semibold uppercase text-white px-4">Welcome <span className="text-lightgreen">Back!</span></h1>
-                  <p className="px-4 text-white pt-3">Login to manage your agricultural needs.</p>
-                    
+                  <div className="login-banner md:h-full w-full rounded-3xl flex flex-col   p-5 " style={{ background: `linear-gradient(#13693a, #8cbf44b8),url(${logInImg}) center/cover` }}>
+                    <h1 className="text-6xl font-semibold uppercase text-white px-4">Welcome <span className="text-lightgreen">Back!</span></h1>
+                    <p className="px-4 text-white pt-3 text-2xl">Login to manage your agricultural needs.</p>
+
                   </div>
-                  <div className="login-form">
-                    
-                  </div>
+                  <LoginStepForm />
+                  
                 </div>
               </DialogContent>
             </Dialog>
