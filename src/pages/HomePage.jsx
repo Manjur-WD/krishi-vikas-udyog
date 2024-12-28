@@ -20,7 +20,7 @@ const HomePage = () => {
   return (
     <>
       <Header />
-      <MobileScreenNav />
+      {/* <MobileScreenNav /> */}
       <section className="hero-section w-full">
         <HeroBannerCarousel />
         <CategorySection />

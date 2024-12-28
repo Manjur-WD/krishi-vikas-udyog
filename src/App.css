@@ -534,5 +534,54 @@ details[open] .downarrow {
   display: none;
 }
 
+.user-button-wrapper {
+  position: relative;
+}
 
+.user-button-wrapper .user-menus {
+  position: absolute;
+  right: 0;
+  background-color: white;
+  border-radius: 10px;
+  text-wrap: nowrap;
+  display: none;
+  overflow: hidden;
+}
 
+.user-button-wrapper .user-menus li:hover {
+  background: linear-gradient(33deg, #13693a, #8cbf44);
+  color: white;
+}
+.user-button-wrapper .user-menus li {
+  padding: 10px 20px;
+  border-bottom: 1px solid whitesmoke;
+}
+
+.user-button-wrapper .user-menus li:last-child {
+  border: none;
+}
+
+.user-button-wrapper:hover .user-menus {
+  display: block;
+}
+
+.mobile-nav__menus .active {
+  display: inline-block;
+  box-shadow: 0 0 2px rgb(230, 230, 230);
+  scale: 1.1;
+  padding: 5px;
+  border-radius: 50%;
+}
+
+.mobile-nav__menus .active::after {
+  content: "";
+  height: 8px;
+  width: 8px;
+  background: linear-gradient(33deg, #13693a, #8cbf44);
+  display: block;
+  border-radius: 50%;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: -10px;
+}

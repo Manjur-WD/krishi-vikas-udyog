@@ -3,43 +3,58 @@ import { RiHeart2Fill } from "react-icons/ri";
 import { RiStickyNoteAddFill } from "react-icons/ri";
 import { TiUser } from "react-icons/ti";
 import { IoAdd } from "react-icons/io5";
-
+import { getWishList } from "../../../services/api";
+import { useQuery } from "@tanstack/react-query";
+import { Link, NavLink, useLocation } from "react-router-dom";
+import BASE_URL from "../../../../config";
+import { useEffect, useState } from "react";
 
 const MobileScreenNav = () => {
+  const { data: wishList } = useQuery({
+    queryKey: ["wish-list-data"],
+    queryFn: () => getWishList(),
+  });
+
+  const [activeNav, setActiveNav] = useState(1);
+  const handleActiveNav = (num) => {
+    setActiveNav(num);
+  };
+
   return (
-    <>
-      <div className="mobile-nav flex justify-between border-t border-t-gray-300 gap-5 text-2xl fixed md:-bottom-[100%] bottom-0 md:-z-50 z-50 bg-white px-10 py-5 rounded-t-3xl shadow-xl w-full left-1/2 -translate-x-1/2">
-        <div className="left_nav_menus flex items-center gap-10">
-          <div className="mobile-nav__menus">
-            <a href="#">
-              <TbHomeFilled />
-            </a>
-          </div>
-          <div className="mobile-nav__menus">
-            <a href="#">
-              <RiHeart2Fill />
-            </a>
-          </div>
+    <div className="mobile-nav flex justify-between border-t border-t-gray-300 gap-5 text-2xl fixed md:-bottom-[100%] bottom-0 md:-z-50 z-50 bg-white px-10 py-5 rounded-t-3xl shadow-xl w-full left-1/2 -translate-x-1/2">
+      <div className="left_nav_menus flex items-center gap-10">
+        <div className="mobile-nav__menus relative" onClick={() => handleActiveNav(1)}>
+          <Link to={`${BASE_URL}`} className={activeNav === 1 ? "active" : ""}>
+            <TbHomeFilled />
+          </Link>
         </div>
-        <div className="mobile-nav__menus mobile-nav__sell--rent--btn text-3xl absolute left-1/2 -translate-x-1/2 -top-6">
-          <a href="#">
-            <IoAdd />
-          </a>
-        </div>
-        <div className="right_nav_menus flex items-center gap-10">
-          <div className="mobile-nav__menus">
-            <a href="#">
-              <RiStickyNoteAddFill />
-            </a>
-          </div>
-          <div className="mobile-nav__menus">
-            <a href="#">
-              <TiUser />
-            </a>
-          </div>
+        <div className="mobile-nav__menus relative" onClick={() => handleActiveNav(2)}>
+          <Link to={`${BASE_URL}/wishlist`} className={activeNav === 2 ? "active" : ""}>
+            <span className="wishlist--count bg-darkGreen text-white px-2 rounded-full absolute text-[12px] h-[15px] aspect-square -top-1 left-4 flex justify-center items-center">
+              {wishList?.length}
+            </span>
+            <RiHeart2Fill />
+          </Link>
         </div>
       </div>
-    </>
+      <div className="mobile-nav__menus mobile-nav__sell--rent--btn text-3xl absolute left-1/2 -translate-x-1/2 -top-6">
+        <a href="#">
+          <IoAdd />
+        </a>
+      </div>
+      <div className="right_nav_menus flex items-center gap-10">
+        <div className="mobile-nav__menus relative" onClick={() => handleActiveNav(3)}>
+          <Link to={`${BASE_URL}/sell-product`} className={activeNav === 3 ? "active" : ""}>
+            <RiStickyNoteAddFill />
+          </Link>
+        </div>
+        <div className="mobile-nav__menus relative" onClick={() => handleActiveNav(4)}>
+          <Link to={`${BASE_URL}/profile`} className={activeNav === 4 ? "active" : ""}>
+            <TiUser />
+          </Link>
+        </div>
+      </div>
+    </div>
   );
 };
 

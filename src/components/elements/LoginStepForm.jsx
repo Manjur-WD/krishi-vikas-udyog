@@ -3,7 +3,7 @@ import d3Mobile from "../../assets/images/mobile.png";
 import otpVerify from "../../assets/images/otp_verify.png";
 import indFlag from "../../assets/images/ind-flag.png";
 import "animate.css"
-import { sendOtp } from "../../services/api";
+import { getLogInDetails, sendOtp } from "../../services/api";
 import toast, { Toaster } from "react-hot-toast";
 import { useQuery } from "@tanstack/react-query";
 import {
@@ -13,9 +13,14 @@ import {
     InputOTPSlot,
 } from "@/components/ui/input-otp"
 import SuccessAnime from "./SuccessAnime";
+import { useDispatch, useSelector } from "react-redux";
+import { setLogInState, setToken, setUsers } from "../../redux/features/Auth/AuthSlice";
 
 
 const LoginStepForm = () => {
+
+    const dispatch = useDispatch();
+    const authState = useSelector((state) => state.auth);
 
     const [currentStep, setCurrentStep] = useState(1);
     const [mobileInput, setMobileInput] = useState("");
@@ -23,6 +28,7 @@ const LoginStepForm = () => {
     const [decodedOtp, setDecodedOtp] = useState(""); // New state for decoded OTP
 
     const [isClicked, setIsClicked] = useState(false);
+    const [isOtpValidated, setOtpValidated] = useState(false);
 
     const handleMobileInput = (e) => {
         setMobileInput(e.target.value);
@@ -34,20 +40,50 @@ const LoginStepForm = () => {
         enabled: isClicked,
     });
 
+    const { data: userDetails, isLoading: otpValidating } = useQuery({
+        queryKey: ["login", mobileInput],
+        queryFn: () => getLogInDetails(mobileInput),
+        enabled: isOtpValidated,
+    });
+
     useEffect(() => {
         if (otpSent) {
             toast.success("OTP sent successfully");
-            setIsClicked(false);
             console.log("oto sent", atob(otpSent.otp));
             setDecodedOtp(atob(otpSent.otp));
-            
-            
             setCurrentStep(2);
-        } else if (otpSentError) {
-            toast.error("OTP not sent, Something went wrong!!");
-            setIsClicked(false);
         }
+        else if (otpSentError) {
+            toast.error("OTP not sent, Something went wrong!!");
+        }
+        return () => {
+            setIsClicked(false);
+            setOtpValidated(false);
+            console.log("Cleared!!!")
+        }
+
     }, [otpSent, otpSentError]);
+
+    useEffect(() => {
+        if (userDetails) {
+            setCurrentStep(3);
+            dispatch(setToken(userDetails?.token));
+            dispatch(setUsers(userDetails.data));
+            setTimeout(() => {
+                dispatch(setLogInState(true));
+                localStorage.setItem("isLoggedIn", true);
+                location.reload();
+            }, 2000)
+        }
+
+
+        return () => {
+            setIsClicked(false);
+            setOtpValidated(false);
+            console.log("Cleared!!!")
+        }
+
+    }, [userDetails])
 
     const handleSendOtp = () => {
         setIsClicked(true);
@@ -55,7 +91,7 @@ const LoginStepForm = () => {
 
     const handleValidateOtp = () => {
         if (otpInput === decodedOtp) {
-            setCurrentStep(3);
+            setOtpValidated(true);
         } else {
             toast.error("Invalid OTP, please try again.");
         }
@@ -65,8 +101,10 @@ const LoginStepForm = () => {
         setOtpInput(e);
     };
 
-    // console.log("Decoded otp", decodedOtp);
-    // console.log("Otp Typed", otpInput);
+    console.log("OTP SENT", isClicked);
+    console.log("OTP VALIDATE", isOtpValidated);
+    console.log(userDetails);
+    console.log(authState);
 
     return (
         <>
@@ -75,7 +113,7 @@ const LoginStepForm = () => {
             <div className="login-form h-[400px] flex justify-center items-center overflow-hidden">
                 {
                     currentStep === 1 &&
-                    <div className="login-step-1 px-10 py-5 animate__animated animate__fadeIn">
+                    <div className="login-step-1 px-10 py-5 animate__animated animate__zoomIn">
                         <img src={d3Mobile} alt="3d-mobile" className="w-[80px] mx-auto" />
                         <div className="phone-number-section">
                             <p className="text-center text-xl font-semibold text-darkGreen mt-3">Phone Number Verification</p>
@@ -98,7 +136,7 @@ const LoginStepForm = () => {
 
                                         onClick={handleSendOtp}>
                                         {
-                                            isLoading ? "Sending OTP...":"Request OTP"
+                                            isLoading ? "Sending OTP..." : "Request OTP"
                                         }
                                     </button>
                                 </div>
@@ -109,7 +147,7 @@ const LoginStepForm = () => {
 
                 {
                     currentStep === 2 &&
-                    <div className="login-step-1 p-10 animate__animated animate__fadeIn">
+                    <div className="login-step-1 p-10 animate__animated animate__zoomIn">
                         <img src={otpVerify} alt="3d-mobile" className="w-[100px] mx-auto" />
                         <div className="otp-verify-section">
                             <p className="text-center text-xl font-semibold text-darkGreen mt-3">OTP Verification</p>
@@ -135,7 +173,10 @@ const LoginStepForm = () => {
                                         <button type="button" className="enter-number bg-gradient-green px-5 py-2 rounded-3xl text-white"
 
                                             onClick={handleValidateOtp}>
-                                            Validate OTP
+                                            {
+                                                otpValidating ? "Validating OTP..." : "Validate OTP"
+                                            }
+
                                         </button> : null
                                 }
 
@@ -146,7 +187,7 @@ const LoginStepForm = () => {
 
                 {
                     currentStep === 3 &&
-                    <div className="login-step-1 p-10 animate__animated animate__pulse">
+                    <div className="login-step-1 p-10 animate__animated animate__zoomIn">
                         <div className="login-succesful">
                             <SuccessAnime />
                             <p className="text-center text-green-500 text-xl " >You are successfully logged in !!!!</p>

@@ -9,9 +9,12 @@ import { useContext } from "react";
 import { NavTogglerContext } from "../../../../context/HeaderMenuContext/NavTogglerContext";
 import { Link } from "react-router-dom";
 import logInImg from "../../../../assets/images/login-img.webp";
-
+import { ImProfile } from "react-icons/im";
+import { IoMdHeartHalf } from "react-icons/io";
+import { HiOutlineLogout } from "react-icons/hi";
 
 import { Button } from "@/components/ui/button"
+
 import {
   Dialog,
   DialogContent,
@@ -21,10 +24,38 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
+
 import LoginStepForm from "../../../elements/LoginStepForm";
+import { useDispatch, useSelector } from "react-redux";
+import { setLogInState } from "../../../../redux/features/Auth/AuthSlice";
+import { useQuery } from "@tanstack/react-query";
+import { getWishList } from "../../../../services/api";
 
 const MiddleHeadSection = () => {
   const { setActiveNav } = useContext(NavTogglerContext);
+  const authState = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  const logInState = localStorage.getItem("isLoggedIn");
+  const token = localStorage.getItem("token");
+
+  const handleLogOut = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("isLoggedIn");
+    dispatch(setLogInState(false));
+    location.reload();
+  }
+
+  // console.log(authState);
+
+
+  const { data: wishList } = useQuery({
+    queryKey: ["wish-list-data"],
+    queryFn: () => getWishList()
+  })
+
+
+
+
   return (
     <>
       <section className="relative middle-header  py-3 lg:px-5 md:px-3 bg-white md:shadow-none shadow">
@@ -72,19 +103,36 @@ const MiddleHeadSection = () => {
               className=" hover:scale-95 px-4 py-1 relative md:block hidden"
             >
               <span className="wishlist--count bg-lightdark text-white px-2 rounded-full absolute left-8 text-sm top-0">
-                0
+                {wishList?.length}
               </span>
               <PiHeartHalfLight className="me-2 inline align-bottom text-3xl text-lightgreen" />
               <span className="text-lg ms-2">Wishlist</span>
             </button>
 
-            <Dialog >
-              <DialogTrigger className="border border-dashed border-transparent hover:border-gray-200 hover:scale-95 px-4 py-1">
-                <PiUserCircleDashedFill className="me-2 inline align-bottom text-3xl text-lightgreen" />
-                <span className="text-lg">Login</span>
-              </DialogTrigger>
-              <DialogContent >
-                {/* <DialogHeader>
+
+            {
+              authState.isLoggedIn || logInState ?
+                (
+                  <div className="user-button-wrapper">
+                    <div className="user-button border border-dashed border-transparent hover:border-gray-200 hover:scale-95 px-4 py-1">
+                      <PiUserCircleDashedFill className="me-2 inline align-bottom text-3xl text-lightgreen" />
+                      <span className="text-lg">User</span>
+                    </div>
+                    <ul className="user-menus border shadow animate__animated animate__fadeIn animate__faster">
+                      <li><ImProfile className="me-2 inline" />My Profile</li>
+                      <li><IoMdHeartHalf className="me-2 inline" />My Wishlist</li>
+                      <li onClick={handleLogOut} className="cursor-pointer"><HiOutlineLogout className="me-2 inline" />Logout</li>
+                    </ul>
+                  </div>
+                ) :
+                (
+                  <Dialog >
+                    <DialogTrigger className="border border-dashed border-transparent hover:border-gray-200 hover:scale-95 px-4 py-1">
+                      <PiUserCircleDashedFill className="me-2 inline align-bottom text-3xl text-lightgreen" />
+                      <span className="text-lg">Login</span>
+                    </DialogTrigger>
+                    <DialogContent >
+                      {/* <DialogHeader>
                   <DialogTitle>Are you absolutely sure?</DialogTitle>
                   <DialogDescription>
                     This action cannot be undone. This will permanently delete your account
@@ -92,17 +140,20 @@ const MiddleHeadSection = () => {
                   </DialogDescription>
                 </DialogHeader> */}
 
-                <div className="login-screen p-1  grid md:grid-cols-2 grid-cols-1 bg-white rounded-3xl">
-                  <div className="login-banner md:h-full w-full rounded-3xl flex flex-col   p-5 " style={{ background: `linear-gradient(#13693a, #8cbf44b8),url(${logInImg}) center/cover` }}>
-                    <h1 className="text-6xl font-semibold uppercase text-white px-4">Welcome <span className="text-lightgreen">Back!</span></h1>
-                    <p className="px-4 text-white pt-3 text-2xl">Login to manage your agricultural needs.</p>
+                      <div className="login-screen p-1  grid md:grid-cols-2 grid-cols-1 bg-white rounded-3xl">
+                        <div className="login-banner md:h-full w-full rounded-3xl flex flex-col   p-5 " style={{ background: `linear-gradient(#13693a, #8cbf44b8),url(${logInImg}) center/cover` }}>
+                          <h1 className="text-6xl font-semibold uppercase text-white px-4">Welcome <span className="text-lightgreen">Back!</span></h1>
+                          <p className="px-4 text-white pt-3 text-2xl">Login to manage your agricultural needs.</p>
 
-                  </div>
-                  <LoginStepForm />
-                  
-                </div>
-              </DialogContent>
-            </Dialog>
+                        </div>
+                        <LoginStepForm />
+
+                      </div>
+                    </DialogContent>
+                  </Dialog>
+                )
+            }
+
 
             {/* <button
               type="button"

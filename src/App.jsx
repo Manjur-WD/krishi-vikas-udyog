@@ -6,6 +6,9 @@ import SplashScreen from "./components/elements/SplashScreen";
 import { FilterButtonStateProvider } from "./context/CategoryWiseAllProduct/FilterBtnContext";
 import { CompanyDataProvider } from "./context/CompanyData/CompanyDataContext";
 import { SortStatusProvider } from "./context/SortingProductContext/SortProductContext";
+import { useDispatch } from "react-redux";
+import { setLogInState, setToken } from "./redux/features/Auth/AuthSlice";
+import MobileScreenNav from "./components/layouts/Header/MobileScreenNav";
 
 // Lazy load the component
 
@@ -25,10 +28,32 @@ const LazyIffcoDealerPage = React.lazy(() =>
 const LazyWeatherForecastPage = React.lazy(() =>
   import("./pages/WeatherForecastPage")
 );
+const LazyWistListPage = React.lazy(() =>
+  import("./pages/WishListPage")
+);
+const LazyUserProfilePage = React.lazy(() =>
+  import("./pages/UserProfile")
+);
+const LazySellProductPage = React.lazy(() =>
+  import("./pages/SellProductPage")
+);
 
 const App = () => {
   const baseUrl = "/krishi-vikas-udyog";
   const location = useLocation();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const logInState = localStorage.getItem("isLoggedIn");
+    const token = localStorage.getItem("token");
+    if (logInState) {
+      dispatch(setLogInState(logInState));
+    }
+    else if (token) {
+      dispatch(setToken(token));
+    }
+
+  }, [])
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -38,6 +63,7 @@ const App = () => {
 
   return (
     <>
+    <MobileScreenNav />
       <CompanyDataProvider>
         <SortStatusProvider>
           {isloading ? <SplashScreen setLoading={setLoading} /> : null}
@@ -89,6 +115,30 @@ const App = () => {
               element={
                 <Suspense fallback={<Preloader />}>
                   <LazyWeatherForecastPage key={location.key} />
+                </Suspense>
+              }
+            />
+            <Route
+              path={`${baseUrl}/wishlist`}
+              element={
+                <Suspense fallback={<Preloader />}>
+                  <LazyWistListPage key={location.key} />
+                </Suspense>
+              }
+            />
+            <Route
+              path={`${baseUrl}/profile`}
+              element={
+                <Suspense fallback={<Preloader />}>
+                  <LazyUserProfilePage key={location.key} />
+                </Suspense>
+              }
+            />
+            <Route
+              path={`${baseUrl}/sell-product`}
+              element={
+                <Suspense fallback={<Preloader />}>
+                  <LazySellProductPage key={location.key} />
                 </Suspense>
               }
             />

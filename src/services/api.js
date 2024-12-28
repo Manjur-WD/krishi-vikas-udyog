@@ -5,13 +5,28 @@ import axios from "axios";
 const api = axios.create({
   // baseURL: "https://database.businessenquiry.co.in/api/v3",
   baseURL: "https://krishivikas.com/api/v2",
-  headers: {
-    Authorization:
-      // "Bearer 1280|wxPHniERi5WY1UEJ2kg0p26m1yj93JsDKAGwK7048ebf885b",
-      "Bearer 31226|1jpUnaMnnQuHCUnq9cIlmdfjhZGZCr7ZIrrheJad77c32276",
-  },
+  // headers: {
+  //   Authorization:
+  //     // "Bearer 1280|wxPHniERi5WY1UEJ2kg0p26m1yj93JsDKAGwK7048ebf885b",
+  //     "Bearer 31372|bdYSZ2QkoH91uh49LlmX2OXd26Kj0y6a9FB3u4C93f0911a9",
+  // },
 });
 
+api.interceptors.request.use(
+  (config) => {
+    
+      config.headers[
+        "Authorization"
+      ] = `Bearer 31402|ycaBoacBD1m2hb4cBPIpGBTphlQ6TCmQIiBe1E1V0834bbfd`;
+    
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
+
+// const authState = useSelector((state)=> state.auth )
 // CATEGORY API CALL
 
 export const getCategoryList = async (languageId) => {
@@ -93,7 +108,6 @@ export const getCategoryWiseAllProduct = async (
   }
 };
 
-
 // CATEGORY FILTER ALL DATA
 
 export const getCategoryWiseProduct = async (
@@ -108,8 +122,7 @@ export const getCategoryWiseProduct = async (
   brand_id,
   model_id,
   min_price,
-  max_price,
-  
+  max_price
 ) => {
   try {
     const response = await api.post("/category-filter", {
@@ -237,6 +250,33 @@ export const sendOtp = async (mobile_no) => {
     const response = await api.post("/otp-send", {
       mobile: mobile_no,
     });
+    return response.data.result.response;
+  } catch (error) {
+    console.error("Error loading category data:", error);
+    throw error; // Optionally throw or return a default value if you want to handle errors differently
+  }
+};
+
+// LOGIN WITH MOBILE NUMBER
+
+export const getLogInDetails = async (mobile_no) => {
+  try {
+    const response = await api.post("/login", {
+      mobile: mobile_no,
+    });
+    return response.data.result.response;
+  } catch (error) {
+    console.error("Error loading category data:", error);
+    throw error; // Optionally throw or return a default value if you want to handle errors differently
+  }
+};
+
+
+// WISHLIST APIS
+
+export const getWishList = async () => {
+  try {
+    const response = await api.get("/wishlist");
     return response.data.result.response;
   } catch (error) {
     console.error("Error loading category data:", error);
