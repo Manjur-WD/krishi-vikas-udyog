@@ -7,7 +7,7 @@ import AnimateButton from "../../../animation/AnimateButton";
 import { CgMenuLeft } from "react-icons/cg";
 import { useContext } from "react";
 import { NavTogglerContext } from "../../../../context/HeaderMenuContext/NavTogglerContext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logInImg from "../../../../assets/images/login-img.webp";
 import { ImProfile } from "react-icons/im";
 import { IoMdHeartHalf } from "react-icons/io";
@@ -30,8 +30,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { setLogInState } from "../../../../redux/features/Auth/AuthSlice";
 import { useQuery } from "@tanstack/react-query";
 import { getWishList } from "../../../../services/api";
+import BASE_URL from "../../../../../config";
 
 const MiddleHeadSection = () => {
+  const navigate = useNavigate();
   const { setActiveNav } = useContext(NavTogglerContext);
   const authState = useSelector((state) => state.auth);
   const dispatch = useDispatch();
@@ -100,7 +102,8 @@ const MiddleHeadSection = () => {
           <div className="header__wishlist-login items-center flex">
             <button
               type="button"
-              className=" hover:scale-95 px-4 py-1 relative md:block hidden"
+              className=" hover:scale-95 px-4 py-1 relative md:block hidden cursor-pointer"
+              onClick={()=>navigate(`${BASE_URL}/wishlist`)}
             >
               <span className="wishlist--count bg-lightdark text-white px-2 rounded-full absolute left-8 text-sm top-0">
                 {wishList?.length}

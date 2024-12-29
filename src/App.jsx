@@ -10,6 +10,7 @@ import { useDispatch } from "react-redux";
 import { setLogInState, setToken } from "./redux/features/Auth/AuthSlice";
 import MobileScreenNav from "./components/layouts/Header/MobileScreenNav";
 
+
 // Lazy load the component
 
 const LazyHomepage = React.lazy(() => import("./pages/HomePage"));
@@ -63,6 +64,7 @@ const App = () => {
 
   return (
     <>
+   
     <MobileScreenNav />
       <CompanyDataProvider>
         <SortStatusProvider>

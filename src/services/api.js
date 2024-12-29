@@ -14,11 +14,11 @@ const api = axios.create({
 
 api.interceptors.request.use(
   (config) => {
-    
-      config.headers[
-        "Authorization"
-      ] = `Bearer 31402|ycaBoacBD1m2hb4cBPIpGBTphlQ6TCmQIiBe1E1V0834bbfd`;
-    
+
+    config.headers[
+      "Authorization"
+    ] = `Bearer 31402|ycaBoacBD1m2hb4cBPIpGBTphlQ6TCmQIiBe1E1V0834bbfd`;
+
     return config;
   },
   (error) => {
@@ -277,6 +277,38 @@ export const getLogInDetails = async (mobile_no) => {
 export const getWishList = async () => {
   try {
     const response = await api.get("/wishlist");
+    return response.data.result.response;
+  } catch (error) {
+    console.error("Error loading category data:", error);
+    throw error; // Optionally throw or return a default value if you want to handle errors differently
+  }
+};
+
+// ADD TO WISHLIST
+
+export const addToWishList = async ( item_id,category_id) => {
+  try {
+    const response = await api.post("/wishlist-add",
+      {
+        category_id: category_id,
+        item_id: item_id
+      }
+    );
+    return response.data.result.response;
+  } catch (error) {
+    console.error("Error loading category data:", error);
+    throw error; // Optionally throw or return a default value if you want to handle errors differently
+  }
+};
+
+// REMOVE FROM WISHLIST
+
+export const removeFromWishList = async ( item_id,category_id) => {
+  try {
+    const response = await api.post("/wishlist-delete", {
+      category_id: category_id,
+      item_id: item_id
+    });
     return response.data.result.response;
   } catch (error) {
     console.error("Error loading category data:", error);

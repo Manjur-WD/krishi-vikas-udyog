@@ -5,6 +5,7 @@ import indFlag from "../../assets/images/ind-flag.png";
 import "animate.css"
 import { getLogInDetails, sendOtp } from "../../services/api";
 import toast, { Toaster } from "react-hot-toast";
+
 import { useQuery } from "@tanstack/react-query";
 import {
     InputOTP,
@@ -108,7 +109,7 @@ const LoginStepForm = () => {
 
     return (
         <>
-            <Toaster position="bottom-center"
+             <Toaster position="bottom-center"
                 reverseOrder={false} />
             <div className="login-form h-[400px] flex justify-center items-center overflow-hidden">
                 {

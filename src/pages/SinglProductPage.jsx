@@ -4,7 +4,7 @@ import MobileScreenNav from "../components/layouts/Header/MobileScreenNav";
 import { FiPhoneCall } from "react-icons/fi";
 import { useState, useEffect, useRef } from "react";
 import Slider from "react-slick";
-import { getCategoryWiseAllProduct, getCategoryWiseProduct, getSingleProduct } from "../services/api";
+import { addToWishList, getCategoryWiseAllProduct, getCategoryWiseProduct, getSingleProduct } from "../services/api";
 import { QueryClient, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Link, useParams } from "react-router-dom";
 import { Fancybox } from "@fancyapps/ui";
@@ -18,11 +18,20 @@ import SingleProductSkeleton from "../components/layouts/SingleProduct/SInglePro
 import ProductDescSkeleton from "../components/layouts/SingleProduct/ProductDescSkeleton";
 import SimilarProductCarousel from "../components/layouts/SingleProduct/SimilarProductCarousel";
 import BASE_URL from "../../config";
+import { RiLoader2Line } from "react-icons/ri";
+import toast from "react-hot-toast";
+import { useLocation } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { toggleWishlist } from "../redux/features/wishlist/WishlistSlice";
+
 
 const SinglProductPage = () => {
+  const location = useLocation();
+  const dispatch = useDispatch();
   const { category, type, id } = useParams();
 
   const [categoryId, setCategoryId] = useState(0);
+
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -39,8 +48,6 @@ const SinglProductPage = () => {
     queryFn: () => getSingleProduct(categoryId, id),
     // enabled: !sessionData
   });
-
-
 
   useEffect(() => {
     Fancybox.bind("[data-fancybox]", {
@@ -100,6 +107,14 @@ const SinglProductPage = () => {
   const handleLink = (linktext, imgtype) => {
     setImgLink(linktext);
     setImgType(imgtype);
+  };
+
+  const isWishlisted = singleProduct?.wishlist_status === 1;
+  console.log(isWishlisted);
+  
+
+  const handleWishlistToggle = () => {
+    dispatch(toggleWishlist({ id, categoryId, isWishlisted}));
   };
 
   return (
@@ -332,13 +347,22 @@ const SinglProductPage = () => {
                 <IoCalendar className="inline mb-2 text-darkGreen" />{" "}
                 {singleProduct && `${singleProduct.created_at.slice(0, 10)}`}
               </h5>
-              <h4 className="lowercase mb-2 md:text-4xl text-2xl font-bold text-darkGreen">
-                <TbCurrencyRupee className="inline mb-2 text-darkGreen" />
-                {type == "rent"
-                  ? singleProduct &&
-                  `${singleProduct.price}/${singleProduct.rent_type.slice(4)}`
-                  : singleProduct && `${singleProduct.price}`}
-              </h4>
+              <div className="flex justify-between items-center pe-5">
+                <h4 className="lowercase mb-2 md:text-4xl text-2xl font-bold text-darkGreen">
+                  <TbCurrencyRupee className="inline mb-2 text-darkGreen" />
+                  {type == "rent"
+                    ?
+                    `${singleProduct?.price}/${singleProduct?.rent_type.slice(4)}`
+                    : `${singleProduct?.price}`}
+                </h4>
+                {
+                  singleProduct?.wishlist_status === 1 ?
+                    <button type="button" onClick={handleWishlistToggle} className="bg-red-600 shadow shadow-red-600 text-white py-1 px-3 rounded-2xl active:scale-95"><RiLoader2Line className="animate-spin inline me-1 mb-1" />Remove From Wishlist</button>
+                    :
+                    <button type="button" onClick={handleWishlistToggle} className="bg-darkGreen shadow shadow-darkGreen text-white py-1 px-3 rounded-2xl active:scale-95"><RiLoader2Line className="animate-spin inline me-1 mb-1" />Add to Wishlist</button>
+                }
+
+              </div>
               <div className="grid md:grid-cols-2 grid-cols-1 gap-2">
                 <div className="product_spec border border-[whitesmoke] overflow-hidden rounded-3xl shadow">
                   <p className="md:p-3 px-2 py-1 text-center heading shadow inline-block text-white m-2 rounded-3xl font-bold">
