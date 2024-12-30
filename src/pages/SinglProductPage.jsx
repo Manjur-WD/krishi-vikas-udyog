@@ -13,6 +13,7 @@ import { FaMapLocationDot } from "react-icons/fa6";
 import { IoCalendar } from "react-icons/io5";
 import { TbCurrencyRupee } from "react-icons/tb";
 import user from "../assets/images/user.png";
+import toastBg from "../assets/images/toast-bg.jpg";
 import { RiUpload2Fill } from "react-icons/ri";
 import { FaHeartCirclePlus } from "react-icons/fa6";
 import { FaHeartCircleMinus } from "react-icons/fa6";
@@ -43,7 +44,6 @@ const SinglProductPage = () => {
   const [wishListToggle, setToggleWish] = useState(true);
   const [wishLoading, setWishLoading] = useState(false);
 
-
   const {
     data: singleProduct,
     isLoading,
@@ -73,15 +73,25 @@ const SinglProductPage = () => {
     if (singleProduct?.wishlist_status === 1) {
       setWishLoading(true);
       const response = await removeFromWishList(categoryId, id);
-      console.log(typeof (response?.success));
-
       if (response && response.success === 1) {
         setToggleWish(!wishListToggle);
         setWishLoading(false);
-        toast.success("Removed from wishlist!");
-      }
-
-      
+        toast.success("Removed from wishlist!",
+          {
+            style: {
+              border: '2px solid red',
+              boxShadow:'0 0  25px red',
+              padding: '16px',
+              fontSize: '18px',
+              color: 'white',
+              // backgroundColor: '#d1e7dd',
+              background: `url(${toastBg}) no-repeat center/cover`,
+              borderRadius: '8px',
+            },
+            
+          }
+        );
+      }  
     } else {
       // add to wishlist logic
       setWishLoading(true);
@@ -90,9 +100,22 @@ const SinglProductPage = () => {
       if (response && response.success === 1) {
         setToggleWish(!wishListToggle);
         setWishLoading(false);
-        toast.success("Added to wishlist!");
-      }
-      
+        toast.success("Added to wishlist!",
+          {
+            style: {
+              border: '2px solid green',
+              boxShadow:'0 0  25px green',
+              padding: '16px',
+              fontSize: '18px',
+              color: 'white',
+              // backgroundColor: '#d1e7dd',
+              background: `url(${toastBg}) no-repeat center/cover`,
+              borderRadius: '8px',
+            },
+          }
+          
+        );
+      } 
     }
   };
 
