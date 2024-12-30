@@ -1,1 +1,0 @@
-import{j as s}from"./index-B7wwjzwm.js";import{H as r,F as e}from"./Header-JgC6DDL2.js";const a=()=>s.jsxs(s.Fragment,{children:[s.jsx(r,{}),s.jsx("h1",{children:"This is Wishlist Page"}),s.jsx(e,{})]});export{a as default};
