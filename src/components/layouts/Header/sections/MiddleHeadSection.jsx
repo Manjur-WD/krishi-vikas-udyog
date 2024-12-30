@@ -5,7 +5,7 @@ import { PiHeartHalfLight } from "react-icons/pi";
 import { PiUserCircleDashedFill } from "react-icons/pi";
 import AnimateButton from "../../../animation/AnimateButton";
 import { CgMenuLeft } from "react-icons/cg";
-import { useContext } from "react";
+import { useContext, useEffect, useLayoutEffect, useState } from "react";
 import { NavTogglerContext } from "../../../../context/HeaderMenuContext/NavTogglerContext";
 import { Link, useNavigate } from "react-router-dom";
 import logInImg from "../../../../assets/images/login-img.webp";
@@ -31,6 +31,7 @@ import { setLogInState } from "../../../../redux/features/Auth/AuthSlice";
 import { useQuery } from "@tanstack/react-query";
 import { getWishList } from "../../../../services/api";
 import BASE_URL from "../../../../../config";
+import { updateWishListItems } from "../../../../redux/features/wishlist/WishlistSlice";
 
 const MiddleHeadSection = () => {
   const navigate = useNavigate();
@@ -47,14 +48,22 @@ const MiddleHeadSection = () => {
     location.reload();
   }
 
-  // console.log(authState);
+  console.log(authState);
 
+  const wishlistItems = useSelector((state) => state.wishlistings)
+  console.log(wishlistItems);
 
-  const { data: wishList } = useQuery({
-    queryKey: ["wish-list-data"],
-    queryFn: () => getWishList()
-  })
+  const fetchWishList = async () => {
+    const response = await getWishList();
+    if (response && response.success === 1) {
+      console.log(response.response);
+      dispatch(updateWishListItems(response.response));
+    }
+  }
 
+  useLayoutEffect(() => {
+    fetchWishList();
+  }, [])
 
 
 
@@ -103,11 +112,18 @@ const MiddleHeadSection = () => {
             <button
               type="button"
               className=" hover:scale-95 px-4 py-1 relative md:block hidden cursor-pointer"
-              onClick={()=>navigate(`${BASE_URL}/wishlist`)}
+              onClick={() => navigate(`${BASE_URL}/wishlist`)}
             >
-              <span className="wishlist--count bg-lightdark text-white px-2 rounded-full absolute left-8 text-sm top-0">
-                {wishList?.length}
-              </span>
+              {
+                wishlistItems.wishlist?.length != 0 ?
+                  (
+                    <span className="wishlist--count bg-lightdark text-white px-2 rounded-full absolute left-8 text-sm top-0">
+                      {wishlistItems.wishlist?.length}
+                    </span>
+                  ) :
+                  (null)
+              }
+
               <PiHeartHalfLight className="me-2 inline align-bottom text-3xl text-lightgreen" />
               <span className="text-lg ms-2">Wishlist</span>
             </button>

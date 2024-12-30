@@ -568,9 +568,9 @@ details[open] .downarrow {
 .mobile-nav__menus .active {
   display: inline-block;
   box-shadow: 0 0 2px rgb(230, 230, 230);
-  scale: 1.1;
-  padding: 5px;
-  border-radius: 50%;
+  background: #8cbf4457;
+  padding: 5px 10px;
+  border-radius: 50px;
 }
 
 .mobile-nav__menus .active::after {
@@ -585,3 +585,8 @@ details[open] .downarrow {
   transform: translateX(-50%);
   bottom: -10px;
 }
+
+.wishlist-price-location{
+  background: linear-gradient(33deg, #13693a, #8cbf44);
+}
+

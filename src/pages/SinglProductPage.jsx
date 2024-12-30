@@ -4,7 +4,7 @@ import MobileScreenNav from "../components/layouts/Header/MobileScreenNav";
 import { FiPhoneCall } from "react-icons/fi";
 import { useState, useEffect, useRef } from "react";
 import Slider from "react-slick";
-import { addToWishList, getCategoryWiseAllProduct, getCategoryWiseProduct, getSingleProduct } from "../services/api";
+import { addToWishList, getCategoryWiseAllProduct, getCategoryWiseProduct, getSingleProduct, getWishList, removeFromWishList } from "../services/api";
 import { QueryClient, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Link, useParams } from "react-router-dom";
 import { Fancybox } from "@fancyapps/ui";
@@ -14,15 +14,18 @@ import { IoCalendar } from "react-icons/io5";
 import { TbCurrencyRupee } from "react-icons/tb";
 import user from "../assets/images/user.png";
 import { RiUpload2Fill } from "react-icons/ri";
+import { FaHeartCirclePlus } from "react-icons/fa6";
+import { FaHeartCircleMinus } from "react-icons/fa6";
 import SingleProductSkeleton from "../components/layouts/SingleProduct/SIngleProductSkeleton";
 import ProductDescSkeleton from "../components/layouts/SingleProduct/ProductDescSkeleton";
 import SimilarProductCarousel from "../components/layouts/SingleProduct/SimilarProductCarousel";
 import BASE_URL from "../../config";
 import { RiLoader2Line } from "react-icons/ri";
-import toast from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import { useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { toggleWishlist } from "../redux/features/wishlist/WishlistSlice";
+import { updateWishListItems } from "../redux/features/wishlist/WishlistSlice";
+
 
 
 const SinglProductPage = () => {
@@ -37,6 +40,9 @@ const SinglProductPage = () => {
     window.scrollTo(0, 0);
   }, [location]);
 
+  const [wishListToggle, setToggleWish] = useState(true);
+  const [wishLoading, setWishLoading] = useState(false);
+
 
   const {
     data: singleProduct,
@@ -44,10 +50,51 @@ const SinglProductPage = () => {
     isError,
     error,
   } = useQuery({
-    queryKey: ["single-product", categoryId, id],
+    queryKey: ["single-product", categoryId, id, wishListToggle],
     queryFn: () => getSingleProduct(categoryId, id),
     // enabled: !sessionData
   });
+
+  // fetch Wishlist
+
+  const fetchWishList = async () => {
+    const response = await getWishList();
+    console.log(response);
+    dispatch(updateWishListItems(response.response));
+  }
+
+  useEffect(() => {
+    fetchWishList();
+  }, [wishListToggle])
+
+
+  // Handle Wishlist Add/Remove
+  const handleWishlist = async () => {
+    if (singleProduct?.wishlist_status === 1) {
+      setWishLoading(true);
+      const response = await removeFromWishList(categoryId, id);
+      console.log(typeof (response?.success));
+
+      if (response && response.success === 1) {
+        setToggleWish(!wishListToggle);
+        setWishLoading(false);
+        toast.success("Removed from wishlist!");
+      }
+
+      
+    } else {
+      // add to wishlist logic
+      setWishLoading(true);
+      const response = await addToWishList(categoryId, id);
+      console.log(typeof (response?.success));
+      if (response && response.success === 1) {
+        setToggleWish(!wishListToggle);
+        setWishLoading(false);
+        toast.success("Added to wishlist!");
+      }
+      
+    }
+  };
 
   useEffect(() => {
     Fancybox.bind("[data-fancybox]", {
@@ -109,18 +156,13 @@ const SinglProductPage = () => {
     setImgType(imgtype);
   };
 
-  const isWishlisted = singleProduct?.wishlist_status === 1;
-  console.log(isWishlisted);
-  
-
-  const handleWishlistToggle = () => {
-    dispatch(toggleWishlist({ id, categoryId, isWishlisted}));
-  };
 
   return (
     <>
       <Header />
       {/* <MobileScreenNav /> */}
+      <Toaster position="bottom-center"
+                reverseOrder={false} />
       <main className="single-product-wrapper">
         <div className="container  single-product-image grid lg:grid-cols-2 grid-cols-1 my-2 overflow-hidden">
           {isLoading ? (
@@ -355,12 +397,26 @@ const SinglProductPage = () => {
                     `${singleProduct?.price}/${singleProduct?.rent_type.slice(4)}`
                     : `${singleProduct?.price}`}
                 </h4>
-                {
-                  singleProduct?.wishlist_status === 1 ?
-                    <button type="button" onClick={handleWishlistToggle} className="bg-red-600 shadow shadow-red-600 text-white py-1 px-3 rounded-2xl active:scale-95"><RiLoader2Line className="animate-spin inline me-1 mb-1" />Remove From Wishlist</button>
-                    :
-                    <button type="button" onClick={handleWishlistToggle} className="bg-darkGreen shadow shadow-darkGreen text-white py-1 px-3 rounded-2xl active:scale-95"><RiLoader2Line className="animate-spin inline me-1 mb-1" />Add to Wishlist</button>
-                }
+
+                <button
+                  type="button"
+                  className={singleProduct?.wishlist_status === 1 ? "bg-red-600 mb-3 text-white py-1 px-3 rounded-2xl" : "bg-darkGreen mb-3 text-white py-1 px-3 rounded-2xl"}
+                  onClick={() => handleWishlist(categoryId, id)}
+                  disabled={isLoading}
+                >
+                  {wishLoading ? (
+                    <span className="text-white"><RiLoader2Line className="animate-spin inline me-1 mb-1" /> Loading ...</span>
+                  ) : singleProduct?.wishlist_status === 1 ? (
+
+                    <span><FaHeartCircleMinus className="animate-pulse inline me-1 mb-1" />Remove From Wishlist</span>
+
+                  ) : (
+
+                    <span><FaHeartCirclePlus className="animate-pulse inline me-1 mb-1" />Add to Wishlist</span>
+
+                  )}
+                </button>
+
 
               </div>
               <div className="grid md:grid-cols-2 grid-cols-1 gap-2">

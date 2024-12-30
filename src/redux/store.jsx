@@ -7,6 +7,6 @@ export const store = configureStore({
   reducer: {
     counter: counterReducer,
     auth: authReducer,
-    wishlist: WishlistReducer,
+    wishlistings: WishlistReducer,
   },
 });
