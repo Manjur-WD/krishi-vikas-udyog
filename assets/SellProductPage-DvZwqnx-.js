@@ -1,1 +1,0 @@
-import{j as r}from"./index-B1CLuucx.js";import{H as e,F as s}from"./Header-BxSG_fIa.js";const a=()=>r.jsxs(r.Fragment,{children:[r.jsx(e,{}),r.jsx("h1",{children:"This is Product Selling Page"}),r.jsx(s,{})]});export{a as default};
