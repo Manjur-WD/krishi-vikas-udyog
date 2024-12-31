@@ -1,1 +1,0 @@
-import{j as r}from"./index-B6xyHzxr.js";import{H as s,F as e}from"./Header-DUQLSy9R.js";const i=()=>r.jsxs(r.Fragment,{children:[r.jsx(s,{}),r.jsx("h1",{children:"This is User Profile Page"}),r.jsx(e,{})]});export{i as default};
