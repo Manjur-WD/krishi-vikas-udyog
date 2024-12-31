@@ -4,10 +4,12 @@ import "animate.css";
 import { NavTogglerContext } from "../../../../context/HeaderMenuContext/NavTogglerContext.jsx";
 import { CgCloseR } from "react-icons/cg";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const Navbar = () => {
   const { activeNav, setActiveNav, subMenuStatus, setSubMenuStatus } =
     useContext(NavTogglerContext);
+  const { t } = useTranslation();
 
   return (
     <ul
@@ -19,7 +21,7 @@ const Navbar = () => {
     >
       {menuItems.map((navlink, index) => (
         <li className="relative nav-link" key={navlink.id || index}>
-          {navlink.label}
+          {t(navlink.label)}
           {navlink.hasSubMenu && (
             <div
               className={
@@ -29,10 +31,10 @@ const Navbar = () => {
               }
             >
               <div className={
-                index <3 ?
-"submenu-child bg-white shadow-lg text-darkGreen md:flex md:flex-row-reverse md:gap-3 md:w-[450px] w-[350px] p-1 rounded-lg items-center"
-:
-"submenu-child bg-white shadow-lg text-darkGreen md:flex md:flex-row md:gap-3 md:w-[450px] w-[350px] p-1 rounded-lg items-center"
+                index < 3 ?
+                  "submenu-child bg-white shadow-lg text-darkGreen md:flex md:flex-row-reverse md:gap-3 md:w-[450px] w-[350px] p-1 rounded-lg items-center"
+                  :
+                  "submenu-child bg-white shadow-lg text-darkGreen md:flex md:flex-row md:gap-3 md:w-[450px] w-[350px] p-1 rounded-lg items-center"
               }>
                 {navlink.image && (
                   <img

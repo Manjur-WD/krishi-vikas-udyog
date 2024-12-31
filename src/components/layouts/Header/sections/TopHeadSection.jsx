@@ -6,6 +6,7 @@ import { FaFacebook } from "react-icons/fa6";
 import { AiFillInstagram } from "react-icons/ai";
 import { FaXTwitter } from "react-icons/fa6";
 import { IoIosArrowDown } from "react-icons/io";
+import LanguageSelector from "../../../elements/LanguageSelector";
 
 const TopHeadSection = () => {
   return (
@@ -27,32 +28,7 @@ const TopHeadSection = () => {
               <HiLocationMarker className="inline me-1 text-lightgreen" />
               Location 700152
             </a>
-            <details
-              className="inline-block relative header__language--btn"
-            >
-              <summary className="text-white me-2 border-e pe-2 cursor-pointer  list-none">
-                <TbLanguage className="inline me-1 text-lightgreen" />
-                ENGLISH
-                <IoIosArrowDown className="inline mx-2 downarrow" />
-              </summary>
-              <ul className="header__language--list  block absolute shadow-2xl py-2 rounded-lg top-[40px] border border-lightdark text-center bg-whitesmoke z-50">
-                <li
-                  className="cursor-pointer px-5 py-1 hover:bg-lightdark hover:text-white border-b border-b-lightdark"
-                >
-                  ENGLISH
-                </li>
-                <li
-                  className="cursor-pointer px-5 py-1 hover:bg-lightdark hover:text-white border-b border-b-lightdark"
-                >
-                  हिंदी
-                </li>
-                <li
-                  className="cursor-pointer px-5 py-1 hover:bg-lightdark hover:text-white"
-                >
-                  বাংলা
-                </li>
-              </ul>
-            </details>
+            <LanguageSelector />
             <div className="header__social--links inline ms-2">
               <a href="#">
                 <FaFacebook className="inline me-4 text-white hover:text-lightgreen hover:scale-150" />

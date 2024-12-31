@@ -9,7 +9,7 @@ import { SortStatusProvider } from "./context/SortingProductContext/SortProductC
 import { useDispatch } from "react-redux";
 import { setLogInState, setToken } from "./redux/features/Auth/AuthSlice";
 import MobileScreenNav from "./components/layouts/Header/MobileScreenNav";
-
+import { Toaster } from "react-hot-toast";
 
 // Lazy load the component
 
@@ -64,7 +64,8 @@ const App = () => {
 
   return (
     <>
-   
+   <Toaster position="bottom-center"
+                reverseOrder={false} />
     <MobileScreenNav />
       <CompanyDataProvider>
         <SortStatusProvider>

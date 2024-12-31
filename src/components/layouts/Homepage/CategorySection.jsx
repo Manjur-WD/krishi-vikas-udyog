@@ -4,6 +4,7 @@ import { getCategoryList } from "../../../services/api";
 import Preloader from "../../elements/Preloader";
 import { Link } from "react-router-dom";
 import BASE_URL from "../../../../config";
+import { useTranslation } from "react-i18next";
 
 const categoryLinks = [
   `${BASE_URL}/tractor/old`, // Link for first category
@@ -17,6 +18,8 @@ const categoryLinks = [
 ];
 
 const CategorySection = () => {
+
+  const {t} = useTranslation();
   // Use the useQuery hook to fetch data
   const {
     data: categoryList,
@@ -42,7 +45,7 @@ const CategorySection = () => {
       <div className="container">
         <h2 className="text-3xl text-center mb-10 md:block hidden">
           <BsGridFill className="inline pb-1 me-1" />
-          Top Categories
+          <span>{t('Top Categories')}</span>
         </h2>
         <div className="categories md:grid flex justify-start place-content-center lg:grid-cols-4 md:grid-cols-2 gap-y-5 md:gap-x-8 gap-2 overflow-x-auto pb-5">
           {categoryList && categoryList.length > 0 ? (
@@ -60,7 +63,7 @@ const CategorySection = () => {
                     />
                   </div>
                   <p className="uppercase  text-darkGreen md:text-lg text-xs md:text-left text-center md:p-0 pt-1">
-                    {item.category_name}
+                    {t(item.category_name)}
                   </p>
                 </div>
               </Link>

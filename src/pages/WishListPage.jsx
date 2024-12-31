@@ -34,6 +34,7 @@ const WishListPage = () => {
             setLoading(false);
             toast.success("Removed from wishlist!",
                 {
+                    duration: 4000,
                     style: {
                                   border: '2px solid red',
                                   boxShadow:'0 0  25px red',
@@ -105,7 +106,7 @@ const WishListPage = () => {
                                 <div className="wishlist-card-wrapper m-2 p-1 rounded-2xl shadow border" key={item.id}>
                                     <div className="wishlist-card grid grid-cols-[120px,1fr] md:grid-cols-1 gap-3">
                                         {
-                                            item?.category_id === "6" ||item?.category_id === "8" || item?.category_id === "9"?
+                                            item?.category_id === "6" || item?.category_id === "7" ||item?.category_id === "8" || item?.category_id === "9"?
                                             <img src={item?.image1} alt="this is wishlist product image" className="w-full aspect-square object-cover object-center rounded-2xl" />:
                                             <img src={item?.front_image} alt="this is wishlist product image" className="w-full aspect-square object-cover object-center rounded-2xl" />
 
@@ -129,9 +130,9 @@ const WishListPage = () => {
                                                     <MdOutlineCurrencyRupee className="inline-block mb-1 " />
                                                     {item.price}
                                                     {
-                                                        item?.category_id === "6" ||item?.category_id === "8" || item?.category_id === "9" ?
+                                                        item?.category_id === "6" || item?.category_id === "7" ||item?.category_id === "8" || item?.category_id === "9" ?
                                                         "":
-                                                        ` / ${item.rent_type?.slice(4)}`
+                                                        ` ${item.rent_type === null || undefined ? "" : `/ ${item.rent_type?.slice(4)}`}`
                                                 }
                                                 </p>
                                             </div>

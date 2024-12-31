@@ -19,6 +19,8 @@ import { getCategoryList } from "../../../../services/api";
 import { useQuery } from "@tanstack/react-query";
 import Preloader from "../../../elements/Preloader";
 import { Link } from "react-router-dom";
+import { useTransition } from "react";
+import { useTranslation } from "react-i18next";
 
 const categoryLinks = [
   `${BASE_URL}/tractor/old`, // Link for first category
@@ -32,6 +34,8 @@ const categoryLinks = [
 ];
 
 const BottomHeadSection = () => {
+
+  const {t} = useTranslation();
   // Use the useQuery hook to fetch data
   const {
     data: categoryList,
@@ -61,7 +65,7 @@ const BottomHeadSection = () => {
               <AnimateButton>
                 <DropdownMenuTrigger className="border border-dashed rounded-3xl shadow-lg px-2 py-1 flex items-center text-white outline-none">
                   <TbListDetails className="inline me-2 text-lightgreen bg-white p-1 text-2xl rounded-full" />
-                  ALL CATEGORIES
+                  <span className="uppercase">{t('All categories')}</span>
                   <IoIosArrowDown className="ms-2" />
                 </DropdownMenuTrigger>
               </AnimateButton>
@@ -79,7 +83,7 @@ const BottomHeadSection = () => {
                           className="bg-white shadow-lg rounded-full p-1"
                           width={35}
                         />{" "}
-                        {item.category_name}
+                        {t(item.category_name)}
                       </DropdownMenuItem>
                     </Link>
                   ))
@@ -95,7 +99,7 @@ const BottomHeadSection = () => {
             <AnimateButton>
               <a
                 href="#"
-                className="header__sell-btn border border-dashed rounded-3xl shadow-lg ps-1 pe-3 py-1 flex items-center text-white outline-none"
+                className="header__sell-btn uppercase border border-dashed rounded-3xl shadow-lg ps-1 pe-3 py-1 flex items-center text-white outline-none"
               >
                 <img
                   src={sell_icon}
@@ -103,13 +107,13 @@ const BottomHeadSection = () => {
                   className="me-2 p-1 bg-lightgreen rounded-full shadow"
                   width={25}
                 />
-                SELL
+                {t('sell')}
               </a>
             </AnimateButton>
             <AnimateButton>
               <a
                 href="#"
-                className="header__sell-btn border border-dashed rounded-3xl shadow-lg pe-3 ps-1 py-1 flex items-center text-white outline-none"
+                className="header__sell-btn uppercase border border-dashed rounded-3xl shadow-lg pe-3 ps-1 py-1 flex items-center text-white outline-none"
               >
                 <img
                   src={rent_icon}
@@ -117,7 +121,7 @@ const BottomHeadSection = () => {
                   className="me-2 p-1 bg-lightgreen rounded-full shadow"
                   width={25}
                 />
-                RENT
+                {t('rent')}
               </a>
             </AnimateButton>
           </div>

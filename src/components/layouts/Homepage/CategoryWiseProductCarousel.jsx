@@ -13,6 +13,7 @@ import AnimateButton from "../../animation/AnimateButton";
 import PopulerBrandList from "./PopulerBrandList";
 import { Link } from "react-router-dom";
 import BASE_URL from "../../../../config";
+import { useTranslation } from "react-i18next";
 
 const CategoryWiseProductCarousel = ({
   category_title,
@@ -22,12 +23,14 @@ const CategoryWiseProductCarousel = ({
   company_id,
   view_all_category
 }) => {
+
+  const {t} = useTranslation();
   return (
     <>
       <section className="category-wise-product-slider relative md:my-10 my-2">
         <div className="mx-2 md:mx-0 md:rounded-0 rounded-lg overflow-hidden category-header__title md:bg-lightdark bg-white shadow flex justify-between items-center">
           <h3 className="md:text-2xl  text-lg md:w-[350px] w-1/2 md:p-4 p-2 font-semibold text-white md:font-bold shadow-lg text-center uppercase">
-            {category_title}
+            {t(category_title)}
           </h3>
           
         </div>
@@ -46,7 +49,7 @@ const CategoryWiseProductCarousel = ({
                     value={tab === "old" ? "used" : tab}
                     className="px-5 uppercase category-tab text-black rounded-2xl font-normal text-sm"
                   >
-                    {tab === "old" ? "used" : tab}
+                    {tab === "old" ? t('used') : t(tab)}
                   </TabsTrigger>
                 ))}
                 
@@ -64,7 +67,7 @@ const CategoryWiseProductCarousel = ({
               to={`${BASE_URL}/${view_all_category}/${tab}`}
               className="inline-block absolute md:top-4 top-2 right-5 uppercase border-lightgreen bg-white md:me-10 me-2 px-4 py-1 rounded-3xl md:font-semibold shadow text-darkGreen border md:text-md text-xs"
             >
-              View All <TbArrowMoveRight className="inline mb-1" />
+              {t('View All')} <TbArrowMoveRight className="inline mb-1" />
             </Link>
           
                     {/* POPULER BRAND RENDERING CODE START */}

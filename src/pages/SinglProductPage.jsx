@@ -78,6 +78,7 @@ const SinglProductPage = () => {
         setWishLoading(false);
         toast.success("Removed from wishlist!",
           {
+            duration: 3000,
             style: {
               border: '2px solid red',
               boxShadow:'0 0  25px red',
@@ -102,6 +103,7 @@ const SinglProductPage = () => {
         setWishLoading(false);
         toast.success("Added to wishlist!",
           {
+            duration: 3000,
             style: {
               border: '2px solid green',
               boxShadow:'0 0  25px green',
@@ -424,7 +426,7 @@ const SinglProductPage = () => {
                 <button
                   type="button"
                   className={singleProduct?.wishlist_status === 1 ? "bg-red-600 mb-3 text-white py-1 px-3 rounded-2xl" : "bg-darkGreen mb-3 text-white py-1 px-3 rounded-2xl"}
-                  onClick={() => handleWishlist(categoryId, id)}
+                  onClick={() => handleWishlist(singleProduct?.category_id, id)}
                   disabled={isLoading}
                 >
                   {wishLoading ? (

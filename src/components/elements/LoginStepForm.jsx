@@ -16,7 +16,8 @@ import {
 import SuccessAnime from "./SuccessAnime";
 import { useDispatch, useSelector } from "react-redux";
 import { setLogInState, setToken, setUsers } from "../../redux/features/Auth/AuthSlice";
-
+import toastBg from "../../assets/images/toast-bg.jpg";
+import toastError from "../../assets/images/toastError.jpg";
 
 const LoginStepForm = () => {
 
@@ -49,7 +50,21 @@ const LoginStepForm = () => {
 
     useEffect(() => {
         if (otpSent) {
-            toast.success("OTP sent successfully");
+            toast.success("OTP sent successfully",
+                {
+                    duration: 4000,
+                    style: {
+                        border: '2px solid green',
+                        boxShadow: '0 0  25px green',
+                        padding: '16px',
+                        fontSize: '18px',
+                        color: 'white',
+                        // backgroundColor: '#d1e7dd',
+                        background: `url(${toastBg}) no-repeat center/cover`,
+                        borderRadius: '8px',
+                    },
+                }
+            );
             console.log("oto sent", atob(otpSent.otp));
             setDecodedOtp(atob(otpSent.otp));
             setCurrentStep(2);
@@ -94,7 +109,21 @@ const LoginStepForm = () => {
         if (otpInput === decodedOtp) {
             setOtpValidated(true);
         } else {
-            toast.error("Invalid OTP, please try again.");
+            toast.error("Invalid OTP, please try again.",
+                {
+                    duration: 4000,
+                    style: {
+                        border: '2px solid red',
+                        boxShadow: '0 0  25px red',
+                        padding: '16px',
+                        fontSize: '18px',
+                        color: 'white',
+                        // backgroundColor: '#d1e7dd',
+                        background: `url(${toastError}) no-repeat center/cover`,
+                        borderRadius: '8px',
+                    },
+                }
+            );
         }
     };
 
@@ -109,8 +138,8 @@ const LoginStepForm = () => {
 
     return (
         <>
-             <Toaster position="bottom-center"
-                reverseOrder={false} />
+            {/* <Toaster position="bottom-center"
+                reverseOrder={false} /> */}
             <div className="login-form h-[400px] flex justify-center items-center overflow-hidden">
                 {
                     currentStep === 1 &&
