@@ -110,7 +110,7 @@ const MiddleHeadSection = () => {
             </a>
           </div>
           <div className="header__wishlist-login items-center flex">
-            <LanguageSelector className="md:hidden block" />
+            
             <button
               type="button"
               className=" hover:scale-95 px-4 py-1 relative md:block hidden cursor-pointer"

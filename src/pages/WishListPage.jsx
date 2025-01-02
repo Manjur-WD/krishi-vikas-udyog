@@ -26,7 +26,7 @@ const WishListPage = () => {
     console.log(wishListItems);
 
     const handleRemove = async (categoryId, id) => {
-        toast.success("Removing.....");
+        toast("Removing.....");
         setLoading(true);
         const response = await removeFromWishList(categoryId, id);
 
