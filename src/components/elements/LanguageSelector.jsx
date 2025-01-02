@@ -48,12 +48,12 @@ const LanguageSelector = () => {
     return (
         <div className="inline-block relative header__language--btn">
             <button
-                className="text-white me-2 border-e pe-2 cursor-pointer list-none uppercase"
+                className="text-white md:me-2 border-e pe-2 cursor-pointer list-none uppercase"
                 onClick={toggleDropdown}
             >
-                <TbLanguage className="inline me-1 text-lightgreen" />
-                {selectedLanguage}
-                <IoIosArrowDown className="inline mx-2 downarrow" />
+                <TbLanguage className="inline-block md:border-none border p-[1px] rounded-lg me-1 text-lightgreen mx-3 md:text-lg text-2xl" />
+                <span className="md:inline hidden">{selectedLanguage}</span>
+                <IoIosArrowDown className="mx-2 downarrow md:inline hidden" />
             </button>
 
             {langDropDown && (

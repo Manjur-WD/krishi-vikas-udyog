@@ -11,8 +11,12 @@ import { FaLinkedinIn } from "react-icons/fa";
 import { FaYoutube } from "react-icons/fa";
 
 import makeInIndia from "../../../assets/images/make-in-india-logo-make-in-india-icon-free-free-vector-removebg-preview.png";
+import { useTranslation } from "react-i18next";
 
 const FooterMenus = () => {
+
+  const { t } = useTranslation();
+
   return (
     <>
       <div className="footermenus bg-darkGreen py-10 px-10">
@@ -55,7 +59,7 @@ const FooterMenus = () => {
 
             <div className="install_link">
               <p className="text-white text-lg me-2 mb-2">
-                DOWNLOAD KRISHI VIKAS APP
+                {t('DOWNLOAD KRISHI VIKAS APP')}
               </p>
 
               <div className="flex">
@@ -81,51 +85,53 @@ const FooterMenus = () => {
             </div>
           </div>
           <div className="footermenus__box md:mb-0 mb-5">
-            <p className="text-2xl uppercase text-white mb-5">SELL PRODUCTS</p>
-            <div className="sell__links text-white">
-              <a href="#">NEW TRACTOR</a>
-              <a href="#">USED TRACTOR</a>
-              <a href="#">NEW GOODS VEHICLE</a>
-              <a href="#">USED GOODS VEHICLE</a>
-              <a href="#">NEW HARVESTER</a>
-              <a href="#">USED HARVESTER</a>
-              <a href="#">NEW IMPLEMENTS</a>
-              <a href="#">USED IMPLEMENTS</a>
-              <a href="#">NEW TYRES</a>
-              <a href="#">SELL SEEDS</a>
-              <a href="#">SELL PESTICIDES</a>
-              <a href="#">SELL FERTILIZERS</a>
+            <p className="text-2xl uppercase text-white mb-5">{t('SELL PRODUCTS')}</p>
+            <div className="sell__links text-white uppercase">
+              <a href="#">{t('New Tractor')}</a>
+              <a href="#">{t('Used Tractor')}</a>
+              <a href="#">{t('New Goods Vehicle')}</a>
+              <a href="#">{t('Used Goods Vehicle')}</a>
+              <a href="#">{t('New Harvester')}</a>
+              <a href="#">{t('Used Harvester')}</a>
+              <a href="#">{t('New Implements')}</a>
+              <a href="#">{t('Used Implements')}</a>
+              <a href="#">{t('New Tyres')}</a>
+              <a href="#">{t('Used Tyres')}</a>
+              <a href="#">{t('seeds')}</a>
+              <a href="#">{t('pesticides')}</a>
+              <a href="#">{t('fertilizers')}</a>
             </div>
           </div>
           <div className="footermenus__box md:mb-0 mb-5">
-            <p className="text-2xl uppercase text-white mb-5">BUY PRODUCTS</p>
-            <div className="buy__links text-white">
-              <a href="#">NEW TRACTOR</a>
-              <a href="#">USED TRACTOR</a>
-              <a href="#">NEW GOODS VEHICLE</a>
-              <a href="#">USED GOODS VEHICLE</a>
-              <a href="#">NEW HARVESTER</a>
-              <a href="#">USED HARVESTER</a>
-              <a href="#">NEW IMPLEMENTS</a>
-              <a href="#">USED IMPLEMENTS</a>
-              <a href="#">NEW TYRES</a>
-              <a href="#">SELL SEEDS</a>
-              <a href="#">SELL PESTICIDES</a>
-              <a href="#">SELL FERTILIZERS</a>
+            <p className="text-2xl uppercase text-white mb-5">{t('BUY PRODUCTS')}</p>
+            <div className="buy__links text-white uppercase">
+              <a href="#">{t('New Tractor')}</a>
+              <a href="#">{t('Used Tractor')}</a>
+              <a href="#">{t('New Goods Vehicle')}</a>
+              <a href="#">{t('Used Goods Vehicle')}</a>
+              <a href="#">{t('New Harvester')}</a>
+              <a href="#">{t('Used Harvester')}</a>
+              <a href="#">{t('New Implements')}</a>
+              <a href="#">{t('Used Implements')}</a>
+              <a href="#">{t('New Tyres')}</a>
+              <a href="#">{t('Used Tyres')}</a>
+              <a href="#">{t('seeds')}</a>
+              <a href="#">{t('pesticides')}</a>
+              <a href="#">{t('fertilizers')}</a>
             </div>
           </div>
           <div className="footermenus__box md:mb-0 mb-5">
-            <p className="text-2xl uppercase text-white mb-5">RENT PRODUCTS</p>
-            <div className="rent__links text-white">
-              <a href="#">RENT TRACTOR</a>
-              <a href="#">RENT GOODS VEHICLE</a>
-              <a href="#">RENT HARVESTER</a>
-              <a href="#">RENT IMPLEMENTS</a>
+            <p className="text-2xl uppercase text-white mb-5">{t('RENT PRODUCTS')}</p>
+            <div className="rent__links text-white uppercase">
+              <a href="#">{t('Tractor')}</a>
+              <a href="#">{t('Goods Vehicle')}</a>
+              <a href="#">{t('Harvester')}</a>
+              <a href="#">{t('Implements')}</a>
             </div>
-            <p className="text-2xl uppercase text-white my-5">useful links</p>
-            <div className="rent__links text-white">
-              <a href="#">CONTACT US</a>
-              <a href="#">ABOUT US</a>
+            <p className="text-2xl uppercase text-white my-5">{t('useful links')}</p>
+            <div className="rent__links text-white uppercase">
+              <a href="#">{t('contact us')}</a>
+              <a href="#">{t('about us')}</a>
               <a href="#">PRIVACY POLICY</a>
               <a href="#">TERMS OF USE</a>
               <a href="#">DATA PRIVACY</a>

@@ -7,8 +7,10 @@ import { AiFillInstagram } from "react-icons/ai";
 import { FaXTwitter } from "react-icons/fa6";
 import { IoIosArrowDown } from "react-icons/io";
 import LanguageSelector from "../../../elements/LanguageSelector";
+import { useTranslation } from "react-i18next";
 
 const TopHeadSection = () => {
+  const {t} = useTranslation();
   return (
     <>
       <section className="top-header bg-lightdark md:block hidden px-3">
@@ -26,7 +28,7 @@ const TopHeadSection = () => {
           <div className="header__pincode__language__social">
             <a href="#" className="text-white me-2 border-e pe-2">
               <HiLocationMarker className="inline me-1 text-lightgreen" />
-              Location 700152
+              {t('Location')} 700152
             </a>
             <LanguageSelector />
             <div className="header__social--links inline ms-2">

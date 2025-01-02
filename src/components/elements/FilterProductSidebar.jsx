@@ -28,6 +28,7 @@ import {
 } from "../../redux/features/filterProducts/FilterSlice";
 import { useLocation } from "react-router-dom";
 import PriceRangeSlider from "./PriceRangeSlider";
+import { useTranslation } from "react-i18next";
 
 const FilterProductSidebar = ({ categoryId, type, categoryProduct }) => {
   const { filterBtnState, setFilterBtnState } = useContext(FilterBtnContext);
@@ -157,6 +158,8 @@ const FilterProductSidebar = ({ categoryId, type, categoryProduct }) => {
     });
   }, [brandList]);
 
+  const {t} = useTranslation();
+
   return (
     <>
       <aside
@@ -186,7 +189,7 @@ const FilterProductSidebar = ({ categoryId, type, categoryProduct }) => {
                 >
                   <summary className="list-none">
                     <div className="flex text-darkGreen w-full justify-between items-center px-5 py-4">
-                      <span>BRANDS</span>
+                      <span>{t('BRANDS')}</span>
                       <FaAngleDown className="inline" />
                     </div>
                   </summary>
@@ -296,7 +299,7 @@ const FilterProductSidebar = ({ categoryId, type, categoryProduct }) => {
                   >
                     <summary className="list-none">
                       <div className="flex text-darkGreen w-full justify-between items-center px-5 py-4">
-                        <span>MODELS</span>
+                        <span>{t('MODELS')}</span>
                         <FaAngleDown className="inline" />
                       </div>
                     </summary>
@@ -364,7 +367,7 @@ const FilterProductSidebar = ({ categoryId, type, categoryProduct }) => {
                 <details className="rounded-3xl bg-white overflow-hidden shadow mb-3">
                   <summary className="list-none">
                     <div className="flex text-darkGreen w-full justify-between items-center px-5 py-4">
-                      <span>STATES</span>
+                      <span>{t('STATES')}</span>
                       <FaAngleDown className="inline" />
                     </div>
                   </summary>
@@ -411,7 +414,7 @@ const FilterProductSidebar = ({ categoryId, type, categoryProduct }) => {
                   <details className="rounded-3xl bg-white overflow-hidden shadow mb-3">
                     <summary className="list-none">
                       <div className="flex text-darkGreen w-full justify-between items-center px-5 py-4">
-                        <span>DISTRICT</span>
+                        <span>{t('DISTRICT')}</span>
                         <FaAngleDown className="inline" />
                       </div>
                     </summary>
@@ -466,7 +469,7 @@ const FilterProductSidebar = ({ categoryId, type, categoryProduct }) => {
                 <details className="rounded-3xl bg-white overflow-hidden shadow mb-3">
                   <summary className="list-none ">
                     <div className="flex text-darkGreen w-full justify-between items-center px-5 py-4">
-                      <span>BY YEAR</span>
+                      <span>{t('BY YEAR')}</span>
                       <FaAngleDown className="inline" />
                     </div>
                   </summary>

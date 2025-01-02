@@ -25,11 +25,13 @@ import {
   resetFilterParams,
 } from "../redux/features/filterProducts/FilterSlice";
 import NoDataFound from "../components/elements/NoDataFound";
+import { useTranslation } from "react-i18next";
 
 // Skeleton loading effect
 const skeletonArray = new Array(6).fill(true);
 
 const CategoryWiseAllProduct = () => {
+  const {t} = useTranslation();
   const { category, type } = useParams();
   const [categoryId, setCategoryId] = useState(0);
   const [subtype, setSubType] = useState(null);

@@ -33,8 +33,10 @@ import { getWishList } from "../../../../services/api";
 import BASE_URL from "../../../../../config";
 import { updateWishListItems } from "../../../../redux/features/wishlist/WishlistSlice";
 import LanguageSelector from "../../../elements/LanguageSelector";
+import { useTranslation } from "react-i18next";
 
 const MiddleHeadSection = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const { setActiveNav } = useContext(NavTogglerContext);
   const authState = useSelector((state) => state.auth);
@@ -71,7 +73,7 @@ const MiddleHeadSection = () => {
   return (
     <>
       <section className="relative middle-header  py-3 lg:px-5 md:px-3 bg-white md:shadow-none shadow">
-        <div className="navbar container flex justify-between md:p-0 px-2">
+        <div className="navbar container flex items-center justify-between md:p-0 px-2">
           <div className="navtoggler-and-logo flex gap-2">
             <button
               type="button"
@@ -89,7 +91,7 @@ const MiddleHeadSection = () => {
             </Link>
           </div>
           <div className="header__app--link items-center lg:flex hidden">
-            <p className="text-lightdark me-2">DOWNLOAD KRISHI VIKAS APP</p>
+            <p className="text-lightdark me-2">{t('DOWNLOAD KRISHI VIKAS APP')}</p>
             <a href="#" className="me-1">
               <AnimateButton>
                 <img
@@ -110,10 +112,12 @@ const MiddleHeadSection = () => {
             </a>
           </div>
           <div className="header__wishlist-login items-center flex">
-            <LanguageSelector className="md:hidden block" />
+            <button type="button" className="md:hidden inline border-transparent hover:border-gray-200 hover:scale-95 px-4 py-1">
+              <LanguageSelector className="md:hidden block" />
+            </button>
             <button
               type="button"
-              className=" hover:scale-95 px-4 py-1 relative md:block hidden cursor-pointer"
+              className=" hover:scale-95 md:px-4 py-1 relative md:block hidden cursor-pointer"
               onClick={() => navigate(`${BASE_URL}/wishlist`)}
             >
               {
@@ -127,7 +131,7 @@ const MiddleHeadSection = () => {
               }
 
               <PiHeartHalfLight className="me-2 inline align-bottom text-3xl text-lightgreen" />
-              <span className="text-lg ms-2">Wishlist</span>
+              <span className="text-lg ms-2">{t('Wishlist')}</span>
             </button>
 
 
@@ -148,9 +152,9 @@ const MiddleHeadSection = () => {
                 ) :
                 (
                   <Dialog >
-                    <DialogTrigger className="border border-dashed border-transparent hover:border-gray-200 hover:scale-95 px-4 py-1">
-                      <PiUserCircleDashedFill className="me-2 inline align-bottom text-3xl text-lightgreen" />
-                      <span className="text-lg">Login</span>
+                    <DialogTrigger className="border border-dashed border-transparent hover:border-gray-200 hover:scale-95 md:px-4 py-1">
+                      <PiUserCircleDashedFill className="me-1 inline align-bottom text-3xl text-lightgreen" />
+                      <span className="md:text-lg inline-block pb-1">{t('Login')}</span>
                     </DialogTrigger>
                     <DialogContent >
                       {/* <DialogHeader>

@@ -60,17 +60,17 @@ export const menuItems = [
     subMenu: [
       {
         id: "asm-1",
-        label: "Seeds",
+        label: "seeds",
         link: `${BASE_URL}/agri-inputs/seeds`,
       },
       {
         id: "asm-2",
-        label: "Pesticides",
+        label: "pesticides",
         link: `${BASE_URL}/agri-inputs/pesticides`,
       },
       {
         id: "asm-3",
-        label: "Fertilizer",
+        label: "fertilizers",
         link: `${BASE_URL}/agri-inputs/fertilizer`,
       },
     ],
