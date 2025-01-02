@@ -1,9 +1,11 @@
 import { useParams } from "react-router-dom";
 import breadcrumbImage from "../../assets/images/img_hero.jpg";
 import { FaChevronRight } from "react-icons/fa6";
+import { useTranslation } from "react-i18next";
 
 const BreadCrumb = () => {
   const { category, type } = useParams();
+  const {t} = useTranslation();
 
   return (
     <>
@@ -17,10 +19,10 @@ const BreadCrumb = () => {
       >
         <div className="breadcrumb-content">
           <div className="breadcrumb-links flex justify-center items-center md:text-2xl text-white">
-            <p className="hover:text-lightgreen px-3">Home</p>
+            <p className="hover:text-lightgreen px-3">{t('Home')}</p>
             <FaChevronRight />
             <p className="hover:text-lightgreen px-3 capitalize ">
-              {category === "goods-vehicle" ? "goods vehicle" : category === "agri-inputs" ? "agri inputs" : category}
+              {category === "goods-vehicle" ? "goods vehicle" : category === "agri-inputs" ? t('agri inputs') : t(category)}
             </p>
           </div>
           <p
@@ -28,10 +30,10 @@ const BreadCrumb = () => {
             style={{ textShadow: "0 0 15px black" }}
           >
             {category === "goods-vehicle"
-              ? `${type === "old" ? "used" : type} goods vehicle`
+              ? `${type === "old" ? t("used") : t(type)} ${t("goods vehicle")}`
               : category === "agri-inputs"
-              ? type
-              : `${type === "old" ? "used" : type} ${category}`}
+              ? t(type)
+              : `${type === "old" ? t("used") : t(type)} ${t(category)}`}
           </p>
         </div>
       </section>

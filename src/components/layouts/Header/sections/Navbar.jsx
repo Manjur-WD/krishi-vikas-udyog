@@ -49,7 +49,7 @@ const Navbar = () => {
                       className="mb-2 text-center"
                       key={sublink.id || subIndex}
                     >
-                      <Link to={sublink.link}>{sublink.label}</Link>
+                      <Link to={sublink.link}>{t(sublink.label)}</Link>
                     </li>
                   ))}
                 </ul>

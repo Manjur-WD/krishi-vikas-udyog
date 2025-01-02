@@ -7,6 +7,7 @@ import windspeed from "../../../assets/windspeed.svg";
 import weatherHomepage from "../../../assets/images/short_weather_report.webp";
 import { Link } from "react-router-dom";
 import BASE_URL from "../../../../config";
+import { useTranslation } from "react-i18next";
 
 const WeatherSection = () => {
   const now = new Date();
@@ -23,6 +24,8 @@ const WeatherSection = () => {
   });
 
   // console.log(weatherData.data.current[0].icon);
+
+  const {t} = useTranslation();
 
   return (
     <>
@@ -59,7 +62,7 @@ const WeatherSection = () => {
                   alt="icon of weather"
                   className="invert inline me-2"
                 />
-                humidity
+                {t('humidity')}
               </p>
               <p className="text-2xl text-center">
                 {weatherData ? weatherData.data.current[0].humidity : null}
@@ -72,7 +75,7 @@ const WeatherSection = () => {
                   alt="icon of weather"
                   className="invert inline me-2"
                 />
-                air pressure
+                {t('air pressure')}
               </p>
               <p className="text-2xl text-center">
                 {weatherData ? weatherData.data.current[0].pressure : null}
@@ -85,7 +88,7 @@ const WeatherSection = () => {
                   alt="icon of weather"
                   className="invert inline me-2"
                 />
-                feels like
+                {t('feels like')}
               </p>
               <p className="text-2xl text-center">
                 {weatherData ? weatherData.data.current[0].feels_like : null}°C
@@ -98,7 +101,7 @@ const WeatherSection = () => {
                   alt="icon of weather"
                   className="invert inline me-2"
                 />
-                wind speed
+                {t('wind speed')}
               </p>
               <p className="text-2xl text-center">
                 {weatherData ? weatherData.data.current[0].wind_speed : null}
