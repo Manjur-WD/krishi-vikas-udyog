@@ -586,7 +586,38 @@ details[open] .downarrow {
   bottom: -10px;
 }
 
-.wishlist-price-location{
+.wishlist-price-location {
   background: linear-gradient(33deg, #13693a, #8cbf44);
 }
 
+/* 404 ERROR PAGE */
+
+.error-page-wrap {
+  background: linear-gradient(
+      rgba(255, 255, 255, 0.89),
+      rgba(255, 255, 255, 0.397)
+    ),
+    url(https://krishivikas.com/storage/error_page/error-page.jpg) no-repeat
+      center / cover;
+  /* height: 100vh; */
+  min-height: 300px;
+  width: 100%;
+}
+
+.error-text {
+  font-size: 30vmin;
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  line-height: 0px;
+  font-weight: 900;
+}
+
+.img-box-error {
+  background-color: white;
+  max-height: 250px;
+  max-width: 250px;
+  border-radius: 50%;
+  margin-top: 10%;
+  box-shadow: 0 0 10px rgb(209, 208, 208);
+}

@@ -12,6 +12,8 @@ import { FaYoutube } from "react-icons/fa";
 
 import makeInIndia from "../../../assets/images/make-in-india-logo-make-in-india-icon-free-free-vector-removebg-preview.png";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
+import BASE_URL from "../../../../config";
 
 const FooterMenus = () => {
 
@@ -87,54 +89,54 @@ const FooterMenus = () => {
           <div className="footermenus__box md:mb-0 mb-5">
             <p className="text-2xl uppercase text-white mb-5">{t('SELL PRODUCTS')}</p>
             <div className="sell__links text-white uppercase">
-              <a href="#">{t('New Tractor')}</a>
-              <a href="#">{t('Used Tractor')}</a>
-              <a href="#">{t('New Goods Vehicle')}</a>
-              <a href="#">{t('Used Goods Vehicle')}</a>
-              <a href="#">{t('New Harvester')}</a>
-              <a href="#">{t('Used Harvester')}</a>
-              <a href="#">{t('New Implements')}</a>
-              <a href="#">{t('Used Implements')}</a>
-              <a href="#">{t('New Tyres')}</a>
-              <a href="#">{t('Used Tyres')}</a>
-              <a href="#">{t('seeds')}</a>
-              <a href="#">{t('pesticides')}</a>
-              <a href="#">{t('fertilizers')}</a>
+              <Link to="#">{t('New Tractor')}</Link>
+              <Link to="#">{t('Used Tractor')}</Link>
+              <Link to="#">{t('New Goods Vehicle')}</Link>
+              <Link to="#">{t('Used Goods Vehicle')}</Link>
+              <Link to="#">{t('New Harvester')}</Link>
+              <Link to="#">{t('Used Harvester')}</Link>
+              <Link to="#">{t('New Implements')}</Link>
+              <Link to="#">{t('Used Implements')}</Link>
+              <Link to="#">{t('New Tyres')}</Link>
+              <Link to="#">{t('Used Tyres')}</Link>
+              <Link to="#">{t('seeds')}</Link>
+              <Link to="#">{t('pesticides')}</Link>
+              <Link to="#">{t('fertilizers')}</Link>
             </div>
           </div>
           <div className="footermenus__box md:mb-0 mb-5">
             <p className="text-2xl uppercase text-white mb-5">{t('BUY PRODUCTS')}</p>
             <div className="buy__links text-white uppercase">
-              <a href="#">{t('New Tractor')}</a>
-              <a href="#">{t('Used Tractor')}</a>
-              <a href="#">{t('New Goods Vehicle')}</a>
-              <a href="#">{t('Used Goods Vehicle')}</a>
-              <a href="#">{t('New Harvester')}</a>
-              <a href="#">{t('Used Harvester')}</a>
-              <a href="#">{t('New Implements')}</a>
-              <a href="#">{t('Used Implements')}</a>
-              <a href="#">{t('New Tyres')}</a>
-              <a href="#">{t('Used Tyres')}</a>
-              <a href="#">{t('seeds')}</a>
-              <a href="#">{t('pesticides')}</a>
-              <a href="#">{t('fertilizers')}</a>
+              <Link to={`${BASE_URL}/tractor/new`}>{t('New Tractor')}</Link>
+              <Link to={`${BASE_URL}/tractor/old`}>{t('Used Tractor')}</Link>
+              <Link to={`${BASE_URL}/goods-vehicle/new`}>{t('New Goods Vehicle')}</Link>
+              <Link to={`${BASE_URL}/goods-vehicle/old`}>{t('Used Goods Vehicle')}</Link>
+              <Link to={`${BASE_URL}/harvester/new`}>{t('New Harvester')}</Link>
+              <Link to={`${BASE_URL}/harvester/old`}>{t('Used Harvester')}</Link>
+              <Link to={`${BASE_URL}/implements/new`}>{t('New Implements')}</Link>
+              <Link to={`${BASE_URL}/implements/old`}>{t('Used Implements')}</Link>
+              <Link to={`${BASE_URL}/tyre/new`}>{t('New Tyres')}</Link>
+              <Link to={`${BASE_URL}/tyre/new`}>{t('Used Tyres')}</Link>
+              <Link to={`${BASE_URL}/agri-inputs/seeds`}>{t('seeds')}</Link>
+              <Link to={`${BASE_URL}/agri-inputs/pesticides`}>{t('pesticides')}</Link>
+              <Link to={`${BASE_URL}/agri-inputs/fertilizer`}>{t('fertilizers')}</Link>
             </div>
           </div>
           <div className="footermenus__box md:mb-0 mb-5">
             <p className="text-2xl uppercase text-white mb-5">{t('RENT PRODUCTS')}</p>
             <div className="rent__links text-white uppercase">
-              <a href="#">{t('Tractor')}</a>
-              <a href="#">{t('Goods Vehicle')}</a>
-              <a href="#">{t('Harvester')}</a>
-              <a href="#">{t('Implements')}</a>
+              <Link to={`${BASE_URL}/tractor/rent`}>{t('Tractor')}</Link>
+              <Link to={`${BASE_URL}/goods-vehicle/rent`}>{t('Goods Vehicle')}</Link>
+              <Link to={`${BASE_URL}/harvester/rent`}>{t('Harvester')}</Link>
+              <Link to={`${BASE_URL}/implements/rent`}>{t('Implements')}</Link>
             </div>
             <p className="text-2xl uppercase text-white my-5">{t('useful links')}</p>
             <div className="rent__links text-white uppercase">
-              <a href="#">{t('contact us')}</a>
-              <a href="#">{t('about us')}</a>
-              <a href="#">PRIVACY POLICY</a>
-              <a href="#">TERMS OF USE</a>
-              <a href="#">DATA PRIVACY</a>
+              <Link to={`${BASE_URL}`}>{t('contact us')}</Link>
+              <Link to={`${BASE_URL}`}>{t('about us')}</Link>
+              <Link to={`${BASE_URL}`}>PRIVACY POLICY</Link>
+              <Link to={`${BASE_URL}`}>TERMS OF USE</Link>
+              <Link to={`${BASE_URL}`}>DATA PRIVACY</Link>
             </div>
           </div>
         </div>

@@ -110,7 +110,7 @@ const WeatherSection = () => {
           </div>
         </div>
         <div className="text-center">
-          <Link to={`${BASE_URL}/weather-forecast`} className="text-white border px-3 py-2 rounded-3xl hover:shadow hover:bg-white hover:text-lightdark">10 days Forcast</Link>
+          <Link to={`${BASE_URL}/weather-forecast`} className="text-white border px-3 py-2 rounded-3xl hover:shadow hover:bg-white hover:text-lightdark">{t('10 days Forcast')}</Link>
         </div>
       </section>
     </>

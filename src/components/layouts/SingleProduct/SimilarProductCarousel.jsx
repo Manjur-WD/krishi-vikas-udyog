@@ -12,6 +12,7 @@ import AnimateButton from "../../animation/AnimateButton";
 import { Link, useParams } from "react-router-dom";
 import ProductCardSkeleton from "../../elements/ProductCardSkeleton";
 import BASE_URL from "../../../../config";
+import { useTranslation } from "react-i18next";
 
 const skeletonArray = new Array(6).fill(true);
 
@@ -22,6 +23,7 @@ const SimilarProductCarousel = ({
   product_loading,
 }) => {
   const { type, category } = useParams();
+  const{t} = useTranslation();
   // console.log(similar_product_data);
 
   return (
@@ -29,14 +31,14 @@ const SimilarProductCarousel = ({
       <section className="category-wise-product-slider relative md:my-10 my-2">
         <div className="mx-2 md:mx-0 md:rounded-0 rounded-lg overflow-hidden category-header__title md:bg-lightdark bg-white shadow flex justify-between items-center">
           <h3 className="md:text-2xl  text-lg md:w-[350px] w-auto ps-4 pe-10 md:p-4 p-2 font-semibold text-white md:font-bold shadow-lg text-center uppercase">
-            RELATED PRODUCTS
+            {t('RELATED ITEMS')}
           </h3>
           <AnimateButton>
             <Link
               to={view_all_link}
               className="block uppercase border-lightgreen bg-white md:me-10 me-2 px-4 py-1 rounded-3xl md:font-semibold shadow text-darkGreen border md:text-md text-xs"
             >
-              View All <TbArrowMoveRight className="inline mb-1" />
+              {t('View All')} <TbArrowMoveRight className="inline mb-1" />
             </Link>
           </AnimateButton>
         </div>

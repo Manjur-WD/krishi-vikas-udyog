@@ -17,6 +17,7 @@ import { LuMapPin } from "react-icons/lu";
 import { useContext, useState, useEffect, useMemo } from "react";
 import { CompanyDataContext } from "../context/CompanyData/CompanyDataContext";
 import { Input } from "@/components/ui/input";
+import { useTranslation } from "react-i18next";
 
 const IffcoDealersPage = () => {
   const { companyDealerData } = useContext(CompanyDataContext);
@@ -24,14 +25,14 @@ const IffcoDealersPage = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const contactsPerPage = 22;
 
-  const {id} =  useParams();
+  const { id } = useParams();
   // console.log(typeof(id));
 
-  const {companyLogo} = useContext(CompanyDataContext);
-  
+  const { companyLogo } = useContext(CompanyDataContext);
+
 
   const { data: companyDealers, isLoading } = useQuery({
-    queryKey: ["iffco-dealers",id],
+    queryKey: ["iffco-dealers", id],
     queryFn: () => getCompanyDealers(id === "4" ? "2" : id),
     enabled: !companyDealerData?.length, // Fetch only if context is empty
   });
@@ -63,6 +64,8 @@ const IffcoDealersPage = () => {
     window.scrollTo(0, 0); // Scroll to top on page change
   };
 
+  const { t } = useTranslation();
+
   return (
     <>
       <Header />
@@ -78,15 +81,15 @@ const IffcoDealersPage = () => {
       >
         <div className="breadcrumb-content">
           <div className="breadcrumb-links flex justify-center items-center text-2xl text-white">
-            <p className="hover:text-lightgreen px-3">Home</p>
+            <p className="hover:text-lightgreen px-3">{t('Home')}</p>
             <FaChevronRight />
-            <p className="hover:text-lightgreen px-3 capitalize">Company Dealer</p>
+            <p className="hover:text-lightgreen px-3 capitalize">{t('Company Dealer')}</p>
           </div>
           <p
             className="text-lightgreen md:text-6xl text-4xl font-bold text-center mt-3 uppercase"
             style={{ textShadow: "0 0 15px black" }}
           >
-            Company Dealer
+            {t('Company Dealer')}
           </p>
         </div>
       </section>
@@ -108,51 +111,51 @@ const IffcoDealersPage = () => {
         ) : (
           <div className="container">
             <div className="iffco-dealer-list grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5 p-5 place-content-center">
-              {currentPageData.length > 0 ? 
-              (
-                currentPageData?.map((item, idx) => (
-                  <div
-                    className="dealer-card bg-white flex gap-5 shadow rounded-3xl hover:scale-105 transition-[0.5s]"
-                    key={idx}
-                  >
-                    <img
-                      src={companyLogo}
-                      alt="company-logo"
-                      className="w-[100px] p-2 object-contain"
-                    />
-                    <div className="dealer-details w-full text-center">
-                      <p className="uppercase text-start py-3">
-                        <FaHouseLaptop className="inline me-2 " />
-                        {item.name}
-                      </p>
-                      {item.address && (
-                        <p className="text-start text-sm bg-whitesmoke p-3">
-                          <GrMapLocation className="inline" /> {item.address}
-                        </p>
-                      )}
-                      {item.zipcode && (
+              {currentPageData.length > 0 ?
+                (
+                  currentPageData?.map((item, idx) => (
+                    <div
+                      className="dealer-card bg-white flex gap-5 shadow rounded-3xl hover:scale-105 transition-[0.5s]"
+                      key={idx}
+                    >
+                      <img
+                        src={companyLogo}
+                        alt="company-logo"
+                        className="w-[100px] p-2 object-contain"
+                      />
+                      <div className="dealer-details w-full text-center">
                         <p className="uppercase text-start py-3">
-                          <LuMapPin className="inline mb-1" />
-                          Pincode: {item.zipcode}
+                          <FaHouseLaptop className="inline me-2 " />
+                          {item.name}
                         </p>
-                      )}
-                      <Link
-                        to={`tel:${item.mobile}`}
-                        className="py-2 shadow-lg px-5 text-white my-3 rounded-3xl md:text-xl text-sm bg-gradient-green inline-flex items-center animate-pulse"
-                      >
-                        <IoMdCall className="inline me-3" />
-                        CALL NOW
-                      </Link>
+                        {item.address && (
+                          <p className="text-start text-sm bg-whitesmoke p-3">
+                            <GrMapLocation className="inline" /> {item.address}
+                          </p>
+                        )}
+                        {item.zipcode && (
+                          <p className="uppercase text-start py-3">
+                            <LuMapPin className="inline mb-1" />
+                            Pincode: {item.zipcode}
+                          </p>
+                        )}
+                        <Link
+                          to={`tel:${item.mobile}`}
+                          className="py-2 shadow-lg px-5 text-white my-3 rounded-3xl md:text-xl text-sm bg-gradient-green inline-flex items-center animate-pulse"
+                        >
+                          <IoMdCall className="inline me-3" />
+                          {t('Call Now')}
+                        </Link>
+                      </div>
                     </div>
+                  ))
+                ) :
+                (
+                  <div className="text-center">
+                    <p className="text-2xl p-5 border text-center inline-block">NO DATA FOUND</p>
                   </div>
-                ))
-              ):
-              (
-                <div className="text-center">
-                  <p className="text-2xl p-5 border text-center inline-block">NO DATA FOUND</p>
-                </div>
-              )
-            }
+                )
+              }
             </div>
           </div>
         )}

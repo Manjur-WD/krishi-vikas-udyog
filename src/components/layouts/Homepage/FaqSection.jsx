@@ -34,7 +34,7 @@ const FaqSection = () => {
                   {t('faq1')}
                 </AccordionTrigger>
                 <AccordionContent>
-                {t('faq1ans')}
+                {t('faq1_ans')}
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="item-2">
@@ -42,7 +42,7 @@ const FaqSection = () => {
                 {t('faq2')}
                 </AccordionTrigger>
                 <AccordionContent>
-                {t('faq2ans')}
+                {t('faq2_ans')}
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="item-3">
@@ -50,7 +50,7 @@ const FaqSection = () => {
                 {t('faq3')}
                 </AccordionTrigger>
                 <AccordionContent>
-                {t('faq3ans')}
+                {t('faq3_ans')}
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="item-4">
@@ -58,13 +58,13 @@ const FaqSection = () => {
                 {t('faq4')}
                 </AccordionTrigger>
                 <AccordionContent>
-                {t('faq4ans')}
+                {t('faq4_ans')}
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="item-5">
                 <AccordionTrigger className="text-lg font-normal bg-whitesmoke text-darkGreen">{t('faq5')} </AccordionTrigger>
                 <AccordionContent>
-                {t('faq5ans')}
+                {t('faq5_ans')}
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="item-6">
@@ -72,7 +72,7 @@ const FaqSection = () => {
                 {t('faq6')}
                 </AccordionTrigger>
                 <AccordionContent>
-                {t('faq6ans')}
+                {t('faq6_ans')}
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="item-7">
@@ -80,7 +80,7 @@ const FaqSection = () => {
                 {t('faq7')}
                 </AccordionTrigger>
                 <AccordionContent>
-                {t('faq7ans')}
+                {t('faq7_ans')}
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="item-8">
@@ -88,7 +88,7 @@ const FaqSection = () => {
                 {t('faq8')}
                 </AccordionTrigger>
                 <AccordionContent>
-                {t('faq8ans')}
+                {t('faq8_ans')}
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="item-9">
@@ -96,7 +96,7 @@ const FaqSection = () => {
                 {t('faq9')}
                 </AccordionTrigger>
                 <AccordionContent>
-                {t('faq9ans')}
+                {t('faq9_ans')}
                 </AccordionContent>
               </AccordionItem>
             </Accordion>

@@ -176,7 +176,7 @@ const FilterProductSidebar = ({ categoryId, type, categoryProduct }) => {
               setFilterBtnState(false);
             }}
           />
-          <p className="text-xl text-white text-center w-full ">Filter</p>
+          <p className="text-xl text-white text-center w-full ">{t('Filter')}</p>
         </div>
 
         <section className="w-full bg-white my-3 p-2 rounded-3xl shadow">
@@ -196,7 +196,7 @@ const FilterProductSidebar = ({ categoryId, type, categoryProduct }) => {
                   <div className="brands-list border-t p-2 max-h-[400px] overflow-y-auto">
                     <div className="popular-brands text-center">
                       <p className="text-sm bg-gradient-green text-white px-3 py-2 mb-2 rounded-xl">
-                        POPULAR BRANDS
+                        {t('POPULAR BRANDS')}
                       </p>
                       <div className="grid grid-cols-3 gap-2">
                         {brandLoading ? (
@@ -245,7 +245,7 @@ const FilterProductSidebar = ({ categoryId, type, categoryProduct }) => {
                         )}
                       </div>
                       <p className="text-sm bg-gradient-green text-white px-3 py-2 my-3 rounded-xl">
-                        OTHER BRANDS
+                        {t('OTHER BRANDS')}
                       </p>
                       <div className="grid grid-cols-3 gap-2">
                         {brandLoading ? (
@@ -469,7 +469,7 @@ const FilterProductSidebar = ({ categoryId, type, categoryProduct }) => {
                 <details className="rounded-3xl bg-white overflow-hidden shadow mb-3">
                   <summary className="list-none ">
                     <div className="flex text-darkGreen w-full justify-between items-center px-5 py-4">
-                      <span>{t('BY YEAR')}</span>
+                      <span>{t('YEAR')}</span>
                       <FaAngleDown className="inline" />
                     </div>
                   </summary>
@@ -510,7 +510,7 @@ const FilterProductSidebar = ({ categoryId, type, categoryProduct }) => {
             <details className="rounded-3xl bg-white overflow-hidden shadow mb-3">
               <summary className="list-none ">
                 <div className="flex text-darkGreen w-full justify-between items-center px-5 py-4">
-                  <span>PRICE</span>
+                  <span>{t('PRICE')}</span>
                   <FaAngleDown className="inline" />
                 </div>
               </summary>

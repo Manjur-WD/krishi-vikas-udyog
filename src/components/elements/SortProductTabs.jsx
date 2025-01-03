@@ -1,5 +1,6 @@
 import { useContext, useState } from "react";
 import { SortStatusContext } from "../../context/SortingProductContext/SortProductContext";
+import { useTranslation } from "react-i18next";
 
 // eslint-disable-next-line react/prop-types
 const SortProductTabs = ({ sort_btn_state, sortBtnActive, setSortBtnActive }) => {
@@ -31,6 +32,9 @@ const SortProductTabs = ({ sort_btn_state, sortBtnActive, setSortBtnActive }) =>
     }
   };
 
+
+  const {t} = useTranslation();
+
   return (
     <>
       <section className="sort-product-tab-section  md:sticky top-[155px] z-10 lg:py-2 bg-whitesmoke">
@@ -41,8 +45,8 @@ const SortProductTabs = ({ sort_btn_state, sortBtnActive, setSortBtnActive }) =>
               : " bg-white mx-3 mt-1 flex lg:flex-row flex-col items-center rounded-3xl md:gap-5"
           }
         >
-          <p className="label-sort text-white bg-darkGreen px-5 py-2 rounded-3xl m-2">
-            SORT BY
+          <p className="label-sort truncate text-white bg-darkGreen px-5 py-2 rounded-3xl m-2">
+            {t('Sort By')}
           </p>
           <div className="sort-buttons flex lg:flex-row items-center flex-col">
             <button
@@ -52,7 +56,7 @@ const SortProductTabs = ({ sort_btn_state, sortBtnActive, setSortBtnActive }) =>
                   : "border-b text-black"
                 }`}
             >
-              Price High to Low
+              {t('Price- High to Low')}
             </button>
 
             <button
@@ -62,7 +66,7 @@ const SortProductTabs = ({ sort_btn_state, sortBtnActive, setSortBtnActive }) =>
                   : "border-b text-black"
                 }`}
             >
-              Price Low to High
+              {t('Price- Low to High')}
             </button>
 
             <button
@@ -72,7 +76,7 @@ const SortProductTabs = ({ sort_btn_state, sortBtnActive, setSortBtnActive }) =>
                   : "border-b text-black"
                 }`}
             >
-              Newest First
+              {t('Newest First')}
             </button>
           </div>
         </div>

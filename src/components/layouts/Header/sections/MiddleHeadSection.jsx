@@ -154,7 +154,7 @@ const MiddleHeadSection = () => {
                   <Dialog >
                     <DialogTrigger className="border border-dashed border-transparent hover:border-gray-200 hover:scale-95 md:px-4 py-1">
                       <PiUserCircleDashedFill className="me-1 inline align-bottom text-3xl text-lightgreen" />
-                      <span className="md:text-lg inline-block pb-1">{t('Login')}</span>
+                      <span className="md:text-lg inline-block md:pb-0 pb-1">{t('Login')}</span>
                     </DialogTrigger>
                     <DialogContent >
                       {/* <DialogHeader>

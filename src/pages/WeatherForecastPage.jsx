@@ -37,6 +37,7 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
+import { useTranslation } from "react-i18next";
 
 // WeatherForecastPage Component
 const WeatherForecastPage = () => {
@@ -76,6 +77,8 @@ const WeatherForecastPage = () => {
     },
   };
 
+  const {t} = useTranslation();
+
   return (
     <>
       <Header />
@@ -92,7 +95,7 @@ const WeatherForecastPage = () => {
               <figure className="icons-and-desc flex items-center">
                 <img src={sunrise} alt="icon" width={80} />
                 <figcaption>
-                  <p className="text-sm font-semibold text-white">SUNRISE</p>
+                  <p className="text-sm font-semibold text-white">{t('SUNRISE')}</p>
                   <p className="text-lg text-white">
                     {weatherData?.data?.current[0]?.sunrise}
                   </p>
@@ -101,7 +104,7 @@ const WeatherForecastPage = () => {
               <figure className="icons-and-desc flex items-center">
                 <img src={sunset} alt="icon" width={80} />
                 <figcaption>
-                  <p className="text-sm font-semibold text-white">SUNSET</p>
+                  <p className="text-sm font-semibold text-white">{t('SUNSET')}</p>
                   <p className="text-lg text-white">
                     {weatherData?.data?.current[0]?.sunset}
                   </p>
@@ -110,7 +113,7 @@ const WeatherForecastPage = () => {
               <figure className="icons-and-desc flex items-center">
                 <img src={thermometer} alt="icon" width={80} />
                 <figcaption>
-                  <p className="text-sm font-semibold text-white">FEELS LIKE</p>
+                  <p className="text-sm font-semibold text-white">{t('FEELS LIKE')}</p>
                   <p className="text-lg text-white">
                     {weatherData?.data?.current[0]?.feels_like}°C
                   </p>
@@ -120,7 +123,7 @@ const WeatherForecastPage = () => {
                 <img src={barometer} alt="icon" width={80} />
                 <figcaption>
                   <p className="text-sm font-semibold text-white">
-                    AIR PRESSURE
+                    {t('AIR PRESSURE')}
                   </p>
                   <p className="text-lg text-white">
                     {weatherData?.data?.current[0]?.pressure}
@@ -130,7 +133,7 @@ const WeatherForecastPage = () => {
               <figure className="icons-and-desc flex items-center">
                 <img src={humidity} alt="icon" width={80} />
                 <figcaption>
-                  <p className="text-sm font-semibold text-white">HUMIDITY</p>
+                  <p className="text-sm font-semibold text-white">{t('HUMIDITY')}</p>
                   <p className="text-lg text-white">
                     {weatherData?.data?.current[0]?.humidity}
                   </p>
@@ -139,7 +142,7 @@ const WeatherForecastPage = () => {
               <figure className="icons-and-desc flex items-center">
                 <img src={wind} alt="icon" width={80} />
                 <figcaption>
-                  <p className="text-sm font-semibold text-white">WIND SPEED</p>
+                  <p className="text-sm font-semibold text-white">{t('WIND SPEED')}</p>
                   <p className="text-lg text-white">
                     {weatherData?.data?.current[0]?.wind_speed}
                   </p>
@@ -174,7 +177,7 @@ const WeatherForecastPage = () => {
             <div className="weather-chart">
               <Card className="bg-transparent border-0 text-white shadow-none text-center uppercase">
                 <CardHeader>
-                  <CardTitle>Today's Hourly Forecast</CardTitle>
+                  <CardTitle>{t("Today's Hourly Forecast")}</CardTitle>
                   {/* <CardDescription>January - June 2024</CardDescription> */}
                 </CardHeader>
                 <CardContent>

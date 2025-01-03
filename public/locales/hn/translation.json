@@ -1,8 +1,8 @@
 {
   "Location": "जगह",
   "Wishlist": "इच्छासूची",
-  "Login" : "लॉग इन",
-  "DOWNLOAD KRISHI VIKAS APP": 	"कृषि विकास एप डाउनलोड करें",
+  "Login": "लॉग इन",
+  "DOWNLOAD KRISHI VIKAS APP": "कृषि विकास एप डाउनलोड करें",
   "what would you like to do": "आप क्या करना पसंद करेंगे",
 
   "Tractor": "ट्रैक्टर",
@@ -38,10 +38,14 @@
   "BUY PRODUCTS": "उत्पाद खरीदें",
   "RENT PRODUCTS": "उत्पाद किराए पर लें",
   "useful links": "उपयोगी कड़ियां",
-  "humidity" : "नमी",
+  "humidity": "नमी",
+  "HUMIDITY": "नमी",
   "air pressure": "वायुदाब",
+  "AIR PRESSURE": "वायुदाब",
   "feels like": "तापमान महसूस",
+  "FEELS LIKE": "तापमान महसूस",
   "wind speed": "हवा की गति",
+  "WIND SPEED": "हवा की गति",
 
   "New Tractor": "नया ट्रैक्टर",
   "Buy New Tractor": "नया ट्रैक्टर खरीदें",
@@ -72,11 +76,45 @@
   "Home": "घर",
 
   "BRANDS": "ब्रांड",
+  "POPULAR BRANDS": 	"लोकप्रिय ब्रांड",
+  "OTHER BRANDS": 	"अन्य ब्रांड",
   "MODELS": "मॉडल",
   "STATES": "राज्य",
   "DISTRICT": "जिला",
   "PRICE": "कीमत",
+  "YEAR": "वर्ष",
+  "Sort": "क्रम से लगाना",
+  "Filter": "फ़िल्टर",
+  "Sort By": "इसके अनुसार क्रमबद्ध करें",
+  "Price- Low to High": "कीमत - कम से अधिक",
+  "Price- High to Low": "कीमत - अधिक से कम",
+  "Newest First": "पहले नवीनतम",
+  "RELATED ITEMS": "संबंधित वस्तुएं",
+  "Specifications": "विशेष विवरण",
+  "Loading" :	"लोड हो रहा है",
+  "Loading More" :	"लोड हो रहा है",
+  "Removed from wishlist": "इच्छा सूची से हटाएँ",
+  "Add to wishlist": "इच्छा सूची में जोड़ें",
+  "Call Now": "अब कॉल करें",
+  "RC Available": "आर.सी. उपलब्ध",
+  "NOC Available": "एन.ओ.सी. उपलब्ध",
+  "Price Negotiable" :	"कीमत बातचीत योग्य",
+  "Registration Number" :	"पंजीकरण संख्या",
+  "Year Of Purchase" :	"खरीद का वर्ष",
+
+  "SUNRISE" : "सूर्योदय",
+  "SUNSET" : "सूर्यास्त",
+  "Today's Hourly Forecast" : "आज का प्रति घंटा पूर्वानुमान" ,
+  "10 days Forcast" : "10 दिन का पूर्वानुमान" ,
+
+  "Company Dealer" : "कंपनी डीलर",
+  "Company Product" : "कंपनी उत्पाद",
+  "Show All Dealers" : "सभी डीलर दिखाएँ",
+  "close" : "बंद करो",
+
   
+
+
   "faq1": "कृषि विकास उद्योग क्या है?",
   "faq1_ans": "कृषि विकास उद्योग एक डिजिटल प्लेटफ़ॉर्म है जो भारत में कृषि उपकरण, इनपुट और आउटपुट के लिए एक व्यापक बाज़ार के रूप में कार्य करता है। कृषि विकास अपने मोबाइल एप्लिकेशन और वेबसाइट के माध्यम से किसानों, डीलरों और व्यापारियों को जोड़ता है।",
 

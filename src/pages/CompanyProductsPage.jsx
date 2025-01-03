@@ -23,6 +23,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import BASE_URL from "../../config";
 import { useContext, useEffect } from "react";
 import { CompanyDataContext } from "../context/CompanyData/CompanyDataContext";
+import { useTranslation } from "react-i18next";
 
 const CompanyProductsPage = () => {
 
@@ -52,6 +53,7 @@ const CompanyProductsPage = () => {
 
   // console.log(iffcoDealers);
 
+  const {t} = useTranslation();
   return (
     <>
       <Header />
@@ -66,17 +68,17 @@ const CompanyProductsPage = () => {
       >
         <div className="breadcrumb-content">
           <div className="breadcrumb-links flex justify-center items-center text-2xl text-white">
-            <p className="hover:text-lightgreen px-3">Home</p>
+            <p className="hover:text-lightgreen px-3">{t('Home')}</p>
             <FaChevronRight />
             <p className="hover:text-lightgreen px-3 capitalize">
-              Company Product
+              {t('Company Product')}
             </p>
           </div>
           <p
             className="text-lightgreen md:text-6xl text-4xl font-bold text-center mt-3 uppercase"
             style={{ textShadow: "0 0 15px black" }}
           >
-            Company Product
+            {t('Company Product')}
           </p>
         </div>
       </section>
@@ -126,16 +128,16 @@ const CompanyProductsPage = () => {
                             </DrawerTitle>
                           </DrawerHeader>
                           <p className="">{item.description}</p>
-                          <p className="my-4 text-darkGreen text-xl">PRICE : <MdOutlineCurrencyRupee className="inline-block mb-1 " />{item.price}</p>
+                          <p className="my-4 text-darkGreen text-xl">{t('PRICE')} : <MdOutlineCurrencyRupee className="inline-block mb-1 " />{item.price}</p>
                         </div>
 
                       </div>
                     </div>
 
                     <DrawerFooter className="text-center">
-                      <Button className="uppercase w-[300px] mx-auto bg-gradient-green" onClick={() => { navigate(`${BASE_URL}/company-dealers/${companyId}`) }}>Show All Dealers</Button>
+                      <Button className="uppercase w-[300px] mx-auto bg-gradient-green" onClick={() => { navigate(`${BASE_URL}/company-dealers/${companyId}`) }}>{t('Show All Dealers')}</Button>
                       <DrawerClose>
-                        <Button variant="outline">close</Button>
+                        <Button variant="outline">{t('close')}</Button>
                       </DrawerClose>
                     </DrawerFooter>
                   </DrawerContent>

@@ -26,6 +26,7 @@ import toast, { Toaster } from "react-hot-toast";
 import { useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { updateWishListItems } from "../redux/features/wishlist/WishlistSlice";
+import { useTranslation } from "react-i18next";
 
 
 
@@ -180,6 +181,8 @@ const SinglProductPage = () => {
     setImgLink(linktext);
     setImgType(imgtype);
   };
+
+  const {t} = useTranslation();
 
 
   return (
@@ -430,14 +433,14 @@ const SinglProductPage = () => {
                   disabled={isLoading}
                 >
                   {wishLoading ? (
-                    <span className="text-white"><RiLoader2Line className="animate-spin inline me-1 mb-1" /> Loading ...</span>
+                    <span className="text-white"><RiLoader2Line className="animate-spin inline me-1 mb-1" /> {t('Loading')} ...</span>
                   ) : singleProduct?.wishlist_status === 1 ? (
 
-                    <span><FaHeartCircleMinus className="animate-pulse inline me-1 mb-1" />Remove From Wishlist</span>
+                    <span><FaHeartCircleMinus className="animate-pulse inline me-1 mb-1" />{t('Removed from wishlist')}</span>
 
                   ) : (
 
-                    <span><FaHeartCirclePlus className="animate-pulse inline me-1 mb-1" />Add to Wishlist</span>
+                    <span><FaHeartCirclePlus className="animate-pulse inline me-1 mb-1" />{t('Add to wishlist')}</span>
 
                   )}
                 </button>
@@ -447,7 +450,8 @@ const SinglProductPage = () => {
               <div className="grid md:grid-cols-2 grid-cols-1 gap-2">
                 <div className="product_spec border border-[whitesmoke] overflow-hidden rounded-3xl shadow">
                   <p className="md:p-3 px-2 py-1 text-center heading shadow inline-block text-white m-2 rounded-3xl font-bold">
-                    Specifications
+                    
+                    {t('Specifications')}
                   </p>
                   {type === "seeds" ||
                     type === "pesticides" ||
@@ -468,7 +472,7 @@ const SinglProductPage = () => {
                     <ul className="mt-2">
                       {singleProduct && singleProduct.rc_available != null && (
                         <li>
-                          <span className="font-bold">RC Available</span>
+                          <span className="font-bold">{t('RC Available')}</span>
                           <span>
                             {singleProduct && singleProduct.rc_available == 0
                               ? "No"
@@ -480,7 +484,7 @@ const SinglProductPage = () => {
                       )}
                       {singleProduct && singleProduct.noc_available != null && (
                         <li>
-                          <span className="font-bold">NOC Available</span>
+                          <span className="font-bold">{t('NOC Available')}</span>
                           <span>
                             {singleProduct.noc_available === 0
                               ? "No"
@@ -492,7 +496,7 @@ const SinglProductPage = () => {
                       )}
                       {singleProduct && singleProduct.is_negotiable != null && (
                         <li>
-                          <span className="font-bold">Price Negotiable</span>
+                          <span className="font-bold">{t('Price Negotiable')}</span>
                           <span>
                             {singleProduct.is_negotiable === 0
                               ? "No"
@@ -505,14 +509,14 @@ const SinglProductPage = () => {
 
                       {singleProduct && singleProduct.registration_no && (
                         <li>
-                          <span className="font-bold">Registration Number</span>
+                          <span className="font-bold">{t('Registration Number')}</span>
                           <span>{singleProduct.registration_no}</span>
                         </li>
                       )}
 
                       {singleProduct && singleProduct.year_of_purchase && (
                         <li>
-                          <span className="font-bold">Year Of Purchase</span>
+                          <span className="font-bold">{t('Year Of Purchase')}</span>
                           <span>{singleProduct.year_of_purchase}</span>
                         </li>
                       )}
@@ -548,7 +552,7 @@ const SinglProductPage = () => {
                     className="text-lg bg-black text-white py-2 px-3 my-5 inline-block rounded-3xl border call-user shadow-xl hover:scale-95 animate-pulse"
                   >
                     <FiPhoneCall className="inline me-2" />
-                    CALL NOW
+                    {t('Call Now')}
                   </a>
                 </div>
               </div>

@@ -177,14 +177,14 @@ const CategoryWiseAllProduct = () => {
             className="sort-btn text-lg text-white border-r border-white h-full py-2"
             onClick={() => setFilterBtnState(true)}
           >
-            <MdFilterList className="inline mb-1" /> Filter
+            <MdFilterList className="inline mb-1" /> {t('Filter')}
           </button>
           <button
             type="button"
             className="sort-btn text-lg text-white"
             onClick={handleSortBtn}
           >
-            <MdSort className="inline mb-1" /> Sort
+            <MdSort className="inline mb-1" /> {t('Sort')}
           </button>
         </div>
       </section>
@@ -269,7 +269,7 @@ const CategoryWiseAllProduct = () => {
                       className="absolute top-[49.5%] left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full shadow-lg"
                     />
                   </div>
-                  <span className="text-darkGreen text-2xl">Loading More</span>
+                  <span className="text-darkGreen text-2xl">{t('Loading More')}</span>
                 </div>
               ) : null}
             </div>

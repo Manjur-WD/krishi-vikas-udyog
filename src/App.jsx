@@ -10,6 +10,7 @@ import { useDispatch } from "react-redux";
 import { setLogInState, setToken } from "./redux/features/Auth/AuthSlice";
 import MobileScreenNav from "./components/layouts/Header/MobileScreenNav";
 import { Toaster } from "react-hot-toast";
+import NotFoundPage from "./components/elements/NotFoundPage";
 
 // Lazy load the component
 
@@ -80,6 +81,12 @@ const App = () => {
               }
             />
             <Route
+              path="*"
+              element={
+                <NotFoundPage />
+              }
+            />
+            <Route
               path={`${baseUrl}/:category/:type`}
               element={
                 <Suspense fallback={<Preloader />}>
@@ -98,7 +105,7 @@ const App = () => {
               }
             />
             <Route
-              path={`${baseUrl}/:companyId`}
+              path={`${baseUrl}/company/:companyId`}
               element={
                 <Suspense fallback={<Preloader />}>
                   <LazyIffcoProductPage key={location.key} />

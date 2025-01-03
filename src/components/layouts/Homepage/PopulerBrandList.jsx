@@ -66,7 +66,7 @@ const PopulerBrandList = ({ populer_brand_id, company_id, tab }) => {
               brand.category === "6" || brand.category === "8" || brand.category === "9" ?
                 navigate(
 
-                  `${BASE_URL}/${brand.id}`
+                  `${BASE_URL}/company/${brand.id}`
 
                 ) :
                 navigate(
