@@ -112,8 +112,8 @@ const MiddleHeadSection = () => {
             </a>
           </div>
           <div className="header__wishlist-login items-center flex">
-            <button type="button" className="md:hidden inline border-transparent hover:border-gray-200 hover:scale-95 px-4 py-1">
-              <LanguageSelector className="md:hidden block" />
+            <button className="language-selector md:hidden inline">
+              <LanguageSelector />
             </button>
             <button
               type="button"
@@ -141,7 +141,7 @@ const MiddleHeadSection = () => {
                   <div className="user-button-wrapper">
                     <div className="user-button border border-dashed border-transparent hover:border-gray-200 hover:scale-95 px-4 py-1">
                       <PiUserCircleDashedFill className="me-2 inline align-bottom text-3xl text-lightgreen" />
-                      <span className="text-lg">User</span>
+                      <span className="md:text-lg text-sm">User</span>
                     </div>
                     <ul className="user-menus border shadow animate__animated animate__fadeIn animate__faster">
                       <li><ImProfile className="me-2 inline" />My Profile</li>
@@ -152,7 +152,7 @@ const MiddleHeadSection = () => {
                 ) :
                 (
                   <Dialog >
-                    <DialogTrigger className="border border-dashed border-transparent hover:border-gray-200 hover:scale-95 md:px-4 py-1">
+                    <DialogTrigger className="border border-dashed border-transparent hover:border-gray-200 hover:scale-95 md:px-4 px-2 py-1">
                       <PiUserCircleDashedFill className="me-1 inline align-bottom text-3xl text-lightgreen" />
                       <span className="md:text-lg inline-block md:pb-0 pb-1">{t('Login')}</span>
                     </DialogTrigger>
