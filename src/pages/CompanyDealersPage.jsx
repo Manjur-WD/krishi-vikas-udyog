@@ -18,12 +18,14 @@ import { useContext, useState, useEffect, useMemo } from "react";
 import { CompanyDataContext } from "../context/CompanyData/CompanyDataContext";
 import { Input } from "@/components/ui/input";
 import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
 
 const IffcoDealersPage = () => {
   const { companyDealerData } = useContext(CompanyDataContext);
   const [searchText, setSearchText] = useState("");
   const [currentPage, setCurrentPage] = useState(0);
   const contactsPerPage = 22;
+  const token = useSelector((state) => state.auth.token);
 
   const { id } = useParams();
   // console.log(typeof(id));
@@ -32,8 +34,8 @@ const IffcoDealersPage = () => {
 
 
   const { data: companyDealers, isLoading } = useQuery({
-    queryKey: ["iffco-dealers", id],
-    queryFn: () => getCompanyDealers(id === "4" ? "2" : id),
+    queryKey: ["iffco-dealers", id, token],
+    queryFn: () => getCompanyDealers(id === "4" ? "2" : id, token),
     enabled: !companyDealerData?.length, // Fetch only if context is empty
   });
 

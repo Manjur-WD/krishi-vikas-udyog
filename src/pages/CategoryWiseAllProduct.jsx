@@ -31,7 +31,7 @@ import { useTranslation } from "react-i18next";
 const skeletonArray = new Array(6).fill(true);
 
 const CategoryWiseAllProduct = () => {
-  const {t} = useTranslation();
+  const { t } = useTranslation();
   const { category, type } = useParams();
   const [categoryId, setCategoryId] = useState(0);
   const [subtype, setSubType] = useState(null);
@@ -55,6 +55,8 @@ const CategoryWiseAllProduct = () => {
   // const brand_session_id = sessionStorage.getItem("brand-session-id");
 
   // console.log(priceSort);
+
+  const token = useSelector((state) => state.auth.token);
 
   // Handle filter and sort buttons for mobile view
   const {
@@ -81,6 +83,7 @@ const CategoryWiseAllProduct = () => {
       filterParams.modelId.toString(),
       filterParams.minPrice,
       filterParams.maxPrice,
+      token
     ], // Add the languageId to the queryKey for better cache management
     queryFn: ({ pageParam }) =>
       getCategoryWiseProduct(
@@ -95,7 +98,8 @@ const CategoryWiseAllProduct = () => {
         filterParams.brandId.toString(),
         filterParams.modelId.toString(),
         filterParams.minPrice,
-        filterParams.maxPrice
+        filterParams.maxPrice,
+        token
       ), // Pass a function that calls getCategoryList
 
     getNextPageParam: (lastpage, allPages) => {
@@ -232,9 +236,9 @@ const CategoryWiseAllProduct = () => {
                             product_title={
                               `${item.brand_name} ${item.model_name}` ===
                                 "Others Others" ||
-                              `${item.brand_name} ${item.model_name}` ===
+                                `${item.brand_name} ${item.model_name}` ===
                                 "undefined undefined" ||
-                              `${item.brand_name} ${item.model_name}` ===
+                                `${item.brand_name} ${item.model_name}` ===
                                 "null null"
                                 ? item.title
                                 : `${item.brand_name} ${item.model_name}`

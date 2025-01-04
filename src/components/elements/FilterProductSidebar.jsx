@@ -34,25 +34,26 @@ const FilterProductSidebar = ({ categoryId, type, categoryProduct }) => {
   const { filterBtnState, setFilterBtnState } = useContext(FilterBtnContext);
   console.log(categoryId);
   console.log(type);
+  const token = useSelector((state) => state.auth.token);
 
   const { data: brandList, isLoading: brandLoading } = useQuery({
-    queryKey: ["brand-list", categoryId, type],
-    queryFn: () => getBrandList(categoryId, type),
+    queryKey: ["brand-list", categoryId, type,token],
+    queryFn: () => getBrandList(categoryId, type,token),
     enabled: !!categoryProduct,
   });
   const { data: statedistrictList, isLoading: stateLoading } = useQuery({
-    queryKey: ["state-district-list", categoryId, type],
-    queryFn: () => getStateDistrictList(categoryId, type),
+    queryKey: ["state-district-list", categoryId, type,token],
+    queryFn: () => getStateDistrictList(categoryId, type,token),
     enabled: !!brandList,
   });
   const { data: yearOfPurchaseList, isLoading: yopLoading } = useQuery({
-    queryKey: ["year-of-purchase-list", categoryId, type],
-    queryFn: () => getYearOfPurchaseList(categoryId, type),
+    queryKey: ["year-of-purchase-list", categoryId, type,token],
+    queryFn: () => getYearOfPurchaseList(categoryId, type,token),
     enabled: !!statedistrictList,
   });
   const { data: maxminPrice, isLoading: maxminpriceLoading } = useQuery({
-    queryKey: ["maxmin-price-list", categoryId, type],
-    queryFn: () => getMaxMinPrice(categoryId, type),
+    queryKey: ["maxmin-price-list", categoryId, type,token],
+    queryFn: () => getMaxMinPrice(categoryId, type,token),
     enabled: !!yearOfPurchaseList,
   });
 

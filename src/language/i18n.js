@@ -5,7 +5,7 @@ import Backend from "i18next-http-backend"
 import BASE_URL from "../../config";
 
 i18n.use(languageDetector).use(initReactI18next).use(Backend).init({
-  debug: true,
+  debug: false,
   fallbacklang: "en",
   returnObjects: true,
   backend: {

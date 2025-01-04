@@ -26,7 +26,7 @@ const LanguageSelector = () => {
     }
 
     // Initialize selected language based on the current language set in i18n
-    const [selectedLanguage, setSelectedLanguage] = useState("English");
+    const [selectedLanguage, setSelectedLanguage] = useState('English');
     const [langDropDown, setLangDropDown] = useState(false);
 
     // Update selectedLanguage if i18n.language changes (e.g., when language is switched)

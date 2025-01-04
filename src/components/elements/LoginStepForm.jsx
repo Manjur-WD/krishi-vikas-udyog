@@ -5,6 +5,7 @@ import indFlag from "../../assets/images/ind-flag.png";
 import "animate.css"
 import { getLogInDetails, sendOtp } from "../../services/api";
 import toast, { Toaster } from "react-hot-toast";
+import CryptoJS from "crypto-js";
 
 import { useQuery } from "@tanstack/react-query";
 import {
@@ -70,7 +71,23 @@ const LoginStepForm = () => {
             setCurrentStep(2);
         }
         else if (otpSentError) {
-            toast.error("OTP not sent, Something went wrong!!");
+            toast.error("OTP not sent, Something went wrong!!",
+                {
+                    duration: 3000,
+                    style: {
+                        border: '2px solid red',
+                        boxShadow: '0 0  25px red',
+                        padding: '16px',
+                        fontSize: '18px',
+                        color: 'white',
+                        textAlign: 'center',
+                        // backgroundColor: '#d1e7dd',
+                        background: `url(${toastError}) no-repeat center/cover`,
+                        borderRadius: '8px',
+                    },
+
+                }
+            );
         }
         return () => {
             setIsClicked(false);
@@ -84,13 +101,21 @@ const LoginStepForm = () => {
         if (userDetails) {
             setCurrentStep(3);
             dispatch(setToken(userDetails?.token));
+            const secretKey = "kv-auth-token";
+            const encryptedToken = CryptoJS.AES.encrypt(userDetails?.token, secretKey).toString();
+            console.log(encryptedToken);
+            localStorage.setItem("KV_SESSION", encryptedToken);
+
             dispatch(setUsers(userDetails.data));
-            setTimeout(() => {
-                dispatch(setLogInState(true));
-                localStorage.setItem("isLoggedIn", true);
-                location.reload();
-            }, 2000)
+            dispatch(setLogInState(true));
+            localStorage.setItem("isLoggedIn", true);
         }
+
+        // const encryptedData = localStorage.getItem("KV_SESSION");
+        // const bytes = CryptoJS.AES.decrypt(encryptedData, secretKey);
+        // const decryptedToken = bytes.toString(CryptoJS.enc.Utf8);
+        // console.log(decryptedToken);
+
 
 
         return () => {

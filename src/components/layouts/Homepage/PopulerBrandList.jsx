@@ -3,17 +3,18 @@ import { loadAllPopulerBrandAndCompanyData } from "../../../services/api";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import BASE_URL from "../../../../config";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addBrand, addPopulerBrand } from "../../../redux/features/filterProducts/FilterSlice";
 import { CompanyDataContext } from "../../../context/CompanyData/CompanyDataContext";
 const PopulerBrandList = ({ populer_brand_id, company_id, tab }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [brandData, setBrandData] = useState([]);
+  const token = useSelector((state)=> state.auth.token);
   // console.log(populer_brand_id);
   const { data } = useQuery({
     queryKey: ["populer-brand-and-company"],
-    queryFn: () => loadAllPopulerBrandAndCompanyData(),
+    queryFn: () => loadAllPopulerBrandAndCompanyData(token),
   });
 
   useEffect(() => {

@@ -24,8 +24,10 @@ import BASE_URL from "../../config";
 import { useContext, useEffect } from "react";
 import { CompanyDataContext } from "../context/CompanyData/CompanyDataContext";
 import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
 
 const CompanyProductsPage = () => {
+  const token = useSelector((state) => state.auth.token);
 
   const navigate = useNavigate();
 
@@ -33,17 +35,17 @@ const CompanyProductsPage = () => {
 
   console.log(companyId);
 
-  const {companyLogo} = useContext(CompanyDataContext);
+  const { companyLogo } = useContext(CompanyDataContext);
 
 
   const { data: companyProducts, isLoading: iffcoProductLoading } = useQuery({
-    queryKey: ["company-product", companyId],
-    queryFn: () => getCompanyProduct(companyId),
+    queryKey: ["company-product", companyId, token],
+    queryFn: () => getCompanyProduct(companyId, token),
   });
 
   const { data: companyDealers } = useQuery({
-    queryKey: ["company-dealers", companyId],
-    queryFn: () => getCompanyDealers( companyId === "4" || companyId === "5" ? "2" : companyId === "11"? "1" : companyId),
+    queryKey: ["company-dealers", companyId, token],
+    queryFn: () => getCompanyDealers(companyId === "4" || companyId === "5" ? "2" : companyId === "11" ? "1" : companyId, token),
   });
 
   const { companyDealerData, setCompanyDealerData } = useContext(CompanyDataContext);
@@ -53,7 +55,7 @@ const CompanyProductsPage = () => {
 
   // console.log(iffcoDealers);
 
-  const {t} = useTranslation();
+  const { t } = useTranslation();
   return (
     <>
       <Header />

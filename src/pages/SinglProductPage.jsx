@@ -14,6 +14,7 @@ import { IoCalendar } from "react-icons/io5";
 import { TbCurrencyRupee } from "react-icons/tb";
 import user from "../assets/images/user.png";
 import toastBg from "../assets/images/toast-bg.jpg";
+import toastError from "../assets/images/toastError.jpg";
 import { RiUpload2Fill } from "react-icons/ri";
 import { FaHeartCirclePlus } from "react-icons/fa6";
 import { FaHeartCircleMinus } from "react-icons/fa6";
@@ -24,7 +25,7 @@ import BASE_URL from "../../config";
 import { RiLoader2Line } from "react-icons/ri";
 import toast, { Toaster } from "react-hot-toast";
 import { useLocation } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { updateWishListItems } from "../redux/features/wishlist/WishlistSlice";
 import { useTranslation } from "react-i18next";
 
@@ -34,9 +35,9 @@ const SinglProductPage = () => {
   const location = useLocation();
   const dispatch = useDispatch();
   const { category, type, id } = useParams();
+  const token = useSelector((state) => state.auth.token);
 
   const [categoryId, setCategoryId] = useState(0);
-
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -51,74 +52,100 @@ const SinglProductPage = () => {
     isError,
     error,
   } = useQuery({
-    queryKey: ["single-product", categoryId, id, wishListToggle],
-    queryFn: () => getSingleProduct(categoryId, id),
+    queryKey: ["single-product", categoryId, id, wishListToggle, token],
+    queryFn: () => getSingleProduct(categoryId, id, token),
     // enabled: !sessionData
   });
 
   // fetch Wishlist
 
   const fetchWishList = async () => {
-    const response = await getWishList();
-    console.log(response);
+    const response = await getWishList(token);
+    // console.log(response);
     dispatch(updateWishListItems(response.response));
   }
 
   useEffect(() => {
     fetchWishList();
-  }, [wishListToggle])
+  }, [wishListToggle,token])
+
+  const authState = useSelector((state) => state.auth);
+  const isLoggedIn = authState.isLoggedIn;
 
 
   // Handle Wishlist Add/Remove
-  const handleWishlist = async () => {
-    if (singleProduct?.wishlist_status === 1) {
-      setWishLoading(true);
-      const response = await removeFromWishList(categoryId, id);
-      if (response && response.success === 1) {
-        setToggleWish(!wishListToggle);
-        setWishLoading(false);
-        toast.success("Removed from wishlist!",
-          {
-            duration: 3000,
-            style: {
-              border: '2px solid red',
-              boxShadow:'0 0  25px red',
-              padding: '16px',
-              fontSize: '18px',
-              color: 'white',
-              // backgroundColor: '#d1e7dd',
-              background: `url(${toastBg}) no-repeat center/cover`,
-              borderRadius: '8px',
-            },
-            
-          }
-        );
-      }  
-    } else {
-      // add to wishlist logic
-      setWishLoading(true);
-      const response = await addToWishList(categoryId, id);
-      console.log(typeof (response?.success));
-      if (response && response.success === 1) {
-        setToggleWish(!wishListToggle);
-        setWishLoading(false);
-        toast.success("Added to wishlist!",
-          {
-            duration: 3000,
-            style: {
-              border: '2px solid green',
-              boxShadow:'0 0  25px green',
-              padding: '16px',
-              fontSize: '18px',
-              color: 'white',
-              // backgroundColor: '#d1e7dd',
-              background: `url(${toastBg}) no-repeat center/cover`,
-              borderRadius: '8px',
-            },
-          }
-          
-        );
-      } 
+  const handleWishlist = async (categoryId, id, token) => {
+    if (isLoggedIn) {
+      if (singleProduct?.wishlist_status === 1) {
+        setWishLoading(true);
+        const response = await removeFromWishList(categoryId, id, token);
+        if (response && response.success === 1) {
+          setToggleWish(!wishListToggle);
+          setWishLoading(false);
+          toast.success("Removed from wishlist!",
+            {
+              duration: 3000,
+              style: {
+                border: '2px solid red',
+                boxShadow: '0 0  25px red',
+                padding: '16px',
+                fontSize: '18px',
+                color: 'white',
+                textAlign: 'center',
+                // backgroundColor: '#d1e7dd',
+                background: `url(${toastBg}) no-repeat center/cover`,
+                borderRadius: '8px',
+              },
+
+            }
+          );
+        }
+      } else {
+        // add to wishlist logic
+        setWishLoading(true);
+        const response = await addToWishList(categoryId, id, token);
+        console.log(typeof (response?.success));
+        if (response && response.success === 1) {
+          setToggleWish(!wishListToggle);
+          setWishLoading(false);
+          toast.success("Added to wishlist!",
+            {
+              duration: 3000,
+              style: {
+                border: '2px solid green',
+                boxShadow: '0 0  25px green',
+                padding: '16px',
+                fontSize: '18px',
+                color: 'white',
+                textAlign: 'center',
+                // backgroundColor: '#d1e7dd',
+                background: `url(${toastBg}) no-repeat center/cover`,
+                borderRadius: '8px',
+              },
+            }
+
+          );
+        }
+      }
+    }
+    else {
+      toast.error("You are not Logged In !!!",
+        {
+          duration: 4000,
+          style: {
+            border: '2px solid red',
+            boxShadow: '0 0  25px red',
+            padding: '16px',
+            fontSize: '18px',
+            color: 'white',
+            textAlign: 'center',
+            // backgroundColor: '#d1e7dd',
+            background: `url(${toastError}) no-repeat center/cover`,
+            borderRadius: '8px',
+          },
+
+        }
+      );
     }
   };
 
@@ -170,8 +197,8 @@ const SinglProductPage = () => {
   // SIMILAR PRODUCT DATA
 
   const { data: similarProducts, isLoading: SimilarProductLoading } = useQuery({
-    queryKey: ["similar-product", categoryId, type],
-    queryFn: () => getCategoryWiseAllProduct(categoryId, type, 10, 7),
+    queryKey: ["similar-product", categoryId, type, token],
+    queryFn: () => getCategoryWiseAllProduct(categoryId, type, 10, 7, token),
   });
 
   const [imgLink, setImgLink] = useState("");
@@ -182,7 +209,7 @@ const SinglProductPage = () => {
     setImgType(imgtype);
   };
 
-  const {t} = useTranslation();
+  const { t } = useTranslation();
 
 
   return (
@@ -190,7 +217,7 @@ const SinglProductPage = () => {
       <Header />
       {/* <MobileScreenNav /> */}
       <Toaster position="bottom-center"
-                reverseOrder={false} />
+        reverseOrder={false} />
       <main className="single-product-wrapper">
         <div className="container  single-product-image grid lg:grid-cols-2 grid-cols-1 my-2 overflow-hidden">
           {isLoading ? (
@@ -426,31 +453,46 @@ const SinglProductPage = () => {
                     : `${singleProduct?.price}`}
                 </h4>
 
-                <button
-                  type="button"
-                  className={singleProduct?.wishlist_status === 1 ? "bg-red-600 mb-3 text-white py-1 px-3 rounded-2xl" : "bg-darkGreen mb-3 text-white py-1 px-3 rounded-2xl"}
-                  onClick={() => handleWishlist(singleProduct?.category_id, id)}
-                  disabled={isLoading}
-                >
-                  {wishLoading ? (
-                    <span className="text-white"><RiLoader2Line className="animate-spin inline me-1 mb-1" /> {t('Loading')} ...</span>
-                  ) : singleProduct?.wishlist_status === 1 ? (
 
-                    <span><FaHeartCircleMinus className="animate-pulse inline me-1 mb-1" />{t('Removed from wishlist')}</span>
+                {
+                  !isLoggedIn ?
+                    (<button
+                      type="button"
+                      className={"bg-darkGreen mb-3 text-white py-1 px-3 rounded-2xl"}
+                      onClick={() => handleWishlist(singleProduct?.category_id, id, token)}
+                      disabled={isLoading}
+                    >
+                      <FaHeartCirclePlus className="animate-pulse inline me-1 mb-1" />{t('Add to wishlist')}
+                    </button>)
+                    :
+                    (<button
+                      type="button"
+                      className={singleProduct?.wishlist_status === 1 ? "bg-red-600 mb-3 text-white py-1 px-3 rounded-2xl" : "bg-darkGreen mb-3 text-white py-1 px-3 rounded-2xl"}
+                      onClick={() => handleWishlist(singleProduct?.category_id, id, token)}
+                      disabled={isLoading}
+                    >
+                      {wishLoading ? (
+                        <span className="text-white"><RiLoader2Line className="animate-spin inline me-1 mb-1" /> {t('Loading')} ...</span>
+                      ) : singleProduct?.wishlist_status === 1 ? (
 
-                  ) : (
+                        <span><FaHeartCircleMinus className="animate-pulse inline me-1 mb-1" />{t('Removed from wishlist')}</span>
 
-                    <span><FaHeartCirclePlus className="animate-pulse inline me-1 mb-1" />{t('Add to wishlist')}</span>
+                      ) : (
 
-                  )}
-                </button>
+                        <span><FaHeartCirclePlus className="animate-pulse inline me-1 mb-1" />{t('Add to wishlist')}</span>
+
+                      )}
+                    </button>)
+                }
+
+
 
 
               </div>
               <div className="grid md:grid-cols-2 grid-cols-1 gap-2">
                 <div className="product_spec border border-[whitesmoke] overflow-hidden rounded-3xl shadow">
                   <p className="md:p-3 px-2 py-1 text-center heading shadow inline-block text-white m-2 rounded-3xl font-bold">
-                    
+
                     {t('Specifications')}
                   </p>
                   {type === "seeds" ||
@@ -547,13 +589,45 @@ const SinglProductPage = () => {
                       {singleProduct.company_name}
                     </p>
                   )}
-                  <a
-                    href="#"
-                    className="text-lg bg-black text-white py-2 px-3 my-5 inline-block rounded-3xl border call-user shadow-xl hover:scale-95 animate-pulse"
-                  >
-                    <FiPhoneCall className="inline me-2" />
-                    {t('Call Now')}
-                  </a>
+                  {
+                    authState?.isLoggedIn ?
+                      (<Link
+                        to={`tel:${singleProduct?.mobile}`}
+                        className="text-lg bg-black text-white py-2 px-3 my-5 inline-block rounded-3xl border call-user shadow-xl hover:scale-95 animate-pulse"
+                      >
+                        <FiPhoneCall className="inline me-2" />
+                        {t('Call Now')}
+                      </Link>)
+                      :
+                      (
+                        <Link
+                          to="#"
+                          className="text-lg bg-black text-white py-2 px-3 my-5 inline-block rounded-3xl border call-user shadow-xl hover:scale-95 animate-pulse"
+                          onClick={(e) => {
+                            e.preventDefault(); toast.error("You are not logged in, Please login to continue",
+                              {
+                                duration: 3000,
+                                style: {
+                                  border: '2px solid red',
+                                  boxShadow: '0 0  25px red',
+                                  padding: '16px',
+                                  fontSize: '18px',
+                                  color: 'white',
+                                  textAlign: 'center',
+                                  // backgroundColor: '#d1e7dd',
+                                  background: `url(${toastError}) no-repeat center/cover`,
+                                  borderRadius: '8px',
+                                },
+
+                              }
+                            )
+                          }}
+                        >
+                          <FiPhoneCall className="inline me-2" />
+                          {t('Call Now')}
+                        </Link>
+                      )
+                  }
                 </div>
               </div>
             </div>

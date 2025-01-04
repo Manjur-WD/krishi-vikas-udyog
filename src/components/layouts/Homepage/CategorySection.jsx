@@ -5,6 +5,7 @@ import Preloader from "../../elements/Preloader";
 import { Link } from "react-router-dom";
 import BASE_URL from "../../../../config";
 import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
 
 const categoryLinks = [
   `${BASE_URL}/tractor/old`, // Link for first category
@@ -19,7 +20,8 @@ const categoryLinks = [
 
 const CategorySection = () => {
 
-  const {t} = useTranslation();
+  const { t } = useTranslation();
+  const token = useSelector((state) => state.auth.token);
   // Use the useQuery hook to fetch data
   const {
     data: categoryList,
@@ -27,8 +29,8 @@ const CategorySection = () => {
     isError,
     error,
   } = useQuery({
-    queryKey: ["category-list", 1], // Add the languageId to the queryKey for better cache management
-    queryFn: () => getCategoryList(1), // Pass a function that calls getCategoryList
+    queryKey: ["category-list", 1, token], // Add the languageId to the queryKey for better cache management
+    queryFn: () => getCategoryList(1, token), // Pass a function that calls getCategoryList
   });
 
   // Handle loading and error states

@@ -27,7 +27,7 @@ import {
 
 import LoginStepForm from "../../../elements/LoginStepForm";
 import { useDispatch, useSelector } from "react-redux";
-import { setLogInState } from "../../../../redux/features/Auth/AuthSlice";
+import { setLogInState, setToken } from "../../../../redux/features/Auth/AuthSlice";
 import { useQuery } from "@tanstack/react-query";
 import { getWishList } from "../../../../services/api";
 import BASE_URL from "../../../../../config";
@@ -42,24 +42,27 @@ const MiddleHeadSection = () => {
   const authState = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const logInState = localStorage.getItem("isLoggedIn");
-  const token = localStorage.getItem("token");
+  const token = useSelector((state)=> state.auth.token);
+  
+  // const token = localStorage.getItem("token");
 
   const handleLogOut = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("isLoggedIn");
     dispatch(setLogInState(false));
-    location.reload();
+    dispatch(setToken("31402|ycaBoacBD1m2hb4cBPIpGBTphlQ6TCmQIiBe1E1V0834bbfd"));
+    navigate(`${BASE_URL}`);
   }
 
   console.log(authState);
 
   const wishlistItems = useSelector((state) => state.wishlistings)
-  console.log(wishlistItems);
+  // console.log(wishlistItems);
 
   const fetchWishList = async () => {
-    const response = await getWishList();
+    const response = await getWishList(token);
     if (response && response.success === 1) {
-      console.log(response.response);
+      // console.log(response.response);
       dispatch(updateWishListItems(response.response));
     }
   }
@@ -121,7 +124,7 @@ const MiddleHeadSection = () => {
               onClick={() => navigate(`${BASE_URL}/wishlist`)}
             >
               {
-                wishlistItems.wishlist?.length != 0 ?
+                wishlistItems.wishlist?.length != 0 && authState?.isLoggedIn ?
                   (
                     <span className="wishlist--count bg-lightdark text-white px-2 rounded-full absolute left-8 text-sm top-0">
                       {wishlistItems.wishlist?.length}

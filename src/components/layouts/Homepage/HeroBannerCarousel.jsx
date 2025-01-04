@@ -7,8 +7,10 @@ import { loadHeroSlides } from "../../../services/api";
 import { Swiper, SwiperSlide } from "swiper/react";
 // Import required modules
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
+import { useSelector } from "react-redux";
 
 const HeroBannerCarousel = () => {
+  const token = useSelector((state) => state.auth.token);
   // Use useQuery to fetch data
   const {
     data: heroSlides,
@@ -16,8 +18,8 @@ const HeroBannerCarousel = () => {
     isError,
     error,
   } = useQuery({
-    queryKey: ["heroSlides", 1], // Unique key for this query
-    queryFn: () => loadHeroSlides(1), // Pass a function reference
+    queryKey: ["heroSlides", 1, token], // Unique key for this query
+    queryFn: () => loadHeroSlides(1, token), // Pass a function reference
   });
 
   // If data is still loading

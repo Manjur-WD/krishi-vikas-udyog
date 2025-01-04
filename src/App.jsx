@@ -1,6 +1,6 @@
 import { Route, Routes, useLocation } from "react-router-dom";
 import "./App.css";
-import React, { Suspense, useEffect, useState } from "react";
+import React, { Suspense, useEffect, useLayoutEffect, useState } from "react";
 import Preloader from "./components/elements/Preloader";
 import SplashScreen from "./components/elements/SplashScreen";
 import { FilterButtonStateProvider } from "./context/CategoryWiseAllProduct/FilterBtnContext";
@@ -11,6 +11,7 @@ import { setLogInState, setToken } from "./redux/features/Auth/AuthSlice";
 import MobileScreenNav from "./components/layouts/Header/MobileScreenNav";
 import { Toaster } from "react-hot-toast";
 import NotFoundPage from "./components/elements/NotFoundPage";
+import CryptoJS from "crypto-js";
 
 // Lazy load the component
 
@@ -45,17 +46,35 @@ const App = () => {
   const location = useLocation();
   const dispatch = useDispatch();
 
-  useEffect(() => {
+  const secretKey = "kv-auth-token";
+  // const encryptedData = localStorage.getItem("KV_SESSION");
+
+  const [token , setToken] = useState("");
+
+  useLayoutEffect(() => {
     const logInState = localStorage.getItem("isLoggedIn");
-    const token = localStorage.getItem("token");
+    const encryptedData = localStorage.getItem("KV_SESSION");
+    const bytes = CryptoJS.AES.decrypt(encryptedData, secretKey);
+    const decryptedToken = bytes.toString(CryptoJS.enc.Utf8);
+    console.log(decryptedToken);
+
+    
+    setToken(decryptedToken);
+    
+
     if (logInState) {
       dispatch(setLogInState(logInState));
     }
+
     else if (token) {
       dispatch(setToken(token));
     }
 
-  }, [])
+    else {
+      dispatch(setToken("31575|yuo3bhA54txVyABiLOouqD5Qa5cMSrXU9VW9ahPu54782d62"))
+    }
+
+  }, [token])
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -65,9 +84,9 @@ const App = () => {
 
   return (
     <>
-   <Toaster position="bottom-center"
-                reverseOrder={false} />
-    <MobileScreenNav />
+      <Toaster position="bottom-center"
+        reverseOrder={false} />
+      <MobileScreenNav />
       <CompanyDataProvider>
         <SortStatusProvider>
           {isloading ? <SplashScreen setLoading={setLoading} /> : null}
