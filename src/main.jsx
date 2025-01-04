@@ -14,9 +14,11 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { BrowserRouter } from "react-router-dom";
-import { Provider } from "react-redux";
+import { Provider, useSelector } from "react-redux";
 import { store } from "./redux/store.jsx";
 import Preloader from "./components/elements/Preloader.jsx";
+import CryptoJS from "crypto-js";
+
 
 const queryClient = new QueryClient();
 

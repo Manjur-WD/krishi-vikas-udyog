@@ -41,20 +41,23 @@ const MiddleHeadSection = () => {
   const { setActiveNav } = useContext(NavTogglerContext);
   const authState = useSelector((state) => state.auth);
   const dispatch = useDispatch();
-  const logInState = localStorage.getItem("isLoggedIn");
   const token = useSelector((state)=> state.auth.token);
+  const user = useSelector((state)=> state.auth.user);
+  // console.log(user);
+  
   
   // const token = localStorage.getItem("token");
 
   const handleLogOut = () => {
-    localStorage.removeItem("token");
+    localStorage.removeItem("KV_SESSION");
     localStorage.removeItem("isLoggedIn");
     dispatch(setLogInState(false));
     dispatch(setToken("31402|ycaBoacBD1m2hb4cBPIpGBTphlQ6TCmQIiBe1E1V0834bbfd"));
-    navigate(`${BASE_URL}`);
+    // navigate(`${BASE_URL}`);
+    location.reload();
   }
 
-  console.log(authState);
+  // console.log(authState);
 
   const wishlistItems = useSelector((state) => state.wishlistings)
   // console.log(wishlistItems);
@@ -139,12 +142,12 @@ const MiddleHeadSection = () => {
 
 
             {
-              authState.isLoggedIn || logInState ?
+              authState.isLoggedIn ?
                 (
                   <div className="user-button-wrapper">
-                    <div className="user-button border border-dashed border-transparent hover:border-gray-200 hover:scale-95 px-4 py-1">
+                    <div className="user-button truncate w-[120px] border border-dashed border-transparent hover:border-gray-200 hover:scale-95 px-4 py-1">
                       <PiUserCircleDashedFill className="me-2 inline align-bottom text-3xl text-lightgreen" />
-                      <span className="md:text-lg text-sm">User</span>
+                      <span className="md:text-lg text-sm ">{user?.name}</span>
                     </div>
                     <ul className="user-menus border shadow animate__animated animate__fadeIn animate__faster">
                       <li><ImProfile className="me-2 inline" />My Profile</li>

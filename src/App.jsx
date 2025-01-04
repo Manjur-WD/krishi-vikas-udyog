@@ -1,6 +1,6 @@
 import { Route, Routes, useLocation } from "react-router-dom";
+import React, { Suspense, useEffect, useState } from "react";
 import "./App.css";
-import React, { Suspense, useEffect, useLayoutEffect, useState } from "react";
 import Preloader from "./components/elements/Preloader";
 import SplashScreen from "./components/elements/SplashScreen";
 import { FilterButtonStateProvider } from "./context/CategoryWiseAllProduct/FilterBtnContext";
@@ -13,96 +13,74 @@ import { Toaster } from "react-hot-toast";
 import NotFoundPage from "./components/elements/NotFoundPage";
 import CryptoJS from "crypto-js";
 
-// Lazy load the component
-
-const LazyHomepage = React.lazy(() => import("./pages/HomePage"));
-const LazyCategoryViewAllPage = React.lazy(() =>
-  import("./pages/CategoryWiseAllProduct")
-);
-const LazySingleProductPage = React.lazy(() =>
-  import("./pages/SinglProductPage")
-);
-const LazyIffcoProductPage = React.lazy(() =>
-  import("./pages/CompanyProductsPage")
-);
-const LazyIffcoDealerPage = React.lazy(() =>
-  import("./pages/CompanyDealersPage")
-);
-const LazyWeatherForecastPage = React.lazy(() =>
-  import("./pages/WeatherForecastPage")
-);
-const LazyWistListPage = React.lazy(() =>
-  import("./pages/WishListPage")
-);
-const LazyUserProfilePage = React.lazy(() =>
-  import("./pages/UserProfile")
-);
-const LazySellProductPage = React.lazy(() =>
-  import("./pages/SellProductPage")
-);
+// Lazy load components
+const LazyComponents = {
+  HomePage: React.lazy(() => import("./pages/HomePage")),
+  CategoryViewAll: React.lazy(() => import("./pages/CategoryWiseAllProduct")),
+  SingleProduct: React.lazy(() => import("./pages/SinglProductPage")),
+  CompanyProducts: React.lazy(() => import("./pages/CompanyProductsPage")),
+  CompanyDealers: React.lazy(() => import("./pages/CompanyDealersPage")),
+  WeatherForecast: React.lazy(() => import("./pages/WeatherForecastPage")),
+  Wishlist: React.lazy(() => import("./pages/WishListPage")),
+  UserProfile: React.lazy(() => import("./pages/UserProfile")),
+  SellProduct: React.lazy(() => import("./pages/SellProductPage")),
+};
 
 const App = () => {
   const baseUrl = "/krishi-vikas-udyog";
+  const guestToken = "31575|yuo3bhA54txVyABiLOouqD5Qa5cMSrXU9VW9ahPu54782d62";
   const location = useLocation();
   const dispatch = useDispatch();
 
   const secretKey = "kv-auth-token";
-  // const encryptedData = localStorage.getItem("KV_SESSION");
 
-  const [token , setToken] = useState("");
+  // Handle token & login state initialization
+  useEffect(() => {
+    try {
+      const encryptedData = localStorage.getItem("KV_SESSION");
+      const loginState = localStorage.getItem("isLoggedIn") === "true";
 
-  useLayoutEffect(() => {
-    const logInState = localStorage.getItem("isLoggedIn");
-    const encryptedData = localStorage.getItem("KV_SESSION");
-    const bytes = CryptoJS.AES.decrypt(encryptedData, secretKey);
-    const decryptedToken = bytes.toString(CryptoJS.enc.Utf8);
-    console.log(decryptedToken);
+      if (encryptedData && loginState) {
+        const bytes = CryptoJS.AES.decrypt(encryptedData, secretKey);
+        const decryptedToken = bytes.toString(CryptoJS.enc.Utf8);
 
-    
-    setToken(decryptedToken);
-    
-
-    if (logInState) {
-      dispatch(setLogInState(logInState));
+        if (decryptedToken) {
+          dispatch(setToken(decryptedToken));
+          dispatch(setLogInState(true));
+        }
+      } else {
+        // Use guest token if no valid session is found
+        dispatch(setToken(guestToken));
+        dispatch(setLogInState(false));
+      }
+    } catch (error) {
+      console.error("Error decrypting token:", error);
+      dispatch(setToken(guestToken));
+      dispatch(setLogInState(false));
     }
+  }, [dispatch]);
 
-    else if (token) {
-      dispatch(setToken(token));
-    }
-
-    else {
-      dispatch(setToken("31575|yuo3bhA54txVyABiLOouqD5Qa5cMSrXU9VW9ahPu54782d62"))
-    }
-
-  }, [token])
-
+  // Scroll to top on route change
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location]);
 
-  const [isloading, setLoading] = useState(true);
+  const [isLoading, setLoading] = useState(true);
 
   return (
     <>
-      <Toaster position="bottom-center"
-        reverseOrder={false} />
+      <Toaster position="bottom-center" reverseOrder={false} />
       <MobileScreenNav />
       <CompanyDataProvider>
         <SortStatusProvider>
-          {isloading ? <SplashScreen setLoading={setLoading} /> : null}
+          {isLoading && <SplashScreen setLoading={setLoading} />}
           <Routes>
             <Route
               path={`${baseUrl}`}
               element={
                 <Suspense fallback={<Preloader />}>
-                  <LazyHomepage />
+                  <LazyComponents.HomePage />
                 </Suspense>
-              }
-            />
-            <Route
-              path="*"
-              element={
-                <NotFoundPage />
               }
             />
             <Route
@@ -110,7 +88,7 @@ const App = () => {
               element={
                 <Suspense fallback={<Preloader />}>
                   <FilterButtonStateProvider>
-                    <LazyCategoryViewAllPage key={location.key} />
+                    <LazyComponents.CategoryViewAll key={location.key} />
                   </FilterButtonStateProvider>
                 </Suspense>
               }
@@ -119,7 +97,7 @@ const App = () => {
               path={`${baseUrl}/:category/:type/:id`}
               element={
                 <Suspense fallback={<Preloader />}>
-                  <LazySingleProductPage key={location.key} />
+                  <LazyComponents.SingleProduct key={location.key} />
                 </Suspense>
               }
             />
@@ -127,7 +105,7 @@ const App = () => {
               path={`${baseUrl}/company/:companyId`}
               element={
                 <Suspense fallback={<Preloader />}>
-                  <LazyIffcoProductPage key={location.key} />
+                  <LazyComponents.CompanyProducts key={location.key} />
                 </Suspense>
               }
             />
@@ -135,7 +113,7 @@ const App = () => {
               path={`${baseUrl}/company-dealers/:id`}
               element={
                 <Suspense fallback={<Preloader />}>
-                  <LazyIffcoDealerPage key={location.key} />
+                  <LazyComponents.CompanyDealers key={location.key} />
                 </Suspense>
               }
             />
@@ -143,7 +121,7 @@ const App = () => {
               path={`${baseUrl}/weather-forecast`}
               element={
                 <Suspense fallback={<Preloader />}>
-                  <LazyWeatherForecastPage key={location.key} />
+                  <LazyComponents.WeatherForecast key={location.key} />
                 </Suspense>
               }
             />
@@ -151,7 +129,7 @@ const App = () => {
               path={`${baseUrl}/wishlist`}
               element={
                 <Suspense fallback={<Preloader />}>
-                  <LazyWistListPage key={location.key} />
+                  <LazyComponents.Wishlist key={location.key} />
                 </Suspense>
               }
             />
@@ -159,7 +137,7 @@ const App = () => {
               path={`${baseUrl}/profile`}
               element={
                 <Suspense fallback={<Preloader />}>
-                  <LazyUserProfilePage key={location.key} />
+                  <LazyComponents.UserProfile key={location.key} />
                 </Suspense>
               }
             />
@@ -167,10 +145,11 @@ const App = () => {
               path={`${baseUrl}/sell-product`}
               element={
                 <Suspense fallback={<Preloader />}>
-                  <LazySellProductPage key={location.key} />
+                  <LazyComponents.SellProduct key={location.key} />
                 </Suspense>
               }
             />
+            <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </SortStatusProvider>
       </CompanyDataProvider>
