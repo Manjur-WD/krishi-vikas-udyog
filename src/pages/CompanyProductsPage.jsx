@@ -59,7 +59,7 @@ const CompanyProductsPage = () => {
   return (
     <>
       <Header />
-      <MobileScreenNav />
+      {/* <MobileScreenNav /> */}
       <section
         className="breadcrumb flex justify-center items-center md:h-[300px] h-[200px]"
         style={{

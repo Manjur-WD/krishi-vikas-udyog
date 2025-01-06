@@ -38,12 +38,19 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
+
+
 
 // WeatherForecastPage Component
 const WeatherForecastPage = () => {
+  const now = new Date();
+  const hours =  now.getHours();
+  const user = useSelector((state) => state.auth.user);
+
   const { data: weatherData } = useQuery({
-    queryKey: ["weather-data"],
-    queryFn: () => getWeatherData(722205, "22.515310", "88.348038", "20"),
+    queryKey: ["weather-data", hours, user?.zipcode, user?.lat, user?.long],
+    queryFn: () => getWeatherData(user?.zipcode, user?.lat, user?.long, hours),
   });
 
   // Custom Tooltip component to display both X (time) and Y (temperature)

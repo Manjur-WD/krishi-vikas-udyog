@@ -17,14 +17,48 @@ import { updateWishListItems } from "../redux/features/wishlist/WishlistSlice";
 import { useEffect, useState } from "react";
 import emptywishlist from "../assets/images/empty-wishlist.webp"
 import toastBg from "../assets/images/toast-bg.jpg";
+import { useTranslation } from "react-i18next";
 
 const WishListPage = () => {
     const [isLoading, setLoading] = useState(false);
     const dispatch = useDispatch();
+    const { t } = useTranslation();
 
     const wishListItems = useSelector((state) => state.wishlistings.wishlist)
     const token = useSelector((state) => state.auth.token)
-    console.log(wishListItems);
+    // console.log(wishListItems);
+
+    const getCategory = (id) => {
+        switch (id) {
+            case "1":
+                return "tractor";
+            case "3":
+                return "goods-vehicle"
+            case "4":
+                return "harvester"
+            case "5":
+                return "implements"
+            case "6":
+                return "agri-inputs"
+            case "8":
+                return "agri-inputs"
+            case "9":
+                return "agri-inputs"
+        }
+    }
+
+
+    const getType = (id) => {
+        switch (id) {
+            case "6":
+                return "seeds"
+            case "8":
+                return "pesticides"
+            case "9":
+                return "fertilizer"
+        }
+    }
+
 
     const handleRemove = async (categoryId, id) => {
         toast("Removing.....");
@@ -78,17 +112,17 @@ const WishListPage = () => {
                 >
                     <div className="breadcrumb-content">
                         <div className="breadcrumb-links flex justify-center items-center text-2xl text-white">
-                            <p className="hover:text-lightgreen px-3">Home</p>
+                            <p className="hover:text-lightgreen px-3">{t('Home')}</p>
                             <FaChevronRight />
                             <p className="hover:text-lightgreen px-3 capitalize">
-                                Wishlist
+                                {t('Wishlist')}
                             </p>
                         </div>
                         <p
                             className="text-lightgreen md:text-6xl text-4xl font-bold text-center mt-3 uppercase"
                             style={{ textShadow: "0 0 15px black" }}
                         >
-                            My Wishlist
+                            {t('Wishlist')}
                         </p>
                     </div>
                 </section>
@@ -138,7 +172,14 @@ const WishListPage = () => {
                                                 </p>
                                             </div>
                                             <div className="wishlist-action flex justify-center gap-3 px-5 mt-2">
-                                                {/* <Link type="button" className="bg-lightdark text-white  text-sm px-2 py-1 rounded-3xl shadow active:scale-95"><FaRegEye className="inline mb-1" /> View</Link> */}
+                                                <Link
+                                                    to={`${BASE_URL}/${getCategory(item?.category_id)}/${["6", "8", "9"].includes(item.category_id) ? getType(item.category_id) : item.type}/${item.id}`}
+                                                    type="button"
+                                                    className="bg-lightdark text-white text-sm px-2 py-1 rounded-3xl shadow active:scale-95"
+                                                >
+                                                    <FaRegEye className="inline mb-1" /> View
+                                                </Link>
+
                                                 <button type="button" className="bg-red-700 text-white text-sm px-2 py-1 rounded-3xl shadow active:scale-95" onClick={() => { handleRemove(item?.category_id, item?.id) }}><CiTrash className="inline mb-1" />Remove</button>
                                             </div>
                                         </div>

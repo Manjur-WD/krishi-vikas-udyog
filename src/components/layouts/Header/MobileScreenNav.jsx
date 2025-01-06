@@ -28,8 +28,8 @@ const MobileScreenNav = () => {
       {
         duration: 4000,
         style: {
-          border: '2px solid green',
-          boxShadow: '0 0  25px green',
+          // border: '2px solid #9c0a0d',
+          boxShadow: '0 0  25px #9c0a0d',
           padding: '16px',
           fontSize: '18px',
           color: 'white',

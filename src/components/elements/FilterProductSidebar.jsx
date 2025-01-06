@@ -170,7 +170,7 @@ const FilterProductSidebar = ({ categoryId, type, categoryProduct }) => {
             : "filter-product-sidebar"
         }
       >
-        <div className="lg:hidden filter-headeing flex items-center px-5 py-2 sticky -top-[10px] rounded-xl">
+        <div className="lg:hidden filter-headeing flex items-center px-5 py-2 sticky -top-[8px] z-50 rounded-xl">
           <HiOutlineArrowNarrowLeft
             className="text-3xl text-white absolute"
             onClick={() => {

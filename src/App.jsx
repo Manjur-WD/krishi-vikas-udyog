@@ -12,6 +12,9 @@ import MobileScreenNav from "./components/layouts/Header/MobileScreenNav";
 import { Toaster } from "react-hot-toast";
 import NotFoundPage from "./components/elements/NotFoundPage";
 import CryptoJS from "crypto-js";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import TermsOfUse from "./pages/TermsOfUse";
+import DataRetentionPolicy from "./pages/DataRetentionPolicy";
 
 // Lazy load components
 const LazyComponents = {
@@ -70,7 +73,7 @@ const App = () => {
   return (
     <>
       <Toaster position="bottom-center" reverseOrder={false} />
-      <MobileScreenNav />
+
       <CompanyDataProvider>
         <SortStatusProvider>
           {isLoading && <SplashScreen setLoading={setLoading} />}
@@ -150,6 +153,9 @@ const App = () => {
               }
             />
             <Route path="*" element={<NotFoundPage />} />
+            <Route path={`${baseUrl}/privacy-policy`} element={<PrivacyPolicy />} />
+            <Route path={`${baseUrl}/terms-of-use`} element={<TermsOfUse />} />
+            <Route path={`${baseUrl}/data-retention-policy`} element={<DataRetentionPolicy />} />
           </Routes>
         </SortStatusProvider>
       </CompanyDataProvider>

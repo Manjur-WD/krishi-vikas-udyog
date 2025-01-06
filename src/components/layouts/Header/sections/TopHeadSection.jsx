@@ -8,9 +8,13 @@ import { FaXTwitter } from "react-icons/fa6";
 import { IoIosArrowDown } from "react-icons/io";
 import LanguageSelector from "../../../elements/LanguageSelector";
 import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
 
 const TopHeadSection = () => {
-  const {t} = useTranslation();
+  const { t } = useTranslation();
+  const user = useSelector((state) => state.auth.user);
+  // console.log(user);
+  
   return (
     <>
       <section className="top-header bg-lightdark md:block hidden px-3">
@@ -28,7 +32,7 @@ const TopHeadSection = () => {
           <div className="header__pincode__language__social">
             <a href="#" className="text-white me-2 border-e pe-2">
               <HiLocationMarker className="inline me-1 text-lightgreen" />
-              {t('Location')} 700152
+              {user.district_name} {user.zipcode}
             </a>
             <LanguageSelector />
             <div className="header__social--links inline ms-2">

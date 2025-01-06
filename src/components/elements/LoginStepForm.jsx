@@ -99,7 +99,6 @@ const LoginStepForm = () => {
 
     useEffect(() => {
         if (userDetails) {
-            setCurrentStep(3);
             dispatch(setToken(userDetails?.token));
             const secretKey = "kv-auth-token";
             const encryptedToken = CryptoJS.AES.encrypt(userDetails?.token, secretKey).toString();
@@ -109,6 +108,9 @@ const LoginStepForm = () => {
             dispatch(setUsers(userDetails.data));
             dispatch(setLogInState(true));
             localStorage.setItem("isLoggedIn", true);
+            setTimeout(() => {
+                location.reload();
+            }, 2000)
         }
 
         // const encryptedData = localStorage.getItem("KV_SESSION");
@@ -133,6 +135,7 @@ const LoginStepForm = () => {
     const handleValidateOtp = () => {
         if (otpInput === decodedOtp) {
             setOtpValidated(true);
+            setCurrentStep(3);
         } else {
             toast.error("Invalid OTP, please try again.",
                 {

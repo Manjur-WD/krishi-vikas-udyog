@@ -171,7 +171,7 @@ const CategoryWiseAllProduct = () => {
       <Header />
       {/* <MobileScreenNav /> */}
       <BreadCrumb />
-      <Toaster />
+      {/* <Toaster /> */}
 
       {/* Mobile View: Sort and Filter Button */}
       <section className="mobile-filter-and-sort-btn lg:hidden block bg-lightgreen sticky md:top-[147px] top-[62px] z-10">

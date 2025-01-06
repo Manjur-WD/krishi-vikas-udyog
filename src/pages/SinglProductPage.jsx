@@ -57,6 +57,9 @@ const SinglProductPage = () => {
     // enabled: !sessionData
   });
 
+  console.log(singleProduct);
+  
+
   // fetch Wishlist
 
   const fetchWishList = async () => {
@@ -459,7 +462,7 @@ const SinglProductPage = () => {
                     (<button
                       type="button"
                       className={"bg-darkGreen mb-3 text-white py-1 px-3 rounded-2xl"}
-                      onClick={() => handleWishlist(singleProduct?.category_id, id, token)}
+                      onClick={() => handleWishlist(singleProduct?.category_id, singleProduct?.id, token)}
                       disabled={isLoading}
                     >
                       <FaHeartCirclePlus className="animate-pulse inline me-1 mb-1" />{t('Add to wishlist')}
@@ -468,7 +471,7 @@ const SinglProductPage = () => {
                     (<button
                       type="button"
                       className={singleProduct?.wishlist_status === 1 ? "bg-red-600 mb-3 text-white py-1 px-3 rounded-2xl" : "bg-darkGreen mb-3 text-white py-1 px-3 rounded-2xl"}
-                      onClick={() => handleWishlist(singleProduct?.category_id, id, token)}
+                      onClick={() => handleWishlist(singleProduct?.category_id, singleProduct?.id, token)}
                       disabled={isLoading}
                     >
                       {wishLoading ? (

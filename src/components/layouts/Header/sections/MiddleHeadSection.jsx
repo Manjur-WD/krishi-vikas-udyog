@@ -12,6 +12,7 @@ import logInImg from "../../../../assets/images/login-img.webp";
 import { ImProfile } from "react-icons/im";
 import { IoMdHeartHalf } from "react-icons/io";
 import { HiOutlineLogout } from "react-icons/hi";
+import toastError from "../../../../assets/images/toastError.jpg";
 
 import { Button } from "@/components/ui/button"
 
@@ -27,13 +28,14 @@ import {
 
 import LoginStepForm from "../../../elements/LoginStepForm";
 import { useDispatch, useSelector } from "react-redux";
-import { setLogInState, setToken } from "../../../../redux/features/Auth/AuthSlice";
+import { setLogInState, setToken, setUsers } from "../../../../redux/features/Auth/AuthSlice";
 import { useQuery } from "@tanstack/react-query";
-import { getWishList } from "../../../../services/api";
+import { getProfileDetails, getWishList } from "../../../../services/api";
 import BASE_URL from "../../../../../config";
 import { updateWishListItems } from "../../../../redux/features/wishlist/WishlistSlice";
 import LanguageSelector from "../../../elements/LanguageSelector";
 import { useTranslation } from "react-i18next";
+import toast from "react-hot-toast";
 
 const MiddleHeadSection = () => {
   const { t } = useTranslation();
@@ -41,11 +43,11 @@ const MiddleHeadSection = () => {
   const { setActiveNav } = useContext(NavTogglerContext);
   const authState = useSelector((state) => state.auth);
   const dispatch = useDispatch();
-  const token = useSelector((state)=> state.auth.token);
-  const user = useSelector((state)=> state.auth.user);
+  const token = useSelector((state) => state.auth.token);
+  const user = useSelector((state) => state.auth.user);
   // console.log(user);
-  
-  
+
+
   // const token = localStorage.getItem("token");
 
   const handleLogOut = () => {
@@ -53,8 +55,10 @@ const MiddleHeadSection = () => {
     localStorage.removeItem("isLoggedIn");
     dispatch(setLogInState(false));
     dispatch(setToken("31402|ycaBoacBD1m2hb4cBPIpGBTphlQ6TCmQIiBe1E1V0834bbfd"));
-    // navigate(`${BASE_URL}`);
-    location.reload();
+    navigate(`${BASE_URL}/`);
+    setTimeout(() => {
+      location.reload();
+    }, 2000)
   }
 
   // console.log(authState);
@@ -73,6 +77,24 @@ const MiddleHeadSection = () => {
   useLayoutEffect(() => {
     fetchWishList();
   }, [])
+
+
+  const isLoggedIn = localStorage.getItem("isLoggedIn");
+
+  const { data: profile } = useQuery({
+    queryKey: ["get-profile", token],
+    queryFn: () => getProfileDetails(token)
+  })
+
+  if (profile) {
+    dispatch(setUsers(profile));
+    // console.log(authState.user);
+  }
+
+
+
+
+  // console.log(profile);
 
 
 
@@ -121,37 +143,71 @@ const MiddleHeadSection = () => {
             <button className="language-selector md:hidden inline">
               <LanguageSelector />
             </button>
-            <button
-              type="button"
-              className=" hover:scale-95 md:px-4 py-1 relative md:block hidden cursor-pointer"
-              onClick={() => navigate(`${BASE_URL}/wishlist`)}
-            >
-              {
-                wishlistItems.wishlist?.length != 0 && authState?.isLoggedIn ?
-                  (
+
+            {
+              wishlistItems.wishlist?.length != 0 && authState?.isLoggedIn ?
+                (
+                  <button
+                    type="button"
+                    className=" hover:scale-95 md:px-4 py-1 relative md:block hidden cursor-pointer"
+                    onClick={() => navigate(`${BASE_URL}/wishlist`)}
+                  >
                     <span className="wishlist--count bg-lightdark text-white px-2 rounded-full absolute left-8 text-sm top-0">
                       {wishlistItems.wishlist?.length}
                     </span>
-                  ) :
-                  (null)
-              }
+                    <PiHeartHalfLight className="me-2 inline align-bottom text-3xl text-lightgreen" />
+                    <span className="text-lg ms-2">{t('Wishlist')}</span>
+                  </button>
+                ) :
+                (<button
+                  type="button"
+                  className=" hover:scale-95 md:px-4 py-1 relative md:block hidden cursor-pointer"
+                  onClick={() => toast.error("You are not Logged in !!",
+                    {
+                      duration: 4000,
+                      style: {
+                        // border: '2px solid #9c0a0d',
+                        boxShadow: '0 0  25px #9c0a0d',
+                        padding: '16px',
+                        fontSize: '18px',
+                        color: 'white',
+                        // backgroundColor: '#d1e7dd',
+                        background: `url(${toastError}) no-repeat center/cover`,
+                        borderRadius: '8px',
+                      },
+                    }
+                  )}
+                >
+                  <PiHeartHalfLight className="me-2 inline align-bottom text-3xl text-lightgreen" />
+                  <span className="text-lg ms-2">{t('Wishlist')}</span>
+                </button>)
+            }
 
-              <PiHeartHalfLight className="me-2 inline align-bottom text-3xl text-lightgreen" />
-              <span className="text-lg ms-2">{t('Wishlist')}</span>
-            </button>
+
 
 
             {
-              authState.isLoggedIn ?
+              authState.isLoggedIn && isLoggedIn ?
                 (
                   <div className="user-button-wrapper">
-                    <div className="user-button truncate w-[120px] border border-dashed border-transparent hover:border-gray-200 hover:scale-95 px-4 py-1">
-                      <PiUserCircleDashedFill className="me-2 inline align-bottom text-3xl text-lightgreen" />
-                      <span className="md:text-lg text-sm ">{user?.name}</span>
+                    <div className="user-button truncate md:max-w-[220px] max-w-[120px] border border-dashed border-transparent hover:border-gray-200 hover:scale-95 px-4 py-1">
+                      {
+                        profile && profile.profile_img ?
+                          (
+                            <img src={profile?.profile_img} alt="profile-image" className="inline w-[32px] h-[32px] object-cover rounded-full me-2" />
+                          )
+                          :
+                          (
+                            <PiUserCircleDashedFill className="me-2 inline align-bottom text-3xl text-lightgreen" />
+                          )
+                      }
+                      <span className="md:text-lg text-sm ">{profile?.name}</span>
                     </div>
                     <ul className="user-menus border shadow animate__animated animate__fadeIn animate__faster">
-                      <li><ImProfile className="me-2 inline" />My Profile</li>
-                      <li><IoMdHeartHalf className="me-2 inline" />My Wishlist</li>
+                      <li><Link to={`${BASE_URL}/profile`}><ImProfile className="me-2 inline" />My Profile</Link></li>
+                      <li>
+                        <Link to={`${BASE_URL}/wishlist`}><IoMdHeartHalf className="me-2 inline" />My Wishlist</Link>
+                      </li>
                       <li onClick={handleLogOut} className="cursor-pointer"><HiOutlineLogout className="me-2 inline" />Logout</li>
                     </ul>
                   </div>

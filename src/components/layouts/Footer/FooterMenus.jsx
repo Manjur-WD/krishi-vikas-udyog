@@ -134,9 +134,9 @@ const FooterMenus = () => {
             <div className="rent__links text-white uppercase">
               <Link to={`${BASE_URL}`}>{t('contact us')}</Link>
               <Link to={`${BASE_URL}`}>{t('about us')}</Link>
-              <Link to={`${BASE_URL}`}>PRIVACY POLICY</Link>
-              <Link to={`${BASE_URL}`}>TERMS OF USE</Link>
-              <Link to={`${BASE_URL}`}>DATA PRIVACY</Link>
+              <Link to={`${BASE_URL}/privacy-policy`}>PRIVACY POLICY</Link>
+              <Link to={`${BASE_URL}/terms-of-use`}>TERMS OF USE</Link>
+              <Link to={`${BASE_URL}/data-retention-policy`}>DATA PRIVACY</Link>
             </div>
           </div>
         </div>

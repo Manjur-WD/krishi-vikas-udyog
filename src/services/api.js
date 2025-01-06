@@ -254,7 +254,7 @@ export const getSingleProduct = async (category_id, id, token) => {
 export const getCompanyProduct = async (company_id, token) => {
   try {
     const response = await axios.post(
-      `${baseURL}company/products`,
+      `${baseURL}/company/products`,
       {
         company_id: company_id,
       },
@@ -278,7 +278,7 @@ export const getCompanyProduct = async (company_id, token) => {
 export const getCompanyDealers = async (company_id, token) => {
   try {
     const response = await axios.post(
-      `${baseURL}company/dealer`,
+      `${baseURL}/company/dealer`,
       {
         company_id: company_id,
       },
@@ -417,6 +417,26 @@ export const getLogInDetails = async (mobile_no) => {
       {
         mobile: mobile_no,
       },
+    );
+    return response.data.result.response;
+  } catch (error) {
+    console.error("Error loading category data:", error);
+    throw error; // Optionally throw or return a default value if you want to handle errors differently
+  }
+};
+// GET PROFILE
+
+export const getProfileDetails = async (token) => {
+  try {
+    const response = await axios.get(
+      `${baseURL}/profile`,
+      {
+        headers: {
+          Authorization:
+            // "Bearer 1280|wxPHniERi5WY1UEJ2kg0p26m1yj93JsDKAGwK7048ebf885b",
+            `Bearer ${token}`,
+        },
+      }
     );
     return response.data.result.response;
   } catch (error) {

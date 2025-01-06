@@ -8,10 +8,12 @@ import weatherHomepage from "../../../assets/images/short_weather_report.webp";
 import { Link } from "react-router-dom";
 import BASE_URL from "../../../../config";
 import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
 
 const WeatherSection = () => {
   const now = new Date();
-  // console.log(now);
+  const hours = now.getHours();
+  const user = useSelector((state) => state.auth.user);
 
   // Get the day of the week (e.g., "Monday", "Tuesday", etc.)
   const dayOfWeek = now.toLocaleString("en-US", { weekday: "long" });
@@ -19,13 +21,13 @@ const WeatherSection = () => {
   const date = now.toLocaleDateString("en-GB");
 
   const { data: weatherData } = useQuery({
-    queryKey: ["weather-data"],
-    queryFn: () => getWeatherData(722205, "22.515310", "88.348038", "20"),
+    queryKey: ["weather-data", hours, user?.zipcode, user?.lat, user?.long],
+    queryFn: () => getWeatherData(user?.zipcode, user?.lat, user?.long, hours),
   });
 
   // console.log(weatherData.data.current[0].icon);
 
-  const {t} = useTranslation();
+  const { t } = useTranslation();
 
   return (
     <>

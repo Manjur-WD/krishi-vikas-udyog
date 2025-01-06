@@ -5,6 +5,10 @@ import { NavTogglerContext } from "../../../../context/HeaderMenuContext/NavTogg
 import { CgCloseR } from "react-icons/cg";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { CiMenuKebab } from "react-icons/ci";
+import { BsFillGrid3X2GapFill } from "react-icons/bs";
+import { IoNewspaperOutline } from "react-icons/io5";
+import { BsCalendar4Week } from "react-icons/bs";
 
 const Navbar = () => {
   const { activeNav, setActiveNav, subMenuStatus, setSubMenuStatus } =
@@ -58,6 +62,19 @@ const Navbar = () => {
           )}
         </li>
       ))}
+      <li className="others relative nav-link">
+        <BsFillGrid3X2GapFill className="inline mb-1 me-1" />{t('OTHERS')}
+        <div className="submenu absolute shadow-3xl right-0 z-50 animate__animated animate__fadeIn animate__faster rounded">
+          <div className="submenu-child mt-[13px] p-5 rounded-lg  bg-white text-darkGreen">
+            <ul className="text-nowrap">
+              <li className="mb-2">
+              <BsCalendar4Week className="me-2 inline mb-1 text-xl" /><Link href="/krishi-vikas-udyog/tyre/new">{t('CROP CALENDER')}</Link></li>
+              <li className="mb-2">
+              <IoNewspaperOutline className="me-2 inline mb-1 text-xl" /><Link href="/krishi-vikas-udyog/tyre/old">{t('BLOGS')}</Link></li>
+            </ul>
+          </div>
+        </div>
+      </li>
       <li>
         <button
           type="button"
@@ -67,6 +84,7 @@ const Navbar = () => {
           <CgCloseR />
         </button>
       </li>
+
     </ul>
   );
 };
