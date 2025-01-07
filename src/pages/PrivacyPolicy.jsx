@@ -5,34 +5,34 @@ import Footer from "../components/layouts/Footer/Footer";
 import { useTranslation } from "react-i18next";
 
 const PrivacyPolicy = () => {
-    const {t} = useTranslation();
+    const { t } = useTranslation();
     return (
         <>
-        <Header />
-        <section
+            <Header />
+            <section
                 className="breadcrumb flex justify-center items-center md:h-[300px] h-[200px]"
                 style={{
-                  backgroundImage: `linear-gradient(#13693a, #13693a6e),url(${breadcrumbImage})`,
-                  backgroundSize: "cover", // Ensures the image covers the entire section
-                  backgroundPosition: "center", // Centers the image
+                    backgroundImage: `linear-gradient(#13693a, #13693a6e),url(${breadcrumbImage})`,
+                    backgroundSize: "cover", // Ensures the image covers the entire section
+                    backgroundPosition: "center", // Centers the image
                 }}
-              >
+            >
                 <div className="breadcrumb-content">
-                  <div className="breadcrumb-links flex justify-center items-center text-2xl text-white">
-                    <p className="hover:text-lightgreen px-3">{t('Home')}</p>
-                    <FaChevronRight />
-                    <p className="hover:text-lightgreen px-3 capitalize">
-                      {t('Privacy Policy')}
+                    <div className="breadcrumb-links flex justify-center items-center text-2xl text-white">
+                        <p className="hover:text-lightgreen px-3">{t('Home')}</p>
+                        <FaChevronRight />
+                        <p className="hover:text-lightgreen px-3 capitalize">
+                            {t('Privacy Policy')}
+                        </p>
+                    </div>
+                    <p
+                        className="text-lightgreen uppercase md:text-6xl text-4xl font-bold text-center mt-3 uppercase"
+                        style={{ textShadow: "0 0 15px black" }}
+                    >
+                        {t('Privacy Policy')}
                     </p>
-                  </div>
-                  <p
-                    className="text-lightgreen uppercase md:text-6xl text-4xl font-bold text-center mt-3 uppercase"
-                    style={{ textShadow: "0 0 15px black" }}
-                  >
-                    {t('Privacy Policy')}
-                  </p>
                 </div>
-              </section>
+            </section>
             <section className="privacy-policy-kv p-5">
                 <div className="privacy-policy-page container md:p-5 p-2 border border-darkGreen">
                     <p className="text-2xl my-3 font-semibold text-center">This privacy notice for ABYBABY E-COM PRIVATE LIMITED</p>

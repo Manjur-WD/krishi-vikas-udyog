@@ -9,6 +9,7 @@ import { CiMenuKebab } from "react-icons/ci";
 import { BsFillGrid3X2GapFill } from "react-icons/bs";
 import { IoNewspaperOutline } from "react-icons/io5";
 import { BsCalendar4Week } from "react-icons/bs";
+import BASE_URL from "../../../../../config.js";
 
 const Navbar = () => {
   const { activeNav, setActiveNav, subMenuStatus, setSubMenuStatus } =
@@ -68,9 +69,9 @@ const Navbar = () => {
           <div className="submenu-child mt-[13px] p-5 rounded-lg  bg-white text-darkGreen">
             <ul className="text-nowrap">
               <li className="mb-2">
-              <BsCalendar4Week className="me-2 inline mb-1 text-xl" /><Link href="/krishi-vikas-udyog/tyre/new">{t('CROP CALENDER')}</Link></li>
+              <BsCalendar4Week className="me-2 inline mb-1 text-xl" /><Link to={`${BASE_URL}/crop-calender`}>{t('CROP CALENDER')}</Link></li>
               <li className="mb-2">
-              <IoNewspaperOutline className="me-2 inline mb-1 text-xl" /><Link href="/krishi-vikas-udyog/tyre/old">{t('BLOGS')}</Link></li>
+              <IoNewspaperOutline className="me-2 inline mb-1 text-xl" /><Link to="/krishi-vikas-udyog/tyre/old">{t('BLOGS')}</Link></li>
             </ul>
           </div>
         </div>

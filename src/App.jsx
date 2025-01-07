@@ -15,6 +15,8 @@ import CryptoJS from "crypto-js";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsOfUse from "./pages/TermsOfUse";
 import DataRetentionPolicy from "./pages/DataRetentionPolicy";
+import CropCalenderMenus from "./pages/crop-calender/CropCalenderMenus";
+import CropContents from "./pages/crop-calender/CropContents";
 
 // Lazy load components
 const LazyComponents = {
@@ -153,6 +155,8 @@ const App = () => {
               }
             />
             <Route path="*" element={<NotFoundPage />} />
+            <Route path={`${baseUrl}/crop-calender`} element={<CropCalenderMenus />} />
+            <Route path={`${baseUrl}/crop-calender/:cropCategory/:cropName`} element={<CropContents />} />
             <Route path={`${baseUrl}/privacy-policy`} element={<PrivacyPolicy />} />
             <Route path={`${baseUrl}/terms-of-use`} element={<TermsOfUse />} />
             <Route path={`${baseUrl}/data-retention-policy`} element={<DataRetentionPolicy />} />
