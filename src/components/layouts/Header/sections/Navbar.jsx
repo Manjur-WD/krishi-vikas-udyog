@@ -71,7 +71,7 @@ const Navbar = () => {
               <li className="mb-2">
               <BsCalendar4Week className="me-2 inline mb-1 text-xl" /><Link to={`${BASE_URL}/crop-calender`}>{t('CROP CALENDER')}</Link></li>
               <li className="mb-2">
-              <IoNewspaperOutline className="me-2 inline mb-1 text-xl" /><Link to="/krishi-vikas-udyog/tyre/old">{t('BLOGS')}</Link></li>
+              <IoNewspaperOutline className="me-2 inline mb-1 text-xl" /><Link to="#">{t('BLOGS')}</Link></li>
             </ul>
           </div>
         </div>

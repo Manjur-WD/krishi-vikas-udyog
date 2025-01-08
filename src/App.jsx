@@ -1,4 +1,4 @@
-import { Route, Routes, useLocation } from "react-router-dom";
+import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import React, { Suspense, useEffect, useState } from "react";
 import "./App.css";
 import Preloader from "./components/elements/Preloader";
@@ -17,6 +17,9 @@ import TermsOfUse from "./pages/TermsOfUse";
 import DataRetentionPolicy from "./pages/DataRetentionPolicy";
 import CropCalenderMenus from "./pages/crop-calender/CropCalenderMenus";
 import CropContents from "./pages/crop-calender/CropContents";
+import AboutUs from "./pages/AboutUs";
+import BASE_URL from "../config";
+import ContactUs from "./pages/ContactUs";
 
 // Lazy load components
 const LazyComponents = {
@@ -30,6 +33,11 @@ const LazyComponents = {
   UserProfile: React.lazy(() => import("./pages/UserProfile")),
   SellProduct: React.lazy(() => import("./pages/SellProductPage")),
 };
+
+// const RedirectToExternal = () => {
+//   window.location.href = "https://blogs.krishivikas.com/";
+//   return <Navigate to={`/${BASE_URL}`} replace />;;
+// };
 
 const App = () => {
   const baseUrl = "/krishi-vikas-udyog";
@@ -155,6 +163,9 @@ const App = () => {
               }
             />
             <Route path="*" element={<NotFoundPage />} />
+            <Route path={`${baseUrl}/about`} element={<AboutUs />} />
+            <Route path={`${baseUrl}/contact`} element={<ContactUs />} />
+            {/* <Route path={`/blogs`} element={<RedirectToExternal />}  /> */}
             <Route path={`${baseUrl}/crop-calender`} element={<CropCalenderMenus />} />
             <Route path={`${baseUrl}/crop-calender/:cropCategory/:cropName`} element={<CropContents />} />
             <Route path={`${baseUrl}/privacy-policy`} element={<PrivacyPolicy />} />

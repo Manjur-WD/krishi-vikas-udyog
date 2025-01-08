@@ -36,8 +36,10 @@ const WishListPage = () => {
                 return "goods-vehicle"
             case "4":
                 return "harvester"
-            case "5":
+            case 5:
                 return "implements"
+            case "7":
+                return "tyre"
             case "6":
                 return "agri-inputs"
             case "8":
@@ -173,7 +175,7 @@ const WishListPage = () => {
                                             </div>
                                             <div className="wishlist-action flex justify-center gap-3 px-5 mt-2">
                                                 <Link
-                                                    to={`${BASE_URL}/${getCategory(item?.category_id)}/${["6", "8", "9"].includes(item.category_id) ? getType(item.category_id) : item.type}/${item.id}`}
+                                                    to={`${BASE_URL}/${getCategory(item?.category_id)}/${["6", "8", "9"].includes(item.category_id) ? getType(item?.category_id) : item.type}/${item.id}`}
                                                     type="button"
                                                     className="bg-lightdark text-white text-sm px-2 py-1 rounded-3xl shadow active:scale-95"
                                                 >

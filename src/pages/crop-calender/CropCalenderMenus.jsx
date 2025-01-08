@@ -109,7 +109,7 @@ const CropCalenderMenus = () => {
                         <div className={cropmenu === 1 ? "rabi-crops-menus container p-3 animate__animated animate__fadeIn" : "rabi-crops-menus hidden container p-3"}>
 
                             <div className="bg-[#8dbf4530] rounded-3xl lg:p-10 text-center p-5">
-                                <h3 className="text-center text-lightgreen border-b-2 border-lightgreen inline-block mb-5 text-2xl">RABI CROPS</h3>
+                                <h3 className="text-center text-lightgreen border-b-2 border-lightgreen inline-block mb-5 text-2xl">{t('RABI CROPS')}</h3>
                                 <div className="flex justify-center flex-wrap gap-x-10 gap-y-5">
                                     <Link to={
                                         languageSet === "hn" ?
@@ -120,7 +120,7 @@ const CropCalenderMenus = () => {
                                     } className="rabi-crop">
 
                                         <img src={wheat} alt="wheat" />
-                                        <p>Wheat</p>
+                                        <p>{t('Wheat')}</p>
 
                                     </Link>
                                     <Link to={
@@ -131,7 +131,7 @@ const CropCalenderMenus = () => {
                                                 `${BASE_URL}/crop-calender/rabi/subcategory2`
                                     } className="rabi-crop">
                                         <img src={chickpea} alt="chickpea" />
-                                        <p>Chickpea</p>
+                                        <p>{t('Chickpea')}</p>
                                     </Link>
                                     <Link to={
                                         languageSet === "hn" ?
@@ -141,7 +141,7 @@ const CropCalenderMenus = () => {
                                                 `${BASE_URL}/crop-calender/rabi/subcategory3`
                                     } className="rabi-crop">
                                         <img src={mustard} alt="mustard" />
-                                        <p>Mustard</p>
+                                        <p>{t('Mustard')}</p>
                                     </Link>
                                     <Link to={
                                         languageSet === "hn" ?
@@ -151,7 +151,7 @@ const CropCalenderMenus = () => {
                                                 `${BASE_URL}/crop-calender/rabi/subcategory4`
                                     } className="rabi-crop">
                                         <img src={barley} alt="barley" />
-                                        <p>Barley</p>
+                                        <p>{t('Barley')}</p>
                                     </Link>
                                     <Link to={
                                         languageSet === "hn" ?
@@ -161,7 +161,7 @@ const CropCalenderMenus = () => {
                                                 `${BASE_URL}/crop-calender/rabi/subcategory5`
                                     } className="rabi-crop">
                                         <img src={lineseed} alt="lineseed" />
-                                        <p>Lineseed</p>
+                                        <p>{t('Linseed')}</p>
                                     </Link>
                                 </div>
                             </div>
@@ -170,7 +170,7 @@ const CropCalenderMenus = () => {
                         <div className={cropmenu === 2 ? "kharif-crops-menus container p-3 animate__animated animate__fadeIn" : "kharif-crops-menus hidden container p-3"}>
 
                             <div className="bg-[#8dbf4530] rounded-3xl lg:p-10 text-center p-5">
-                                <h3 className="text-center text-lightgreen border-b-2 border-lightgreen inline-block mb-5 text-2xl">KHARIF CROPS</h3>
+                                <h3 className="text-center text-lightgreen border-b-2 border-lightgreen inline-block mb-5 text-2xl">{t('KHARIF CROPS')}</h3>
                                 <div className="flex justify-center flex-wrap gap-x-10 gap-y-5">
                                 <Link to={
                                         languageSet === "hn" ?
@@ -180,7 +180,7 @@ const CropCalenderMenus = () => {
                                                 `${BASE_URL}/crop-calender/kharif/subcategory1`
                                     } className="kharif-crop">
                                         <img src={rice} alt="rice" />
-                                        <p>Rice</p>
+                                        <p>{t('Rice')}</p>
                                     </Link>
                                     <Link to={
                                         languageSet === "hn" ?
@@ -190,7 +190,7 @@ const CropCalenderMenus = () => {
                                                 `${BASE_URL}/crop-calender/kharif/subcategory2`
                                     } className="kharif-crop">
                                         <img src={maize} alt="maize" />
-                                        <p>Maize</p>
+                                        <p>{t('Maize')}</p>
                                     </Link>
                                     <Link to={
                                         languageSet === "hn" ?
@@ -200,7 +200,7 @@ const CropCalenderMenus = () => {
                                                 `${BASE_URL}/crop-calender/kharif/subcategory3`
                                     } className="kharif-crop">
                                         <img src={cotton} alt="cotton" />
-                                        <p>Cotton</p>
+                                        <p>{t('Cotton')}</p>
                                     </Link>
                                     <Link to={
                                         languageSet === "hn" ?
@@ -210,7 +210,7 @@ const CropCalenderMenus = () => {
                                                 `${BASE_URL}/crop-calender/kharif/subcategory4`
                                     } className="kharif-crop">
                                         <img src={soybean} alt="soybean" />
-                                        <p>Soyabean</p>
+                                        <p>{t('Soyabean')}</p>
                                     </Link>
                                     <Link to={
                                         languageSet === "hn" ?
@@ -220,7 +220,7 @@ const CropCalenderMenus = () => {
                                                 `${BASE_URL}/crop-calender/kharif/subcategory5`
                                     } className="kharif-crop">
                                         <img src={groundnut} alt="groundnut" />
-                                        <p>Groundnut</p>
+                                        <p>{t('Groundnut')}</p>
                                     </Link>
                                 </div>
                             </div>
@@ -229,7 +229,7 @@ const CropCalenderMenus = () => {
                         <div className={cropmenu === 3 ? "zaid-crops-menus container p-3 animate__animated animate__fadeIn" : "zaid-crops-menus hidden container p-3"}>
 
                             <div className="bg-[#8dbf4530] rounded-3xl lg:p-10 text-center p-5">
-                                <h3 className="text-center text-lightgreen border-b-2 border-lightgreen inline-block mb-5 text-2xl">ZAID CROPS</h3>
+                                <h3 className="text-center text-lightgreen border-b-2 border-lightgreen inline-block mb-5 text-2xl">{t('ZAID CROPS')}</h3>
                                 <div className="flex justify-center flex-wrap gap-x-10 gap-y-5">
                                 <Link to={
                                         languageSet === "hn" ?
@@ -239,7 +239,7 @@ const CropCalenderMenus = () => {
                                                 `${BASE_URL}/crop-calender/zaid/subcategory1`
                                     } className="zaid-crop">
                                         <img src={watermelon} alt="watermelon" />
-                                        <p>Watermelon</p>
+                                        <p>{t('Watermelon')}</p>
                                     </Link>
                                     <Link to={
                                         languageSet === "hn" ?
@@ -249,7 +249,7 @@ const CropCalenderMenus = () => {
                                                 `${BASE_URL}/crop-calender/zaid/subcategory2`
                                     } className="zaid-crop">
                                         <img src={cucumber} alt="cucumber" />
-                                        <p>Cucumber</p>
+                                        <p>{t('Cucumber')}</p>
                                     </Link>
                                     <Link to={
                                         languageSet === "hn" ?
@@ -259,7 +259,7 @@ const CropCalenderMenus = () => {
                                                 `${BASE_URL}/crop-calender/zaid/subcategory3`
                                     } className="zaid-crop">
                                         <img src={muskmelon} alt="muskmelon" />
-                                        <p>Muskmelon</p>
+                                        <p>{t('Muskmelon')}</p>
                                     </Link>
                                     <Link to={
                                         languageSet === "hn" ?
@@ -269,7 +269,7 @@ const CropCalenderMenus = () => {
                                                 `${BASE_URL}/crop-calender/zaid/subcategory4`
                                     } className="zaid-crop">
                                         <img src={bittergourd} alt="bittergourd" />
-                                        <p>Bitter Gourd</p>
+                                        <p>{t('Bitter Gourd')}</p>
                                     </Link>
                                     <Link to={
                                         languageSet === "hn" ?
@@ -279,7 +279,7 @@ const CropCalenderMenus = () => {
                                                 `${BASE_URL}/crop-calender/zaid/subcategory5`
                                     } className="zaid-crop">
                                         <img src={pumpkin} alt="pumpkin" />
-                                        <p>Pumpkin</p>
+                                        <p>{t('Pumpkin')}</p>
                                     </Link>
                                 </div>
                             </div>

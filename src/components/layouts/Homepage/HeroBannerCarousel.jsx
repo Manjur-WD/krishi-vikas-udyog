@@ -58,7 +58,7 @@ const HeroBannerCarousel = () => {
               <img
                 src={slide.value}
                 alt="this is banner slide"
-                className="w-full lg:h-[668px] h-[200px] object-top md:rounded-3xl rounded-xl"
+                className="w-full lg:h-[668px] md:h-[350px] h-[200px] object-top md:rounded-3xl rounded-xl"
               />
             </SwiperSlide>
           ))}

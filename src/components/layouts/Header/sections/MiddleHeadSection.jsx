@@ -101,7 +101,7 @@ const MiddleHeadSection = () => {
   return (
     <>
       <section className="relative middle-header  py-3 lg:px-5 md:px-3 bg-white md:shadow-none shadow">
-        <div className="navbar container flex items-center justify-between md:p-0 px-2">
+        <div className="navbar container flex  justify-between md:p-0 px-2">
           <div className="navtoggler-and-logo flex gap-2">
             <button
               type="button"

@@ -63,8 +63,10 @@ const CropContents = () => {
         }
         else if (languageSet === "hn") {
             const updatedCropName = cropName;
+
             let status1 = currentUrl.endsWith("h");
             let status2 = currentUrl.endsWith("b");
+
             if (status1) {
                 navigate(currentUrl);
             }
@@ -75,11 +77,20 @@ const CropContents = () => {
                 navigate(currentUrl + languageSet[0])
             }
         }
-        else {
+        else if (languageSet === "en") {
             const updatedCropName = cropName;
-            navigate(currentUrl);
+
+            let status1 = currentUrl.endsWith("h");
+            let status2 = currentUrl.endsWith("b");
+
+            if (status1) {
+                navigate(currentUrl.slice(0, currentUrl.length - 1));
+            }
+            else if (status2) {
+                navigate(currentUrl.slice(0, currentUrl.length - 1));
+            }
         }
-        
+
     }, [languageSet])
 
     const { cropCategory, cropName } = useParams();
@@ -148,7 +159,7 @@ const CropContents = () => {
                                         alt="wheat-image"
                                         className="img-fluid rounded-circle"
                                     />
-                                    <h3>WHEAT</h3>
+                                    <h3>{t('Wheat')}</h3>
                                 </div>
                             </Link>
                             <Link to={
@@ -162,7 +173,7 @@ const CropContents = () => {
                                         alt="wheat-image"
                                         className="img-fluid rounded-circle"
                                     />
-                                    <h3>Chickpea</h3>
+                                    <h3>{t('Chickpea')}</h3>
                                 </div>
                             </Link>
                             <Link to={
@@ -176,7 +187,7 @@ const CropContents = () => {
                                         alt="wheat-image"
                                         className="img-fluid rounded-circle"
                                     />
-                                    <h3>Mustard</h3>
+                                    <h3>{t('Mustard')}</h3>
                                 </div>
                             </Link>
                             <Link to={
@@ -190,7 +201,7 @@ const CropContents = () => {
                                         alt="wheat-image"
                                         className="img-fluid rounded-circle"
                                     />
-                                    <h3>Barley</h3>
+                                    <h3>{t('Barley')}</h3>
                                 </div>
                             </Link>
                             <Link to={
@@ -204,7 +215,7 @@ const CropContents = () => {
                                         alt="wheat-image"
                                         className="img-fluid rounded-circle"
                                     />
-                                    <h3>Linseed</h3>
+                                    <h3>{t('Linseed')}</h3>
                                 </div>
                             </Link>
                         </div>
@@ -221,7 +232,7 @@ const CropContents = () => {
                                         alt="rice-image"
                                         className="img-fluid rounded-circle"
                                     />
-                                    <h3>Rice</h3>
+                                    <h3>{t('Rice')}</h3>
                                 </div>
                             </Link>
                             <Link to={
@@ -235,7 +246,7 @@ const CropContents = () => {
                                         alt="maize-image"
                                         className="img-fluid rounded-circle"
                                     />
-                                    <h3>Maize</h3>
+                                    <h3>{t('Maize')}</h3>
                                 </div>
                             </Link>
                             <Link to={
@@ -249,7 +260,7 @@ const CropContents = () => {
                                         alt="cotton-image"
                                         className="img-fluid rounded-circle"
                                     />
-                                    <h3>Cotton</h3>
+                                    <h3>{t('Cotton')}</h3>
                                 </div>
                             </Link>
                             <Link to={
@@ -263,7 +274,7 @@ const CropContents = () => {
                                         alt="soyabean-image"
                                         className="img-fluid rounded-circle"
                                     />
-                                    <h3>Soyabean</h3>
+                                    <h3>{t('Soyabean')}</h3>
                                 </div>
                             </Link>
                             <Link to={
@@ -277,7 +288,7 @@ const CropContents = () => {
                                         alt="groundnut-image"
                                         className="img-fluid rounded-circle"
                                     />
-                                    <h3>Groundnut</h3>
+                                    <h3>{t('Groundnut')}</h3>
                                 </div>
                             </Link>
                         </div>
@@ -294,7 +305,7 @@ const CropContents = () => {
                                         alt="watermelon-image"
                                         className="img-fluid rounded-circle"
                                     />
-                                    <h3>Watermelon</h3>
+                                    <h3>{t('Watermelon')}</h3>
                                 </div>
                             </Link>
                             <Link to={
@@ -308,7 +319,7 @@ const CropContents = () => {
                                         alt="cucumber-image"
                                         className="img-fluid rounded-circle"
                                     />
-                                    <h3>Cucumber</h3>
+                                    <h3>{t('Cucumber')}</h3>
                                 </div>
                             </Link>
                             <Link to={
@@ -322,7 +333,7 @@ const CropContents = () => {
                                         alt="muskmelon-image"
                                         className="img-fluid rounded-circle"
                                     />
-                                    <h3>Muskmelon</h3>
+                                    <h3>{t('Muskmelon')}</h3>
                                 </div>
                             </Link>
                             <Link to={
@@ -336,7 +347,7 @@ const CropContents = () => {
                                         alt="bittergourd-image"
                                         className="img-fluid rounded-circle"
                                     />
-                                    <h3>Bitter Gourd</h3>
+                                    <h3>{t('Bitter Gourd')}</h3>
                                 </div>
                             </Link>
                             <Link to={
@@ -350,7 +361,7 @@ const CropContents = () => {
                                         alt="pumpkin-image"
                                         className="img-fluid rounded-circle"
                                     />
-                                    <h3>Pumpkin</h3>
+                                    <h3>{t('Pumpkin')}</h3>
                                 </div>
                             </Link>
                         </div>
