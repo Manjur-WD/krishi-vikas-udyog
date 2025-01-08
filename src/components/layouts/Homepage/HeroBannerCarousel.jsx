@@ -84,7 +84,7 @@ const HeroBannerCarousel = () => {
         isLoading ?
           (
             <div className="skeleton-loading p-2">
-              <div className="skeleton-loading-gray w-full flex justify-center items-center lg:h-[668px] md:h-[350px] h-[200px] object-top md:rounded-3xl rounded-xl">
+              <div className="skeleton-loading-gray relative w-full flex justify-center items-center lg:h-[668px] md:h-[350px] h-[200px] object-top md:rounded-3xl rounded-xl">
                 <span className="loader"></span>
                 <img
                   src={preloader_image}
